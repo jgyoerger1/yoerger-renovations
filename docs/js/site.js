@@ -340,11 +340,32 @@
   /* ---------- misc ---------- */
   var y = $('#year'); if (y) y.textContent = new Date().getFullYear();
   var toTop = $('.to-top'); if (toTop) toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); });
-  // mark current nav link
+  /* ---------- nav highlight: the section you are in, or the page you are on ---------- */
   var path = location.pathname.replace(/index\.html$/, '');
+  var spy = [];
   $$('.nav a, .mobile-nav a').forEach(function (a) {
     var href = a.getAttribute('href') || '';
-    if (href.indexOf('#') === 0) return;
-    try { var u = new URL(href, location.href); if (u.pathname.replace(/index\.html$/, '') === path) a.setAttribute('aria-current', 'page'); } catch (e) {}
+    var u; try { u = new URL(href, location.href); } catch (e) { return; }
+    var samePage = u.pathname.replace(/index\.html$/, '') === path;
+    if (samePage && u.hash) { spy.push({ el: a, id: u.hash.slice(1) }); return; }              // in-page section link
+    if (!u.hash && /work/.test(u.pathname) && !samePage && document.getElementById('work')) {  // "Our work" while on the home page
+      spy.push({ el: a, id: 'work' }); return;
+    }
+    if (samePage && !u.hash) a.setAttribute('aria-current', 'page');                            // a different page, e.g. Our work
+    if (!samePage && $('.page-service') && /#services$/.test(href)) a.classList.add('is-active'); // Services while on a service page
   });
+  function updateSpy() {
+    if (!spy.length) return;
+    var line = window.innerHeight * 0.38, current = null;
+    spy.forEach(function (s) {
+      var el = document.getElementById(s.id); if (!el) return;
+      var r = el.getBoundingClientRect();
+      if (r.top <= line && r.bottom > line) current = s.id;
+    });
+    if (!current && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = spy[spy.length - 1].id;
+    spy.forEach(function (s) { s.el.classList.toggle('is-active', s.id === current); });
+  }
+  window.addEventListener('scroll', function () { requestAnimationFrame(updateSpy); }, { passive: true });
+  window.addEventListener('resize', updateSpy);
+  updateSpy();
 })();

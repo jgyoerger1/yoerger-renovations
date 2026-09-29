@@ -198,7 +198,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .nav { display: none; gap: 1.6rem; }
 .nav a { color: var(--fg); text-decoration: none; font-weight: 500; font-size: .95rem; position: relative; padding-block: .3rem; }
 .nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: 0; height: 2px; background: var(--brass); transition: right .3s var(--ease); }
-.nav a:hover::after, .nav a[aria-current="page"]::after { right: 0; }
+.nav a:hover::after, .nav a[aria-current="page"]::after, .nav a.is-active::after { right: 0; }
 .head-cta { display: none; }
 .menu-btn {
   display: inline-flex; align-items: center; gap: .5rem; background: transparent; border: 1px solid var(--line-strong);
