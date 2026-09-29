@@ -1,0 +1,5 @@
+title = Living room refresh with new floors and French doors
+category = living-rooms
+location = Northeast Ohio
+featured = yes
+summary = New plank flooring, French doors, fresh trim and a soft sage paint color that pulls the whole room together.

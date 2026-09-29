@@ -1,0 +1,4 @@
+title = Open living and dining with new floors
+category = living-rooms
+location = Northeast Ohio
+summary = Hardwood-look flooring and fresh paint carried through an open living and dining space.

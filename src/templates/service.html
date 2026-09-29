@@ -1,0 +1,74 @@
+<main id="main">
+  <section class="page-hero">
+    <div class="wrap page-hero-grid">
+      <div>
+        <ol class="crumbs"><li><a href="{{home}}">Home</a></li><li><a href="{{home}}#services">Services</a></li><li aria-current="page">{{svcServiceName}}</li></ol>
+        <h1 class="display">{{svcH1}}</h1>
+        <p class="lede">{{svcShort}} Locally owned, serving {{hub}} and {{region}}, with free written quotes.</p>
+        <div class="cta-row">
+          <a class="btn btn-brass" href="#contact">Get a free quote <svg class="arr" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-ghost" href="tel:{{phoneRaw}}">Call or text {{phone}}</a>
+        </div>
+      </div>
+      <div class="page-hero-media" data-reveal>{{svcHeroImg}}</div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap svc-detail">
+      <div class="prose" data-reveal>
+        <p class="eyebrow">{{svcName}}</p>
+        <h2 class="display" style="margin-top:1rem">What to expect</h2>
+        {{svcIntro}}
+      </div>
+      <div data-reveal style="--i:1">
+        <p class="eyebrow">What's included</p>
+        <h2 class="display" style="margin-top:1rem">Typical scope</h2>
+        <ul class="checks">{{svcHighlights}}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec-alt" id="work">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Recent {{svcNameLower}}</p>
+        <h2 class="display">{{svcGalleryTitle}}</h2>
+        <p class="lede">Tap any photo to open the full project. Every one is a real {{region}} home.</p>
+      </div>
+      {{svcGallery}}
+    </div>
+  </section>
+
+  <section class="sec" id="faq">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Good questions</p>
+        <h2 class="display">Before you call</h2>
+      </div>
+      <div class="faq" data-reveal>{{svcFaq}}</div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div>
+        <h2 class="display">Let's build something great together</h2>
+        <p style="margin-top:.8rem">Send a quick note or text a photo of the room. Ryan will come out, listen and put a clear quote in writing, free.</p>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-brass" href="#contact">Request a free quote</a>
+        <a class="btn btn-ghost-light" href="tel:{{phoneRaw}}">{{phone}}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <p class="eyebrow" style="margin-bottom:1rem">Other services</p>
+      <div class="others">{{svcOthers}}</div>
+    </div>
+  </section>
+
+  {{contactSection}}
+</main>

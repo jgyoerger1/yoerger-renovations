@@ -1,0 +1,5 @@
+title = Composite deck with white railings above the pool
+category = decks
+location = Northeast Ohio
+featured = yes
+summary = Brown composite decking with crisp white railings, set up so the whole family can keep an eye on the pool.

@@ -1,0 +1,5 @@
+title = Walkout basement with a pine ceiling and brick fireplace
+category = basements
+location = Northeast Ohio
+featured = yes
+summary = A full walkout basement finish: tongue-and-groove pine ceiling, recessed lighting, brick fireplace wall, bar nook, hallway, bedroom and bath.

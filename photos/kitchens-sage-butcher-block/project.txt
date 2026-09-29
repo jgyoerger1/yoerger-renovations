@@ -1,0 +1,5 @@
+title = Sage green kitchen with butcher-block counters
+category = kitchens
+location = Northeast Ohio
+featured = yes
+summary = Sage green cabinets, warm butcher-block counters, a new range and plank flooring that carries through into the dining room.

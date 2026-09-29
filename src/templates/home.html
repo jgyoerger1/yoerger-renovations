@@ -1,0 +1,163 @@
+<main id="main">
+  <section class="hero" id="home">
+    <div class="hero-media" aria-hidden="true">
+      {{heroSlides}}
+      <div class="hero-scrim"></div>
+    </div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow eyebrow-light">Locally owned <span class="dot"></span> {{region}} <span class="dot"></span> Free quotes</p>
+        <h1 class="display hero-title">
+          <span class="line"><span class="line-in">The <span class="rot" aria-hidden="true">{{heroWords}}</span><span class="visually-hidden">kitchen, bathroom, basement, deck or living room</span></span></span>
+          <span class="line"><span class="line-in">you've been picturing,</span></span>
+          <span class="line"><span class="line-in">built right.</span></span>
+        </h1>
+        <p class="lede hero-lede">{{shortName}} is a locally owned remodeling company in {{region}}. {{owner}} listens first, gives you a clear written quote for free, and keeps you in the loop from the first call to the final walkthrough.</p>
+        <div class="cta-row">
+          <a class="btn btn-brass" href="#contact">Get a free quote <svg class="arr" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-ghost-light" href="#work">See our work</a>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <p class="hero-card-label mono">Talk to Ryan</p>
+        <a class="hero-phone" href="tel:{{phoneRaw}}">{{phone}}</a>
+        <p class="hero-card-note">Call or text. Photos of the room are welcome.</p>
+        <div class="hero-card-row"><a href="mailto:{{email}}">{{email}}</a><button class="copy" type="button" data-copy="{{email}}">Copy</button></div>
+      </aside>
+    </div>
+    <div class="wrap hero-foot">
+      <div class="hero-dots" role="tablist" aria-label="Featured rooms">{{heroDots}}</div>
+      <a class="scroll-cue" href="#services">Scroll</a>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track"><ul>{{tickerItems}}</ul><ul>{{tickerItems}}</ul></div>
+  </div>
+
+  <section id="services" class="sec">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">What we build</p>
+        <h2 class="display">Five rooms we know inside and out</h2>
+        <p class="lede">Great construction starts with really listening to what you need and making the whole process easy. Pick a room to see what's included and recent work.</p>
+      </div>
+      <div class="svc-grid">{{serviceCards}}</div>
+    </div>
+  </section>
+
+  <section id="work" class="sec sec-alt">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Recent work</p>
+        <h2 class="display">Real homes across {{region}}</h2>
+        <p class="lede">No stock photos. Every picture here is a job Ryan finished. Tap any photo to see the whole project.</p>
+      </div>
+      <div class="work-tools" data-reveal>
+        <div class="chips" data-filter-group="#homeGrid">{{workFilters}}</div>
+        <a class="btn btn-ghost btn-sm" href="{{workUrl}}">All {{photoCount}} photos</a>
+      </div>
+      <div class="grid" id="homeGrid">{{workGrid}}</div>
+      <p class="grid-empty" hidden>No projects in that category yet.</p>
+      <div class="work-more"><a class="btn btn-primary" href="{{workUrl}}">See every project <svg class="arr" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </section>
+
+  <section id="process" class="sec">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">How it works</p>
+        <h2 class="display">In the loop from the first call to the final walkthrough</h2>
+        <p class="lede">You always know what's happening, what's next and what it costs. That's the whole approach.</p>
+      </div>
+      <ol class="steps">
+        <li class="step" data-reveal style="--i:0">
+          <span class="step-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></span>
+          <span class="step-num">Step 1</span>
+          <h3>Call or text</h3>
+          <p>Tell Ryan what you're picturing, even if it's just a photo you saved. He'll ask a few questions and set up a time to come out.</p>
+        </li>
+        <li class="step" data-reveal style="--i:1">
+          <span class="step-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9h18v6H3zM7 9v3M11 9v4M15 9v3M19 9v4"/></svg></span>
+          <span class="step-num">Step 2</span>
+          <h3>Walkthrough</h3>
+          <p>Ryan measures, listens and talks through options and what they cost. No pressure, no upsell.</p>
+        </li>
+        <li class="step" data-reveal style="--i:2">
+          <span class="step-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 3h7l4 4v14H7zM14 3v4h4M9 12h6M9 16h6"/></svg></span>
+          <span class="step-num">Step 3</span>
+          <h3>Free written quote</h3>
+          <p>A clear quote in writing: scope, materials and timeline. You decide from there.</p>
+        </li>
+        <li class="step" data-reveal style="--i:3">
+          <span class="step-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 4l6 6-9 9H5v-6zM12 6l6 6"/></svg></span>
+          <span class="step-num">Step 4</span>
+          <h3>The build</h3>
+          <p>A clean job site, honest updates and a heads-up before anything changes. You always know what's happening next.</p>
+        </li>
+        <li class="step" data-reveal style="--i:4">
+          <span class="step-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span>
+          <span class="step-num">Step 5</span>
+          <h3>Final walkthrough</h3>
+          <p>We walk the finished space together. It's done when you say it's done.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="about" class="sec sec-alt">
+    <div class="wrap about-grid">
+      <div class="about-photo" data-reveal>
+        <img src="{{root}}img/ryan-headshot.jpg" width="800" height="1000" alt="Ryan Yoerger, owner and founder of Yoerger Renovations" loading="lazy">
+      </div>
+      <div class="about-copy prose" data-reveal style="--i:1">
+        <p class="eyebrow">Who you're working with</p>
+        <h2 class="display">Meet Ryan</h2>
+        <p>{{owner}} is the owner and founder of {{shortName}}. He brings a passion for craftsmanship, quality workmanship and customer satisfaction to every project, and he believes every homeowner deserves a space that's both beautiful and functional.</p>
+        <p>With a commitment to honest communication, attention to detail and dependable service, Ryan works closely with homeowners through every stage of the renovation. Whether it's a kitchen remodel, a bathroom renovation, a basement finish or a custom deck, the goal is the same: results that exceed expectations and stand the test of time.</p>
+        <p>{{shortName}} is locally owned and operated, built on integrity, hard work and a dedication to treating every home as if it were his own.</p>
+        <ul class="values">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>Honest communication</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>Attention to detail</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>Dependable, on schedule</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>Treats your home like his own</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {{reviewsSection}}
+
+  <section id="areas" class="sec">
+    <div class="wrap areas-grid">
+      <div data-reveal>
+        <p class="eyebrow">Where we work</p>
+        <h2 class="display" style="font-size:clamp(2.4rem,5vw,4.2rem);margin-top:1rem">{{hub}} and {{region}}</h2>
+        <p class="lede" style="margin-top:1rem">Homes in and around these communities. Not on the list? Call or text and ask.</p>
+      </div>
+      <div data-reveal style="--i:1">
+        <ul class="area-chips">{{areaChips}}</ul>
+        <p class="areas-note" style="margin-top:1.2rem">Serving homeowners across Cuyahoga, Lorain, Medina, Summit and Lake counties.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="plan" class="sec sec-alt">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow">Plan your project</p>
+        <h2 class="display">Four quick questions, one clear brief</h2>
+        <p class="lede">Not sure how to describe what you want? Answer these and we'll write the message for you. It takes about twenty seconds.</p>
+      </div>
+      <div class="planner" data-reveal>
+        <div class="planner-head">
+          <span class="planner-step mono" style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Step 1 of 4</span>
+          <div class="planner-prog" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="planner-body"></div>
+      </div>
+    </div>
+  </section>
+
+  {{contactSection}}
+</main>

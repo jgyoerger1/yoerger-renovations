@@ -1,0 +1,5 @@
+title = Composite deck on a backyard ranch
+category = decks
+location = Northeast Ohio
+featured = yes
+summary = A low, wide composite deck that runs the full back of the house and steps straight down to the lawn. Low maintenance, no splinters, built for cookouts.

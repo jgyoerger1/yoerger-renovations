@@ -1,0 +1,4 @@
+title = Powder room and vanity updates
+category = bathrooms
+location = Northeast Ohio
+summary = Small rooms, big difference: a dark vanity with a new mirror and lighting, a compact powder room refresh and a recessed mirror niche.

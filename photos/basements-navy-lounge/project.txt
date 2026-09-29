@@ -1,0 +1,4 @@
+title = Finished basement lounge in deep navy
+category = basements
+location = Northeast Ohio
+summary = Deep navy walls, soft carpet, recessed lights and fresh white trim turn a storage basement into a place to actually hang out.

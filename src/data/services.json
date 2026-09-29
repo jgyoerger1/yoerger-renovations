@@ -1,0 +1,162 @@
+[
+  {
+    "key": "kitchens",
+    "slug": "kitchen-remodeling",
+    "name": "Kitchens",
+    "serviceName": "Kitchen remodeling",
+    "noun": "kitchen",
+    "hero": "kitchens-sage-butcher-block/01",
+    "short": "Cabinets, counters, floors and layout, built around how you actually cook.",
+    "title": "Kitchen Remodeling in Northeast Ohio | Yoerger Renovations",
+    "description": "Kitchen remodeling in Cleveland and Northeast Ohio. Cabinets, countertops, backsplashes, flooring, lighting and layout changes from a locally owned remodeler. Free quotes.",
+    "h1": "Kitchen remodeling that fits the way you live",
+    "intro": [
+      "The kitchen is the heart of the home, and Yoerger Renovations is here to help you create a space that is both beautiful and functional. Whether you want a complete kitchen transformation or a simple update, Ryan works with you to design a kitchen that fits your lifestyle, your needs and your budget.",
+      "From cabinets and countertops to flooring, backsplashes, lighting and layout improvements, every project gets the same quality craftsmanship and attention to detail. The goal is a kitchen you'll love for years to come, one that adds real value to your home."
+    ],
+    "highlights": [
+      "Cabinet replacement and refacing",
+      "Countertops: butcher block, quartz, laminate",
+      "Tile backsplashes",
+      "Flooring",
+      "Lighting updates",
+      "Layout improvements and open-concept changes",
+      "Appliance fit-out and trim",
+      "Free quotes"
+    ],
+    "faqs": [
+      { "q": "Do I have to gut the whole kitchen?", "a": "No. Plenty of kitchens just need new counters, a backsplash, paint and hardware to feel new again. Ryan will tell you honestly what will make the biggest difference for your budget." },
+      { "q": "How long will my kitchen be out of commission?", "a": "It depends on the scope. Your written quote includes a realistic timeline, and Ryan keeps you posted if anything shifts. Small refreshes are often days; full remodels take longer." },
+      { "q": "Can you work from photos I've saved?", "a": "Yes. Bring your Pinterest board, screenshots or magazine pages to the walkthrough. That's usually the fastest way to nail down the look you're after." },
+      { "q": "Do you charge for the estimate?", "a": "No. The walkthrough and written quote are free, with no pressure to commit." }
+    ]
+  },
+  {
+    "key": "bathrooms",
+    "slug": "bathroom-remodeling",
+    "name": "Bathrooms",
+    "serviceName": "Bathroom remodeling",
+    "noun": "bathroom",
+    "hero": "bathrooms-basement-glass-shower/01",
+    "short": "Showers, tubs, vanities and tile, from a quick refresh to a spa-like retreat.",
+    "title": "Bathroom Remodeling in Northeast Ohio | Yoerger Renovations",
+    "description": "Bathroom remodeling in Cleveland and Northeast Ohio. New showers and tubs, vanities, tile, flooring, lighting and accessibility upgrades. Locally owned, free quotes.",
+    "h1": "Bathroom remodeling, from a quick refresh to a full rebuild",
+    "intro": [
+      "Upgrade your bathroom into a comfortable, stylish and functional space. Whether you're updating an outdated bathroom, improving accessibility or creating a spa-like retreat, Yoerger Renovations delivers quality workmanship and lasting results.",
+      "Ryan handles everything from new showers and tubs to vanities, flooring, lighting and complete bathroom renovations. Every project is finished with attention to detail, clear communication and a commitment to exceeding your expectations."
+    ],
+    "highlights": [
+      "Shower and tub replacement",
+      "Tub-to-shower conversions",
+      "Vanities, mirrors and lighting",
+      "Tile and flooring",
+      "Accessibility upgrades: grab bars, walk-in showers",
+      "Powder room refreshes",
+      "Complete bathroom renovations",
+      "Free quotes"
+    ],
+    "faqs": [
+      { "q": "Can you turn my tub into a walk-in shower?", "a": "Yes. Tub-to-shower conversions are one of the most common requests, and they make a big difference for accessibility." },
+      { "q": "Will I be without a bathroom the whole time?", "a": "Ryan plans the work so you're without the room for as little time as possible, and tells you up front which days that will be." },
+      { "q": "Do you do small bathrooms and powder rooms?", "a": "Absolutely. A new vanity, mirror, lighting and paint can transform a small room in a short time." },
+      { "q": "Is the estimate free?", "a": "Yes. Ryan comes out, measures, listens and gives you a written quote at no charge." }
+    ]
+  },
+  {
+    "key": "basements",
+    "slug": "basement-finishing",
+    "name": "Basements",
+    "serviceName": "Basement finishing",
+    "noun": "basement",
+    "hero": "basements-walkout-pine-ceiling/01",
+    "short": "Family rooms, offices, gyms and guest suites out of space you already own.",
+    "title": "Basement Finishing in Northeast Ohio | Yoerger Renovations",
+    "description": "Basement finishing and remodeling in Cleveland and Northeast Ohio. Framing, drywall, flooring, lighting, trim, bars and basement bathrooms. Locally owned, free quotes.",
+    "h1": "Basement finishing that turns storage into living space",
+    "intro": [
+      "Turn your unfinished or outdated basement into a valuable extension of your home. Yoerger Renovations specializes in creating comfortable, functional spaces that fit your family's needs and lifestyle.",
+      "Family room, home office, playroom, guest suite, entertainment area or home gym: Ryan can help bring the idea to life. From framing and drywall to flooring, lighting, trim work and custom features, he handles every part of the finish with professionalism and care, using durable materials so it's built to last."
+    ],
+    "highlights": [
+      "Framing and drywall",
+      "Flooring: carpet, plank, tile",
+      "Recessed lighting",
+      "Trim, doors and closets",
+      "Bars and kitchenettes",
+      "Basement bathrooms",
+      "Built-ins and custom features",
+      "Free quotes"
+    ],
+    "faqs": [
+      { "q": "My basement is a blank concrete box. Where do we start?", "a": "With a walkthrough. Ryan looks at the layout, moisture, ceiling height and mechanicals, then sketches options with you before anything gets priced." },
+      { "q": "Can you add a bathroom or a bar?", "a": "Yes. Both are common parts of a basement finish, and they're easiest to plan from the start." },
+      { "q": "Do I need a permit to finish a basement?", "a": "Often, yes, depending on your city and the scope. Ryan tells you up front what your municipality requires and how it's handled." },
+      { "q": "How do you handle the ceiling?", "a": "Drywall, drop ceiling, or a tongue-and-groove pine ceiling like the walkout basement in our photos. Each has trade-offs for access and look, and Ryan will walk you through them." }
+    ]
+  },
+  {
+    "key": "decks",
+    "slug": "deck-building",
+    "name": "Decks",
+    "serviceName": "Deck building",
+    "noun": "deck",
+    "hero": "decks-composite-backyard/01",
+    "short": "Composite or wood, new builds or rebuilds, with railings and stairs done right.",
+    "title": "Deck Builder in Northeast Ohio | Yoerger Renovations",
+    "description": "Custom deck builder in Cleveland and Northeast Ohio. New composite and pressure-treated decks, deck replacement, railings, stairs, expansions and repairs. Free estimates.",
+    "h1": "Custom decks built for Northeast Ohio seasons",
+    "intro": [
+      "Extend your living space outdoors with a custom-built deck designed for relaxing, entertaining and making memories with family and friends. Yoerger Renovations builds high-quality wood and composite decks tailored to your home's style, your budget and how you plan to use the space.",
+      "Whether you want a simple backyard deck, a multi-level design, built-in seating, custom railings or low-maintenance composite materials, the focus is on quality craftsmanship and attention to detail from start to finish. Every deck is built to be safe, durable and beautiful for years to come, ready for cookouts, gatherings and enjoying Northeast Ohio's seasons."
+    ],
+    "highlights": [
+      "New deck construction",
+      "Deck replacement and rebuilding",
+      "Composite decking",
+      "Pressure-treated wood decks",
+      "Railings and stairs",
+      "Deck expansions",
+      "Built-in seating",
+      "Repairs and upgrades",
+      "Free estimates"
+    ],
+    "faqs": [
+      { "q": "Composite or pressure-treated wood?", "a": "Composite costs more up front and needs almost no maintenance. Pressure-treated wood costs less and looks great, but wants a stain or seal every few years. Ryan will price both so you can decide." },
+      { "q": "Can you rebuild on my existing deck frame?", "a": "Sometimes. If the framing and posts are sound, a re-deck with new boards and railings saves money. If they're not, Ryan will show you why and quote a proper rebuild." },
+      { "q": "Do decks need a permit?", "a": "In most Northeast Ohio cities, yes. Ryan tells you what your city requires and handles the details so the deck is built to code." },
+      { "q": "When is the best time to build?", "a": "Spring through fall is the busy season, so getting on the schedule early helps. Some builds can happen in cooler months too." }
+    ]
+  },
+  {
+    "key": "living-rooms",
+    "slug": "living-room-remodeling",
+    "name": "Living rooms",
+    "serviceName": "Living room remodeling",
+    "noun": "living room",
+    "hero": "living-rooms-sage-french-doors/01",
+    "short": "New floors, trim, built-ins and lighting for the room everyone ends up in.",
+    "title": "Living Room Renovations in Northeast Ohio | Yoerger Renovations",
+    "description": "Living room remodeling in Cleveland and Northeast Ohio. New flooring, custom trim, built-in shelving, lighting and open-concept layouts from a locally owned remodeler.",
+    "h1": "Living room renovations for the room everyone ends up in",
+    "intro": [
+      "Your living room is where family and friends come together, which makes it one of the most important spaces in your home. Yoerger Renovations helps homeowners create comfortable, inviting and functional living spaces that reflect their style and meet their everyday needs.",
+      "Update the flooring, install custom trim, add built-in shelving, improve the lighting, open up the layout or transform the whole room. Whatever the scope, Ryan brings quality craftsmanship and attention to detail every step of the way, so the space feels welcoming, adds value and becomes the place to relax and make memories."
+    ],
+    "highlights": [
+      "New flooring",
+      "Custom trim, casing and baseboard",
+      "Built-in shelving and fireplace surrounds",
+      "Lighting improvements",
+      "French doors and window trim",
+      "Open-concept layout changes",
+      "Paint and finish work",
+      "Free quotes"
+    ],
+    "faqs": [
+      { "q": "Can you open up a wall between rooms?", "a": "Often, yes. Ryan checks whether the wall is load-bearing and explains what it takes either way before you decide." },
+      { "q": "Will new floors match the rest of the house?", "a": "That's the goal. Ryan helps you pick a plank or hardwood-look floor that ties into adjoining rooms, and can carry it through for a seamless run." },
+      { "q": "How disruptive is a living room refresh?", "a": "Less than you'd think. Flooring, trim and paint go quickly, and Ryan keeps the job site clean and tells you what's happening each day." }
+    ]
+  }
+]

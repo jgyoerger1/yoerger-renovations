@@ -1,0 +1,31 @@
+<main id="main">
+  <section class="page-hero">
+    <div class="wrap">
+      <ol class="crumbs"><li><a href="{{home}}">Home</a></li><li aria-current="page">Our work</li></ol>
+      <h1 class="display">Every project, every photo</h1>
+      <p class="lede">{{photoCount}} photos from {{projectCount}} finished jobs across {{region}}. Filter by room, tap to open the full project.</p>
+    </div>
+  </section>
+  <section class="sec" style="padding-top:2.5rem">
+    <div class="wrap">
+      <div class="work-tools">
+        <div class="chips" data-filter-group="#allGrid">{{workFilters}}</div>
+      </div>
+      <div class="grid" id="allGrid">{{workGridAll}}</div>
+      <p class="grid-empty" hidden>No projects in that category yet.</p>
+    </div>
+  </section>
+  <section class="band">
+    <div class="wrap">
+      <div>
+        <h2 class="display">Want yours in this gallery?</h2>
+        <p style="margin-top:.8rem">Tell Ryan what you're picturing. He'll come out, measure, listen and put a clear quote in writing, free.</p>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-brass" href="#contact">Request a free quote</a>
+        <a class="btn btn-ghost-light" href="tel:{{phoneRaw}}">{{phone}}</a>
+      </div>
+    </div>
+  </section>
+  {{contactSection}}
+</main>

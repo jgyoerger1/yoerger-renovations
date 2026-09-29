@@ -1,0 +1,4 @@
+title = Cozy living room with a fireplace wall
+category = living-rooms
+location = Northeast Ohio
+summary = A moody, comfortable living room built around the fireplace, with shelving on either side and dark floors.

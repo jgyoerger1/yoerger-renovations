@@ -1,0 +1,10 @@
+{
+  "name": "Yoerger Renovations",
+  "short_name": "Yoerger",
+  "start_url": "./",
+  "scope": "./",
+  "display": "browser",
+  "background_color": "#F2F3EB",
+  "theme_color": "#2E5A2A",
+  "icons": [{ "src": "img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }]
+}

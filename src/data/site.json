@@ -1,0 +1,25 @@
+{
+  "name": "Yoerger Renovations, LTD.",
+  "shortName": "Yoerger Renovations",
+  "owner": "Ryan Yoerger",
+  "phone": "(216) 438-3211",
+  "phoneRaw": "+12164383211",
+  "email": "YoergerRenovations@gmail.com",
+  "domain": "https://www.yoergerrenovations.com",
+  "facebook": "https://www.facebook.com/profile.php?id=61579007753770",
+  "region": "Northeast Ohio",
+  "hub": "Cleveland",
+  "formEndpoint": "",
+  "repo": "jgyoerger1/yoerger-renovations",
+  "customDomainLive": false,
+  "customDomainNote": "false = site is previewed at github.io/<repo>/ and no CNAME is written. Set true on cutover day (after DNS points at GitHub), rebuild and publish; that writes docs/CNAME and makes the 404 page use root paths.",
+  "areas": [
+    "Cleveland", "Lakewood", "Rocky River", "Westlake", "Bay Village", "Avon", "Avon Lake",
+    "North Olmsted", "Fairview Park", "Parma", "Strongsville", "Brecksville", "Broadview Heights",
+    "Independence", "Middleburg Heights", "Berea", "Olmsted Falls", "Shaker Heights",
+    "Cleveland Heights", "Solon", "Mentor", "Medina", "Brunswick"
+  ],
+  "areasNote": "EDIT THIS LIST to match where Ryan actually works. It feeds the Service Area section and the search-engine data.",
+  "reviews": [],
+  "reviewsNote": "Add reviews as {\"quote\":\"...\",\"name\":\"First L.\",\"place\":\"Lakewood\",\"project\":\"Deck\"}. The Kind Words section appears automatically once there is at least one."
+}

@@ -1,0 +1,5 @@
+title = Pressure-treated deck, steps and hot tub landing
+category = decks
+location = Northeast Ohio
+featured = yes
+summary = New front steps, a side run along the driveway, a long walkway to the back yard and a platform for the hot tub, all in pressure-treated lumber.

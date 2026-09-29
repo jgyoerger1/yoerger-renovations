@@ -1,0 +1,4 @@
+title = Two-level deck with stairs to the yard
+category = decks
+location = Northeast Ohio
+summary = A two-level deck on a hillside lot, with a full stair run and white balusters connecting the upper level to the yard.

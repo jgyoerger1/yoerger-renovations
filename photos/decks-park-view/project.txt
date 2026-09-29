@@ -1,0 +1,4 @@
+title = Elevated composite deck with a park view
+category = decks
+location = Northeast Ohio
+summary = An elevated deck with white balusters that opens the back of the house to the trees behind it.

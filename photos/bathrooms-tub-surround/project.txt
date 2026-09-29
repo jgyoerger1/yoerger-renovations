@@ -1,0 +1,4 @@
+title = Tub surround and vanity replacement
+category = bathrooms
+location = Northeast Ohio
+summary = A tired tub and surround swapped for a clean new unit, with a fresh vanity, fixtures and paint.

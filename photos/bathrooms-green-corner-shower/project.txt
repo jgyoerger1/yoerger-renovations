@@ -1,0 +1,4 @@
+title = Green bathroom with a corner shower
+category = bathrooms
+location = Northeast Ohio
+summary = A compact bathroom rebuilt around a corner shower, with a new toilet, flooring and a deep green paint job.

@@ -1,0 +1,30 @@
+<a class="skip" href="#main">Skip to content</a>
+<div class="tape" aria-hidden="true">
+  <div class="tape-strip"><div class="tape-fill"></div></div>
+  <div class="tape-read"><span id="tapeRead">0' 0"</span></div>
+</div>
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="brand" href="{{home}}" aria-label="{{shortName}} home">
+      <img class="brand-logo brand-logo-green" src="{{root}}img/logo.png" width="{{logoW}}" height="{{logoH}}" alt="{{name}}" fetchpriority="high" decoding="async">
+      <img class="brand-logo brand-logo-cream" src="{{root}}img/logo-light.png" width="{{logoW}}" height="{{logoH}}" alt="{{name}}" decoding="async">
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="{{home}}#services">Services</a>
+      <a href="{{workUrl}}">Our work</a>
+      <a href="{{home}}#process">How it works</a>
+      <a href="{{home}}#about">About Ryan</a>
+      <a href="{{home}}#contact">Free quote</a>
+    </nav>
+    <a class="btn btn-primary btn-sm head-cta" href="tel:{{phoneRaw}}">Call or text {{phone}}</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobileNav"><span class="bars" aria-hidden="true"></span>Menu</button>
+  </div>
+  <div id="mobileNav" class="mobile-nav wrap" hidden>
+    <a href="{{home}}#services">Services</a>
+    <a href="{{workUrl}}">Our work</a>
+    <a href="{{home}}#process">How it works</a>
+    <a href="{{home}}#about">About Ryan</a>
+    <a href="{{home}}#contact">Free quote</a>
+    <div class="cta-row"><a class="btn btn-primary" href="tel:{{phoneRaw}}">Call or text {{phone}}</a></div>
+  </div>
+</header>

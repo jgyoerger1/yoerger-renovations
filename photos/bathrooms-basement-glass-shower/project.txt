@@ -1,0 +1,5 @@
+title = Basement bath with a glass shower and black-framed mirror
+category = bathrooms
+location = Northeast Ohio
+featured = yes
+summary = A new bathroom for the walkout basement, with a frameless glass shower door, a wood vanity and a black-framed mirror under the pine ceiling.
