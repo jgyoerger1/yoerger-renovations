@@ -7,19 +7,23 @@
   "email": "YoergerRenovations@gmail.com",
   "domain": "https://www.yoergerrenovations.com",
   "facebook": "https://www.facebook.com/profile.php?id=61579007753770",
-  "region": "Northeast Ohio",
-  "hub": "Cleveland",
+  "hub": "Stow",
+  "state": "OH",
+  "zip": "44224",
+  "region": "Summit and Portage counties",
+  "counties": ["Summit County", "Portage County"],
+  "areaLine": "Based in Stow, Ohio 44224. Serving Summit and Portage counties.",
+  "areasOutside": "Ryan keeps his jobs close to home in Summit and Portage counties, so Cleveland and Cuyahoga County are outside the service area.",
   "formEndpoint": "",
   "repo": "jgyoerger1/yoerger-renovations",
   "customDomainLive": false,
   "customDomainNote": "false = site is previewed at github.io/<repo>/ and no CNAME is written. Set true on cutover day (after DNS points at GitHub), rebuild and publish; that writes docs/CNAME and makes the 404 page use root paths.",
   "areas": [
-    "Cleveland", "Lakewood", "Rocky River", "Westlake", "Bay Village", "Avon", "Avon Lake",
-    "North Olmsted", "Fairview Park", "Parma", "Strongsville", "Brecksville", "Broadview Heights",
-    "Independence", "Middleburg Heights", "Berea", "Olmsted Falls", "Shaker Heights",
-    "Cleveland Heights", "Solon", "Mentor", "Medina", "Brunswick"
+    "Stow", "Cuyahoga Falls", "Hudson", "Kent", "Tallmadge", "Munroe Falls", "Silver Lake", "Akron",
+    "Fairlawn", "Twinsburg", "Macedonia", "Northfield", "Richfield", "Bath", "Copley", "Green",
+    "Streetsboro", "Aurora", "Ravenna", "Brimfield", "Rootstown", "Mantua", "Mogadore", "Garrettsville"
   ],
-  "areasNote": "EDIT THIS LIST to match where Ryan actually works. It feeds the Service Area section and the search-engine data.",
+  "areasNote": "Summit and Portage County communities within reach of Stow (44224). Edit freely; this list feeds the Service Area section and the search-engine data. Cleveland is intentionally not listed.",
   "reviews": [],
-  "reviewsNote": "Add reviews as {\"quote\":\"...\",\"name\":\"First L.\",\"place\":\"Lakewood\",\"project\":\"Deck\"}. The Kind Words section appears automatically once there is at least one."
+  "reviewsNote": "Add reviews as {\"quote\":\"...\",\"name\":\"First L.\",\"place\":\"Stow\",\"project\":\"Deck\"}. The Kind Words section appears automatically once there is at least one."
 }

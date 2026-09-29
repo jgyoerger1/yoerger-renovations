@@ -6,3 +6,5 @@ artifact-files.json
 Thumbs.db
 desktop.ini
 *.tmp
+# brag video renders (large binaries)
+brag-output*/

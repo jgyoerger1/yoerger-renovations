@@ -216,7 +216,7 @@
   var form = $('#contactForm');
   if (planner) {
     var STEPS = [
-      { key: 'type', q: 'What are we building?', opts: ['Kitchen', 'Bathroom', 'Basement', 'Deck', 'Living room', 'Something else'] },
+      { key: 'type', q: 'What are we building?', opts: ['Kitchen', 'Bathroom', 'Basement', 'Deck', 'Living room', 'Handyman job', 'Something else'] },
       { key: 'stage', q: 'Where are you at with it?', opts: ['Just starting to think about it', 'I have ideas and photos saved', 'Ready to get a quote', 'Something needs fixing'] },
       { key: 'when', q: 'When would you like to start?', opts: ['As soon as possible', 'In the next 1 to 3 months', '3 to 6 months out', 'Flexible'] },
       { key: 'budget', q: 'Rough budget range?', opts: ['Under $10k', '$10k to $25k', '$25k to $50k', '$50k and up', 'Not sure yet'] }

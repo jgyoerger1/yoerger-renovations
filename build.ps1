@@ -339,12 +339,12 @@ function Biz($brief) {
     image = "$domain/img/og/home.jpg"; logo = "$domain/img/logo.png"
   }
   if (-not $brief) {
-    $b.description = "Locally owned remodeling company in $($cfg.region): kitchen and bathroom remodeling, basement finishing, custom decks and living room renovations. Free quotes."
+    $b.description = "Locally owned remodeling and handyman services based in $($cfg.hub), Ohio $($cfg.zip), serving $($cfg.region): kitchens, bathrooms, basement finishing, custom decks, living rooms and small repairs. Free quotes."
     $b.founder = [ordered]@{ "@type" = "Person"; name = $cfg.owner; jobTitle = "Owner" }
-    $b.address = [ordered]@{ "@type" = "PostalAddress"; addressLocality = $cfg.hub; addressRegion = "OH"; addressCountry = "US" }
+    $b.address = [ordered]@{ "@type" = "PostalAddress"; addressLocality = $cfg.hub; addressRegion = $cfg.state; postalCode = $cfg.zip; addressCountry = "US" }
     $areas = New-Object System.Collections.ArrayList
-    [void]$areas.Add([ordered]@{ "@type" = "AdministrativeArea"; name = $cfg.region })
-    foreach ($a in $cfg.areas) { [void]$areas.Add([ordered]@{ "@type" = "City"; name = $a }) }
+    foreach ($c in $cfg.counties) { [void]$areas.Add([ordered]@{ "@type" = "AdministrativeArea"; name = "$c, Ohio" }) }
+    foreach ($a in $cfg.areas) { [void]$areas.Add([ordered]@{ "@type" = "City"; name = "$a, OH" }) }
     $b.areaServed = @($areas)
     $b.sameAs = @($cfg.facebook)
     $b.priceRange = '$$'
@@ -368,6 +368,8 @@ function Build-Site($mode) {
   $G = @{
     name = Esc $cfg.name; shortName = Esc $cfg.shortName; owner = Esc $cfg.owner; phone = Esc $cfg.phone; phoneRaw = $cfg.phoneRaw
     email = $cfg.email; facebook = $cfg.facebook; region = Esc $cfg.region; hub = Esc $cfg.hub; domain = $domain
+    state = Esc $cfg.state; zip = Esc $cfg.zip; areaLine = Esc $cfg.areaLine; areasOutside = Esc $cfg.areasOutside
+    handymanUrl = $(if ($svcUrl.ContainsKey("handyman")) { $svcUrl["handyman"] } else { "{{home}}#services" })
     formEndpoint = $cfg.formEndpoint; year = (Get-Date).Year; workUrl = $workUrl; styles = $styles; scripts = $scripts
     photoCount = $photoCount; projectCount = $projects.Count; logoW = $logoDims[0]; logoH = $logoDims[1]
     footerServices = (($services | ForEach-Object { '<li><a href="{0}">{1}</a></li>' -f $svcUrl[$_.key], (Esc $_.serviceName) }) -join "")
@@ -390,19 +392,20 @@ function Build-Site($mode) {
 
   # ---------- home
   $slides = New-Object System.Text.StringBuilder; $words = New-Object System.Text.StringBuilder; $dots = New-Object System.Text.StringBuilder; $cards = New-Object System.Text.StringBuilder
-  $i = 0
+  $i = 0; $h = 0
   foreach ($s in $services) {
     $hi = $heroInfo[$s.key]; if (-not $hi) { continue }
-    $on = if ($i -eq 0) { " is-on" } else { "" }
-    $ld = if ($i -eq 0) { 'fetchpriority="high"' } else { 'loading="lazy"' }
-    [void]$slides.Append(('<img class="hero-slide{0}" data-key="{1}" src="{2}{3}" srcset="{2}{4} {8}w, {2}{3} {5}w" sizes="100vw" width="{5}" height="{6}" alt="" {7} decoding="async">' -f $on, $s.key, $R, $hi.big, $hi.small, $hi.w, $hi.h, $ld, $hi.wSmall))
-    [void]$words.Append(('<span class="word{0}" data-key="{1}">{2}</span>' -f $on, $s.key, (Esc $s.noun)))
-    [void]$dots.Append(('<button class="hero-dot{0}" type="button" role="tab" data-key="{1}" aria-selected="{2}"><span>{3}</span><i></i></button>' -f $on, $s.key, $(if ($i -eq 0) { "true" } else { "false" }), (Esc $s.name)))
+    $inHero = ($s.inHero -ne $false)   # services with inHero=false (handyman) get a card but no hero slide/word
+    $on = if ($h -eq 0) { " is-on" } else { "" }
+    $ld = if ($h -eq 0) { 'fetchpriority="high"' } else { 'loading="lazy"' }
+    if ($inHero) { [void]$slides.Append(('<img class="hero-slide{0}" data-key="{1}" src="{2}{3}" srcset="{2}{4} {8}w, {2}{3} {5}w" sizes="100vw" width="{5}" height="{6}" alt="" {7} decoding="async">' -f $on, $s.key, $R, $hi.big, $hi.small, $hi.w, $hi.h, $ld, $hi.wSmall)) }
+    if ($inHero) { [void]$words.Append(('<span class="word{0}" data-key="{1}">{2}</span>' -f $on, $s.key, (Esc $s.noun))) }
+    if ($inHero) { [void]$dots.Append(('<button class="hero-dot{0}" type="button" role="tab" data-key="{1}" aria-selected="{2}"><span>{3}</span><i></i></button>' -f $on, $s.key, $(if ($h -eq 0) { "true" } else { "false" }), (Esc $s.name))); $h++ }
     $cover = $hi.project.photos[$hi.project.coverIdx]
     [void]$cards.Append(('<article class="svc" data-reveal style="--i:{0}"><a class="svc-link" href="{1}"><div class="svc-media"><img src="{2}{3}" srcset="{2}{3} {11}w, {2}{4} {5}w" sizes="(min-width: 640px) 20vw, 76vw" width="{5}" height="{6}" alt="{7}" loading="lazy" decoding="async"></div><div class="svc-body"><h3 class="svc-name">{8}</h3><p class="svc-short">{9}</p><span class="svc-more">{10} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></article>' -f $i, $svcUrl[$s.key], $R, $cover.src700, $cover.src1400, $cover.w, $cover.h, (Attr $cover.caption), (Esc $s.name), (Esc $s.short), (Esc $s.serviceName), $cover.w700))
     $i++
   }
-  $ticker = (($services | ForEach-Object { "<li>$(Esc $_.name)</li>" }) -join "") + "<li>Free quotes</li><li>Locally owned</li><li>$(Esc $cfg.region)</li><li>Call or text $(Esc $cfg.phone)</li>"
+  $ticker = (($services | ForEach-Object { $l = $(if ($_.tickerLabel) { $_.tickerLabel } else { $_.name }); "<li>$(Esc $l)</li>" }) -join "") + "<li>Free quotes</li><li>Locally owned</li><li>$(Esc "$($cfg.hub), $($cfg.state) $($cfg.zip)")</li><li>Call or text $(Esc $cfg.phone)</li>"
   $homeProjects = @($projects | Select-Object -First 9)
   $grid = New-Object System.Text.StringBuilder; $countBy = @{}
   $k = 0
@@ -415,8 +418,8 @@ function Build-Site($mode) {
   $homeTokens = @{
     heroSlides = $slides.ToString(); heroWords = $words.ToString(); heroDots = $dots.ToString(); serviceCards = $cards.ToString(); tickerItems = $ticker
     workFilters = (Filters $countBy); workGrid = $grid.ToString(); reviewsSection = $reviews; content = $T["home"]
-    title = "$($cfg.shortName) | Kitchen, Bath, Basement and Deck Remodeling in $($cfg.region)"
-    description = "Locally owned remodeling in $($cfg.hub) and $($cfg.region). Kitchens, bathrooms, basement finishing, custom decks and living rooms by $($cfg.owner). Free written quotes. Call or text $($cfg.phone)."
+    title = "$($cfg.shortName) | Remodeling and Handyman Services in $($cfg.hub), $($cfg.state)"
+    description = "Locally owned remodeling and handyman services in $($cfg.hub), Ohio, serving $($cfg.region). Kitchens, bathrooms, basements, decks, living rooms and repairs by $($cfg.owner). Free written quotes."
     canonical = "$domain/"; ogImage = "$domain/img/og/home.jpg"; ogType = "website"; bodyClass = "page-home"; rootRel = ""
     preload = ('<link rel="preload" as="image" href="{0}{1}" imagesrcset="{0}{2} {3}w, {0}{1} {4}w" imagesizes="100vw">' -f $R, $heroInfo[$services[0].key].big, $heroInfo[$services[0].key].small, $heroInfo[$services[0].key].wSmall, $heroInfo[$services[0].key].w)
     jsonld = (JsonLd @(
@@ -458,7 +461,7 @@ function Build-Site($mode) {
       preload = $(if ($hi) { '<link rel="preload" as="image" href="{0}{1}" imagesrcset="{0}{2} {3}w, {0}{1} {4}w" imagesizes="(min-width: 900px) 40vw, 100vw">' -f $R, $hi.big, $hi.small, $hi.wSmall, $hi.w } else { "" })
       jsonld = (JsonLd @(
         (Biz $true),
-        [ordered]@{ "@type" = "Service"; "@id" = "$domain/$($s.slug)/#service"; name = $s.serviceName; serviceType = $s.serviceName; description = $s.description; url = "$domain/$($s.slug)/"; image = "$domain/img/og/$($s.slug).jpg"; provider = [ordered]@{ "@id" = "$domain/#business" }; areaServed = [ordered]@{ "@type" = "AdministrativeArea"; name = $cfg.region } },
+        [ordered]@{ "@type" = "Service"; "@id" = "$domain/$($s.slug)/#service"; name = $s.serviceName; serviceType = $s.serviceName; description = $s.description; url = "$domain/$($s.slug)/"; image = "$domain/img/og/$($s.slug).jpg"; provider = [ordered]@{ "@id" = "$domain/#business" }; areaServed = @($cfg.counties | ForEach-Object { [ordered]@{ "@type" = "AdministrativeArea"; name = "$_, Ohio" } }) },
         [ordered]@{ "@type" = "FAQPage"; mainEntity = @($s.faqs | ForEach-Object { [ordered]@{ "@type" = "Question"; name = $_.q; acceptedAnswer = [ordered]@{ "@type" = "Answer"; text = $_.a } } }) },
         [ordered]@{ "@type" = "BreadcrumbList"; itemListElement = @(
           [ordered]@{ "@type" = "ListItem"; position = 1; name = "Home"; item = "$domain/" },
@@ -482,7 +485,7 @@ function Build-Site($mode) {
   $workTokens = @{
     workFilters = (Filters $countAll); workGridAll = $gridAll.ToString(); content = $T["work"]
     title = "Our Work | Kitchens, Baths, Basements and Decks | $($cfg.shortName)"
-    description = "$photoCount photos from $($projects.Count) finished remodeling projects across $($cfg.region): kitchens, bathrooms, finished basements, decks and living rooms by $($cfg.shortName)."
+    description = "$photoCount photos from $($projects.Count) finished remodeling projects in $($cfg.hub), Ohio and across $($cfg.region): kitchens, bathrooms, finished basements, decks and living rooms by $($cfg.shortName)."
     canonical = "$domain/work/"; ogImage = "$domain/img/og/home.jpg"; ogType = "website"; bodyClass = "page-work"; rootRel = "../"; preload = ""
     jsonld = (JsonLd @(
       (Biz $true),

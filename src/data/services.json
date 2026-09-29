@@ -7,8 +7,8 @@
     "noun": "kitchen",
     "hero": "kitchens-sage-butcher-block/01",
     "short": "Cabinets, counters, floors and layout, built around how you actually cook.",
-    "title": "Kitchen Remodeling in Northeast Ohio | Yoerger Renovations",
-    "description": "Kitchen remodeling in Cleveland and Northeast Ohio. Cabinets, countertops, backsplashes, flooring, lighting and layout changes from a locally owned remodeler. Free quotes.",
+    "title": "Kitchen Remodeling in Stow, OH | Yoerger Renovations",
+    "description": "Kitchen remodeling in Stow, Cuyahoga Falls, Hudson and Kent, OH. Cabinets, counters, backsplashes, flooring and layout changes by a local remodeler. Free quotes.",
     "h1": "Kitchen remodeling that fits the way you live",
     "intro": [
       "The kitchen is the heart of the home, and Yoerger Renovations is here to help you create a space that is both beautiful and functional. Whether you want a complete kitchen transformation or a simple update, Ryan works with you to design a kitchen that fits your lifestyle, your needs and your budget.",
@@ -39,8 +39,8 @@
     "noun": "bathroom",
     "hero": "bathrooms-basement-glass-shower/01",
     "short": "Showers, tubs, vanities and tile, from a quick refresh to a spa-like retreat.",
-    "title": "Bathroom Remodeling in Northeast Ohio | Yoerger Renovations",
-    "description": "Bathroom remodeling in Cleveland and Northeast Ohio. New showers and tubs, vanities, tile, flooring, lighting and accessibility upgrades. Locally owned, free quotes.",
+    "title": "Bathroom Remodeling in Stow, OH | Yoerger Renovations",
+    "description": "Bathroom remodeling in Stow, Cuyahoga Falls, Hudson and Kent, OH. Showers, tubs, vanities, tile, lighting and accessibility upgrades by a local remodeler. Free quotes.",
     "h1": "Bathroom remodeling, from a quick refresh to a full rebuild",
     "intro": [
       "Upgrade your bathroom into a comfortable, stylish and functional space. Whether you're updating an outdated bathroom, improving accessibility or creating a spa-like retreat, Yoerger Renovations delivers quality workmanship and lasting results.",
@@ -71,8 +71,8 @@
     "noun": "basement",
     "hero": "basements-walkout-pine-ceiling/01",
     "short": "Family rooms, offices, gyms and guest suites out of space you already own.",
-    "title": "Basement Finishing in Northeast Ohio | Yoerger Renovations",
-    "description": "Basement finishing and remodeling in Cleveland and Northeast Ohio. Framing, drywall, flooring, lighting, trim, bars and basement bathrooms. Locally owned, free quotes.",
+    "title": "Basement Finishing in Stow, OH | Yoerger Renovations",
+    "description": "Basement finishing in Stow, Cuyahoga Falls, Hudson and Kent, OH. Framing, drywall, flooring, lighting, trim, bars and basement bathrooms. Locally owned, free quotes.",
     "h1": "Basement finishing that turns storage into living space",
     "intro": [
       "Turn your unfinished or outdated basement into a valuable extension of your home. Yoerger Renovations specializes in creating comfortable, functional spaces that fit your family's needs and lifestyle.",
@@ -103,9 +103,9 @@
     "noun": "deck",
     "hero": "decks-composite-backyard/01",
     "short": "Composite or wood, new builds or rebuilds, with railings and stairs done right.",
-    "title": "Deck Builder in Northeast Ohio | Yoerger Renovations",
-    "description": "Custom deck builder in Cleveland and Northeast Ohio. New composite and pressure-treated decks, deck replacement, railings, stairs, expansions and repairs. Free estimates.",
-    "h1": "Custom decks built for Northeast Ohio seasons",
+    "title": "Deck Builder in Stow, OH | Yoerger Renovations",
+    "description": "Custom deck builder in Stow, Cuyahoga Falls, Hudson and Kent, OH. Composite and pressure-treated decks, rebuilds, railings, stairs, expansions and repairs. Free estimates.",
+    "h1": "Custom decks built for Ohio weather",
     "intro": [
       "Extend your living space outdoors with a custom-built deck designed for relaxing, entertaining and making memories with family and friends. Yoerger Renovations builds high-quality wood and composite decks tailored to your home's style, your budget and how you plan to use the space.",
       "Whether you want a simple backyard deck, a multi-level design, built-in seating, custom railings or low-maintenance composite materials, the focus is on quality craftsmanship and attention to detail from start to finish. Every deck is built to be safe, durable and beautiful for years to come, ready for cookouts, gatherings and enjoying Northeast Ohio's seasons."
@@ -124,7 +124,7 @@
     "faqs": [
       { "q": "Composite or pressure-treated wood?", "a": "Composite costs more up front and needs almost no maintenance. Pressure-treated wood costs less and looks great, but wants a stain or seal every few years. Ryan will price both so you can decide." },
       { "q": "Can you rebuild on my existing deck frame?", "a": "Sometimes. If the framing and posts are sound, a re-deck with new boards and railings saves money. If they're not, Ryan will show you why and quote a proper rebuild." },
-      { "q": "Do decks need a permit?", "a": "In most Northeast Ohio cities, yes. Ryan tells you what your city requires and handles the details so the deck is built to code." },
+      { "q": "Do decks need a permit?", "a": "In Stow and most Summit and Portage County cities, yes. Ryan tells you what your city requires and handles the details so the deck is built to code." },
       { "q": "When is the best time to build?", "a": "Spring through fall is the busy season, so getting on the schedule early helps. Some builds can happen in cooler months too." }
     ]
   },
@@ -136,8 +136,8 @@
     "noun": "living room",
     "hero": "living-rooms-sage-french-doors/01",
     "short": "New floors, trim, built-ins and lighting for the room everyone ends up in.",
-    "title": "Living Room Renovations in Northeast Ohio | Yoerger Renovations",
-    "description": "Living room remodeling in Cleveland and Northeast Ohio. New flooring, custom trim, built-in shelving, lighting and open-concept layouts from a locally owned remodeler.",
+    "title": "Living Room Remodeling in Stow, OH | Yoerger Renovations",
+    "description": "Living room remodeling in Stow, Cuyahoga Falls, Hudson and Kent, OH. New flooring, custom trim, built-ins, lighting and open-concept layouts. Locally owned, free quotes.",
     "h1": "Living room renovations for the room everyone ends up in",
     "intro": [
       "Your living room is where family and friends come together, which makes it one of the most important spaces in your home. Yoerger Renovations helps homeowners create comfortable, inviting and functional living spaces that reflect their style and meet their everyday needs.",
@@ -157,6 +157,41 @@
       { "q": "Can you open up a wall between rooms?", "a": "Often, yes. Ryan checks whether the wall is load-bearing and explains what it takes either way before you decide." },
       { "q": "Will new floors match the rest of the house?", "a": "That's the goal. Ryan helps you pick a plank or hardwood-look floor that ties into adjoining rooms, and can carry it through for a seamless run." },
       { "q": "How disruptive is a living room refresh?", "a": "Less than you'd think. Flooring, trim and paint go quickly, and Ryan keeps the job site clean and tells you what's happening each day." }
+    ]
+  },
+  {
+    "key": "handyman",
+    "slug": "handyman-services",
+    "name": "Handyman",
+    "serviceName": "Handyman services",
+    "noun": "repair",
+    "inHero": false,
+    "tickerLabel": "Handyman services available",
+    "hero": "bathrooms-powder-room/01",
+    "short": "Handyman services available: repairs, small jobs and the punch list you keep putting off.",
+    "title": "Handyman Services in Stow, OH | Yoerger Renovations",
+    "description": "Handyman services available in Stow, Cuyahoga Falls, Hudson and Kent, OH. Repairs, drywall patches, doors, trim, fixtures, mounting and small projects by a local pro. Free quotes.",
+    "h1": "Handyman services available for the jobs on your list",
+    "intro": [
+      "Not every project is a remodel. Sometimes it's a door that won't latch, a drywall patch, a wobbly railing, a light fixture to swap, or a list of small things that never quite gets done. Yoerger Renovations takes those jobs too, with the same care and clear communication as a full renovation.",
+      "Send Ryan the list, or text a few photos. He'll tell you what can be handled in one visit, bundle the small jobs together so you're not paying for separate trips, and leave the place cleaner than he found it. Homeowners in Stow and across Summit and Portage counties use him for the punch list before a move, the repairs after an inspection, and the upgrades that make a house feel finished."
+    ],
+    "highlights": [
+      "Drywall patches and paint touch-ups",
+      "Doors, locks and hardware",
+      "Trim, baseboard and casing repairs",
+      "Light fixture, faucet and vanity swaps",
+      "TV, shelf and mirror mounting",
+      "Deck board and railing repairs",
+      "Caulk, grout and weatherproofing",
+      "Punch lists before a sale or after an inspection",
+      "Free quotes"
+    ],
+    "faqs": [
+      { "q": "How small is too small?", "a": "There's no such thing. A single door or a shelf is fine. If you have several small things, put them all on the list; one visit usually covers more than you'd expect." },
+      { "q": "Can you bundle a bunch of little jobs into one visit?", "a": "Yes, and it's the best way to do it. Ryan looks at the list, gives you one written quote for the whole thing, and knocks it out in a planned block of time." },
+      { "q": "Do you handle plumbing and electrical?", "a": "Fixture swaps like faucets, vanities and light fixtures, yes. Anything that needs a licensed trade, Ryan will tell you up front and can help coordinate." },
+      { "q": "Do you do pre-sale and inspection repair lists?", "a": "Yes. Inspection repair lists and move-out fixes are common requests. Send the report or the list and Ryan will quote it." }
     ]
   }
 ]

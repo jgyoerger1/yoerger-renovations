@@ -6,17 +6,18 @@
     </div>
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow eyebrow-light">Locally owned <span class="dot"></span> {{region}} <span class="dot"></span> Free quotes</p>
+        <p class="eyebrow eyebrow-light">Locally owned <span class="dot"></span> {{hub}}, Ohio {{zip}} <span class="dot"></span> Free quotes</p>
         <h1 class="display hero-title">
           <span class="line"><span class="line-in">The <span class="rot" aria-hidden="true">{{heroWords}}</span><span class="visually-hidden">kitchen, bathroom, basement, deck or living room</span></span></span>
           <span class="line"><span class="line-in">you've been picturing,</span></span>
           <span class="line"><span class="line-in">built right.</span></span>
         </h1>
-        <p class="lede hero-lede">{{shortName}} is a locally owned remodeling company in {{region}}. {{owner}} listens first, gives you a clear written quote for free, and keeps you in the loop from the first call to the final walkthrough.</p>
+        <p class="lede hero-lede">{{shortName}} is a locally owned remodeling and handyman company in {{hub}}, Ohio, serving {{region}}. {{owner}} listens first, gives you a clear written quote for free, and keeps you in the loop from the first call to the final walkthrough.</p>
         <div class="cta-row">
           <a class="btn btn-brass" href="#contact">Get a free quote <svg class="arr" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           <a class="btn btn-ghost-light" href="#work">See our work</a>
         </div>
+        <p class="hero-note"><a class="pill" href="{{handymanUrl}}">Handyman services available</a><span>Small jobs and repair lists welcome.</span></p>
       </div>
       <aside class="hero-card">
         <p class="hero-card-label mono">Talk to Ryan</p>
@@ -39,8 +40,8 @@
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="eyebrow">What we build</p>
-        <h2 class="display">Five rooms we know inside and out</h2>
-        <p class="lede">Great construction starts with really listening to what you need and making the whole process easy. Pick a room to see what's included and recent work.</p>
+        <h2 class="display">Five rooms we know inside and out, plus the small stuff</h2>
+        <p class="lede">Great construction starts with really listening to what you need and making the whole process easy. Pick a room to see what's included and recent work. Handyman services available for repairs and the punch list.</p>
       </div>
       <div class="svc-grid">{{serviceCards}}</div>
     </div>
@@ -132,12 +133,12 @@
     <div class="wrap areas-grid">
       <div data-reveal>
         <p class="eyebrow">Where we work</p>
-        <h2 class="display" style="font-size:clamp(2.4rem,5vw,4.2rem);margin-top:1rem">{{hub}} and {{region}}</h2>
-        <p class="lede" style="margin-top:1rem">Homes in and around these communities. Not on the list? Call or text and ask.</p>
+        <h2 class="display" style="font-size:clamp(2.4rem,5vw,4.2rem);margin-top:1rem">{{region}}</h2>
+        <p class="lede" style="margin-top:1rem">{{areaLine}} Homes in and around these communities. Not on the list? Call or text and ask.</p>
       </div>
       <div data-reveal style="--i:1">
         <ul class="area-chips">{{areaChips}}</ul>
-        <p class="areas-note" style="margin-top:1.2rem">Serving homeowners across Cuyahoga, Lorain, Medina, Summit and Lake counties.</p>
+        <p class="areas-note" style="margin-top:1.2rem">{{areasOutside}}</p>
       </div>
     </div>
   </section>
