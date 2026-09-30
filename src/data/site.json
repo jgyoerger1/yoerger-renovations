@@ -18,7 +18,7 @@
   "areasOutside": "Ryan keeps his jobs close to home in Summit and Portage counties, so Cleveland and Cuyahoga County are outside the service area.",
   "formEndpoint": "",
   "repo": "jgyoerger1/yoerger-renovations",
-  "customDomainLive": false,
+  "customDomainLive": true,
   "customDomainNote": "false = site is previewed at github.io/<repo>/ and no CNAME is written. Set true on cutover day (after DNS points at GitHub), rebuild and publish; that writes docs/CNAME and makes the 404 page use root paths.",
   "areas": [
     "Stow", "Cuyahoga Falls", "Hudson", "Kent", "Tallmadge", "Munroe Falls", "Silver Lake", "Akron",
