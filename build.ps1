@@ -415,13 +415,15 @@ function Build-Site($mode) {
   $slides = New-Object System.Text.StringBuilder; $words = New-Object System.Text.StringBuilder
   $h = 0; $heroCaption = ""
   $heroSizes = "(min-width: 1240px) 590px, (min-width: 900px) 48vw, 100vw"
-  # handyman gets a bento tile, not a hero slide; site.json heroOrder sets the sequence (the first one is what
-  # a visitor lands on), anything it leaves out follows in services.json order
-  $heroList = @($services | Where-Object { $_.inHero -ne $false -and $heroInfo[$_.key] })
-  if ($cfg.heroOrder) {
-    $ord = @($cfg.heroOrder | ForEach-Object { $_ })
-    $heroList = @($ord | ForEach-Object { $k = $_; $heroList | Where-Object { $_.key -eq $k } }) + @($heroList | Where-Object { $ord -notcontains $_.key })
+  # services listed in a site.json order (heroOrder, bentoOrder) come first in that order; anything the list
+  # leaves out follows in services.json order
+  function Order-ByKeys($list, $keys) {
+    if (-not $keys) { return $list }
+    $ord = @($keys | ForEach-Object { $_ })
+    return @($ord | ForEach-Object { $k = $_; $list | Where-Object { $_.key -eq $k } }) + @($list | Where-Object { $ord -notcontains $_.key })
   }
+  # handyman gets a bento tile, not a hero slide; the first in heroOrder is what a visitor lands on
+  $heroList = Order-ByKeys @($services | Where-Object { $_.inHero -ne $false -and $heroInfo[$_.key] }) $cfg.heroOrder
   foreach ($s in $heroList) {
     $hi = $heroInfo[$s.key]
     $on = if ($h -eq 0) { " is-on" } else { "" }
@@ -434,8 +436,10 @@ function Build-Site($mode) {
   }
   # services: a bento with exactly one cell per service; photos differ from the hero slides
   $areaKey = @{ "kitchens" = "k"; "bathrooms" = "b"; "basements" = "s"; "decks" = "d"; "living-rooms" = "l"; "handyman" = "h" }
+  # bentoOrder is the reading order of the grid in site.css (the first one is the big tile), so phones and
+  # keyboard users get the same sequence
   $bento = New-Object System.Text.StringBuilder; $bi = 0
-  foreach ($s in $services) {
+  foreach ($s in (Order-ByKeys $services $cfg.bentoOrder)) {
     $a = $areaKey[$s.key]; if (-not $a) { Warn "No bento cell for service '$($s.key)'"; continue }
     $ph = $null
     if ($s.card) {

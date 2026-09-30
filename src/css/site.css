@@ -132,8 +132,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .btn:active { transform: translateY(1px) scale(.98); box-shadow: none; }
 .btn .ico { transition: transform .3s var(--ease); }
 .btn:hover .ico { transform: translateX(3px); }
-.btn-brass { --btn-bg: var(--brass); --btn-fg: var(--tape-ink); }
-.btn-brass:hover { --btn-bg: #D6B25A; }
 .btn-ghost { --btn-bg: transparent; --btn-fg: var(--fg); border-color: var(--line-strong); }
 .btn-ghost:hover { --btn-bg: var(--bg-2); }
 .btn-ghost-light { --btn-bg: rgba(244, 246, 236, .08); --btn-fg: var(--hero-fg); border-color: rgba(244, 246, 236, .45); }
@@ -286,16 +284,16 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .b-handy:hover .b-link .ico { transform: translateX(4px); }
 .b-link .ico { transition: transform .35s var(--ease); }
 @media (min-width: 640px) {
-  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "k k" "b d" "s l" "h h"; }
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "s s" "b d" "k l" "h h"; }
   .bt-k { grid-area: k; } .bt-b { grid-area: b; } .bt-s { grid-area: s; } .bt-d { grid-area: d; } .bt-l { grid-area: l; } .bt-h { grid-area: h; }
   .b-handy { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
   .b-handy .b-media { aspect-ratio: auto; height: 100%; }
 }
 @media (min-width: 1024px) {
-  .bento { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: 250px 250px 270px; grid-template-areas: "k k b d" "k k s d" "l h h h"; }
+  .bento { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: 250px 250px 270px; grid-template-areas: "s s b d" "s s k d" "l h h h"; }
   .b-tile:not(.b-handy) .b-media { flex: 1 1 auto; aspect-ratio: auto; }
-  .bt-b .b-short, .bt-s .b-short, .bt-l .b-short, .bt-d .b-short { display: none; }
-  .bt-k .b-name { font-size: 2.2rem; }
+  .bt-b .b-short, .bt-k .b-short, .bt-l .b-short, .bt-d .b-short { display: none; }
+  .bt-s .b-name { font-size: 2.2rem; }
 }
 
 /* ---------- work: filterable masonry (photos keep their own shape) ---------- */
@@ -486,6 +484,9 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .band .wrap { display: grid; gap: 1.5rem; padding-block: clamp(2.5rem, 6vw, 4.5rem); align-items: center; }
 .band h2 { font-size: clamp(2.2rem, 5vw, 4rem); color: var(--green-ink); }
 .band p { color: rgba(244, 246, 236, .84); max-width: 50ch; }
+/* on the green band the quote button inverts so it still reads as the main action */
+.band .btn-primary { --btn-bg: var(--green-ink); --btn-fg: var(--green-deep); }
+.band .btn-primary:hover { --btn-bg: #FFFFFF; }
 @media (min-width: 900px) { .band .wrap { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } .band .cta-row { justify-self: end; } }
 
 /* ---------- service page ---------- */

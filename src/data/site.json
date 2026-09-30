@@ -9,6 +9,7 @@
   "facebook": "https://www.facebook.com/profile.php?id=61579007753770",
   "hub": "Stow",
   "heroOrder": ["bathrooms", "basements", "decks", "living-rooms", "kitchens"],
+  "bentoOrder": ["basements", "bathrooms", "decks", "kitchens", "living-rooms", "handyman"],
   "state": "OH",
   "zip": "44224",
   "region": "Summit and Portage counties",
