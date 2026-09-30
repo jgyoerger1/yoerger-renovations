@@ -158,7 +158,15 @@
               </select>
             </div>
           </div>
-          <div class="field"><label for="message">Tell Ryan about the project</label><textarea id="message" name="message" placeholder="What room, what you're picturing, and rough timing. Photos help; you can text them after."></textarea></div>
+          <div class="field"><label for="message">Tell Ryan about the project</label><textarea id="message" name="message" placeholder="What room, what you're picturing, and rough timing."></textarea></div>
+          <div class="field drop" data-drop>
+            <span class="field-label" id="photosLabel">Photos of the space <span class="field-opt">optional</span></span>
+            <input class="drop-input" id="photos" type="file" accept="image/*,.heic,.heif,application/pdf" multiple aria-labelledby="photosLabel" aria-describedby="photosNote">
+            <label class="drop-zone" for="photos"><span class="drop-plus" aria-hidden="true">+</span><b>Add photos</b><span class="drop-hint">Tap to choose, or drag them here. Up to 8 photos or PDFs.</span></label>
+            <ul class="drop-list" hidden></ul>
+            <p class="drop-note" id="photosNote" aria-live="polite">A few wide shots of the room help Ryan quote faster.</p>
+            <template id="dropItem"><li class="drop-item"><span class="drop-kind"></span><button class="drop-x" type="button" aria-label="Remove"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg></button></li></template>
+          </div>
           <div class="field">
             <label>Best way to reach you</label>
             <div class="radios">

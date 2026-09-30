@@ -463,6 +463,34 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .radios label:has(input:focus-visible) { outline: 2px solid var(--green); outline-offset: 2px; }
 .radios input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .hp { position: absolute; left: -9999px; }
+/* photos: a dashed drop zone, then square thumbnails with a remove button */
+.field-label { font-weight: 600; font-size: .92rem; color: var(--fg); }
+.field-opt { font-weight: 400; color: var(--muted); margin-left: .35rem; }
+.field .drop-input { position: absolute; width: 1px; height: 1px; padding: 0; border: 0; opacity: 0; overflow: hidden; pointer-events: none; }
+.field .drop-zone {
+  display: grid; justify-items: center; gap: .15rem; padding: 1.1rem 1rem; min-height: 44px; text-align: center; cursor: pointer;
+  border: 1.5px dashed var(--line-strong); border-radius: var(--r); background: var(--bg);
+  font-weight: 400; color: var(--muted); transition: border-color .2s, background .2s;
+}
+.drop-zone b { color: var(--fg); font-weight: 600; font-size: .98rem; }
+.drop-hint { font-size: .8125rem; }
+.drop-plus { font-family: var(--font-display); font-weight: 700; font-size: 2rem; line-height: 1; color: var(--accent-text); transition: transform .3s var(--ease); }
+.drop-zone:hover, .drop.is-over .drop-zone { border-color: var(--green); background: color-mix(in srgb, var(--green) 8%, var(--bg)); }
+.drop-zone:hover .drop-plus, .drop.is-over .drop-plus { transform: rotate(90deg); }
+.drop:has(.drop-input:focus-visible) .drop-zone { outline: 2px solid var(--green); outline-offset: 2px; }
+.drop-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: .5rem; }
+.drop-item { position: relative; aspect-ratio: 1; overflow: hidden; border-radius: var(--r); border: 1px solid var(--line); background: var(--bg-3); animation: dropIn .35s var(--ease) both; }
+.drop-item img { width: 100%; height: 100%; object-fit: cover; }
+.drop-kind { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-mono); font-size: .8125rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.drop-item img + .drop-kind { display: none; }
+.drop-item.is-busy::after { content: ""; position: absolute; inset: 0; background: color-mix(in srgb, var(--bg) 55%, transparent); }
+.drop-x { position: absolute; top: 4px; right: 4px; z-index: 1; width: 36px; height: 36px; display: grid; place-items: center; padding: 0; border: 0; border-radius: var(--pill); background: rgba(14, 23, 15, .78); color: #F4F6EC; cursor: pointer; }
+.drop-x:hover { background: rgba(14, 23, 15, .95); }
+.drop-x .ico { width: 16px; height: 16px; }
+.drop-note { font-size: .8125rem; color: var(--muted); }
+.drop-note.is-warn { color: var(--fg); }
+.drop-note.is-warn::before { content: ""; display: inline-block; width: .5rem; height: .5rem; margin-right: .45rem; border-radius: 50%; background: var(--brass); vertical-align: .05em; }
+@keyframes dropIn { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: none; } }
 .form-msg { display: grid; gap: .9rem; padding: 1.1rem 1.2rem; border-radius: var(--r); background: var(--bg-2); border-left: 3px solid var(--green); margin-top: 1rem; }
 .form-msg.is-fallback { border-left-color: var(--brass); }
 .form-msg h3 { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; text-transform: uppercase; }
@@ -608,6 +636,7 @@ body.lb-open { overflow: hidden; }
 /* touch screens: every tap target at least 44px tall (Apple and Google guidance) */
 @media (pointer: coarse), (max-width: 1023px) {
   .menu-btn, .chip, .copy, .radios label, .to-top { min-height: 44px; }
+  .drop-x { width: 44px; height: 44px; top: 2px; right: 2px; }
   .chip, .copy, .to-top { display: inline-flex; align-items: center; }
   .copy { padding-inline: 1rem; }
   .ctile-big, .ctile-email, .ctile-fb, .foot-col a, .crumbs a { display: inline-flex; align-items: center; min-height: 44px; }

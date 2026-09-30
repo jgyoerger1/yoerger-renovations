@@ -60,10 +60,23 @@ Before-and-after: put a second file next to a photo with the same name plus ` (b
 
 ## Contact form
 
-The form works two ways. With `formEndpoint` blank in `site.json`, submitting shows the visitor their
-message with Copy / Text Ryan / Email Ryan buttons (no server needed). To have submissions land in the
-inbox, create a free form at https://formspree.io (or Basin, Getform), paste the endpoint URL into
-`formEndpoint`, rebuild and publish.
+Submissions are emailed by a small Google Apps Script (`tools\quote-mailer.gs`, free, runs in the Gmail
+account). Visitors can attach up to 8 photos or PDFs; the browser shrinks photos to 2000px JPEGs first, so
+they arrive as normal email attachments. Replying to the email answers the customer.
+
+Setup, once, signed in to the Google account that should send the emails (Ryan's Gmail):
+
+1. Go to https://script.google.com, click New project, replace the sample code with the contents of
+   `tools\quote-mailer.gs`, and save. (Change `OWNER_EMAIL` at the top if the emails should go elsewhere.)
+2. Choose `testSend` in the toolbar and click Run. Approve the permissions; because it is your own script,
+   Google shows "Google hasn't verified this app", so click Advanced, then Go to the project. A test
+   email with a tiny test photo arrives.
+3. Deploy > New deployment > Select type: Web app. Execute as: Me. Who has access: Anyone. Deploy.
+4. Copy the Web app URL (ends in `/exec`) into `formEndpoint` in `src\data\site.json`, rebuild, publish.
+
+If you edit the script later, use Deploy > Manage deployments > Edit > Version: New version so the URL
+stays the same. While `formEndpoint` is blank the photo field is hidden, and submitting shows the visitor
+their message with Copy / Text Ryan / Email Ryan buttons instead.
 
 ## Hosting on GitHub Pages (free) and pointing the domain
 

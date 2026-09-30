@@ -281,7 +281,7 @@
     paint();
   }
 
-  /* ---------- contact form ---------- */
+  /* ---------- contact form: posts to the Apps Script mailer (tools/quote-mailer.gs), photos attached ---------- */
   if (form) {
     var endpoint = form.getAttribute('data-endpoint') || '';
     var phoneRaw = form.getAttribute('data-phone') || '';
@@ -289,6 +289,100 @@
     var msgBox = $('.form-msg', form.parentNode);
     var submitBtn = $('button[type="submit"]', form);
     var submitHTML = submitBtn ? submitBtn.innerHTML : '';
+
+    /* photos are shrunk in the browser to 2000px JPEGs (a 4 MB phone photo becomes about 500 KB and loses its
+       GPS tags), so eight fit easily in one email; PDFs and anything the browser cannot decode go as they are */
+    var MAX_FILES = 8, MAX_EDGE = 2000, MAX_RAW = 10 * 1024 * 1024, MAX_TOTAL = 18 * 1024 * 1024;
+    var drop = $('[data-drop]', form), photoInput = $('#photos', form), itemTpl = $('#dropItem');
+    var dropList = drop ? $('.drop-list', drop) : null, dropNote = drop ? $('.drop-note', drop) : null;
+    var noteDefault = dropNote ? dropNote.textContent : '';
+    var picked = [], warnText = '', gen = 0;
+    var note = function (text, warn) { if (dropNote) { dropNote.textContent = text; dropNote.classList.toggle('is-warn', !!warn); } };
+    var size = function (n) { return n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB'; };
+    var readB64 = function (blob) {
+      return new Promise(function (res, rej) { var r = new FileReader(); r.onload = function () { res(String(r.result).split(',')[1] || ''); }; r.onerror = rej; r.readAsDataURL(blob); });
+    };
+    var shrink = function (file) {
+      return new Promise(function (res, rej) {
+        var url = URL.createObjectURL(file), img = new Image();
+        img.onload = function () {
+          var s = Math.min(1, MAX_EDGE / Math.max(img.naturalWidth, img.naturalHeight));
+          var c = document.createElement('canvas'); c.width = Math.round(img.naturalWidth * s); c.height = Math.round(img.naturalHeight * s);
+          c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
+          c.toBlob(function (b) { if (b) res(b); else rej(new Error('encode')); }, 'image/jpeg', 0.85);
+        };
+        img.onerror = function () { URL.revokeObjectURL(url); rej(new Error('decode')); };
+        img.src = url;
+      });
+    };
+    var prepare = function (file) {
+      var isPdf = file.type === 'application/pdf' || /\.pdf$/i.test(file.name);
+      var isHeic = /\.(heic|heif)$/i.test(file.name) || /heic|heif/.test(file.type);
+      var isImg = /^image\//.test(file.type) || isHeic;
+      var asIs = function () {
+        if (file.size > MAX_RAW) return null;
+        var type = isPdf ? 'application/pdf' : (file.type || (/\.heif$/i.test(file.name) ? 'image/heif' : 'image/heic'));
+        return readB64(file).then(function (d) { return { name: file.name, type: type, data: d, size: file.size }; });
+      };
+      if (isPdf || file.type === 'image/gif') return Promise.resolve().then(asIs);
+      if (!isImg) return Promise.resolve(null);
+      return shrink(file).then(function (b) {
+        return readB64(b).then(function (d) { return { name: (file.name.replace(/\.[^.]+$/, '') || 'photo') + '.jpg', type: 'image/jpeg', data: d, size: b.size }; });
+      }, asIs);
+    };
+    var refresh = function () {
+      if (!dropList) return;
+      var my = ++gen;
+      dropList.hidden = !picked.length;
+      Promise.all(picked.map(function (p) { return p.ready; })).then(function (list) {
+        if (my !== gen) return;   // the list changed while photos were still processing; a newer refresh follows
+        var ok = list.filter(Boolean), total = ok.reduce(function (n, f) { return n + f.size; }, 0);
+        if (total > MAX_TOTAL) { note('Those add up to ' + size(total) + ', more than one email can carry. Remove a few, or text the rest to Ryan.', true); return; }
+        var summary = ok.length ? ok.length + (ok.length === 1 ? ' file' : ' files') + ' ready (' + size(total) + '), sent with your request.' : noteDefault;
+        note(warnText ? warnText + (ok.length ? ' ' + summary : '') : summary, !!warnText);
+      });
+    };
+    var removeItem = function (p) {
+      var i = picked.indexOf(p); if (i > -1) picked.splice(i, 1);
+      if (p.url) URL.revokeObjectURL(p.url);
+      if (p.el.parentNode) p.el.parentNode.removeChild(p.el);
+    };
+    var addFiles = function (files) {
+      var list = Array.prototype.slice.call(files || []), room = MAX_FILES - picked.length, left = 0;
+      if (!list.length) return;
+      warnText = '';
+      if (list.length > room) { left = list.length - Math.max(0, room); list = list.slice(0, Math.max(0, room)); }
+      if (left) warnText = 'Up to ' + MAX_FILES + ' files per request, so ' + left + (left === 1 ? ' was' : ' were') + ' left out.';
+      list.forEach(function (file) {
+        var p = { file: file, el: itemTpl.content.firstElementChild.cloneNode(true), url: '' };
+        var kind = $('.drop-kind', p.el), x = $('.drop-x', p.el);
+        kind.textContent = (file.name.split('.').pop() || 'file').slice(0, 4);
+        if (/^image\//.test(file.type)) {
+          var im = document.createElement('img'); im.alt = ''; p.url = URL.createObjectURL(file);
+          im.onerror = function () { if (im.parentNode) im.parentNode.removeChild(im); };   // HEIC outside Safari: show the label instead
+          im.src = p.url; p.el.insertBefore(im, kind);
+        }
+        x.setAttribute('aria-label', 'Remove ' + file.name);
+        x.addEventListener('click', function () { removeItem(p); warnText = ''; refresh(); });
+        p.el.classList.add('is-busy');
+        p.ready = prepare(file).catch(function () { return null; }).then(function (r) {
+          p.el.classList.remove('is-busy');
+          if (!r) { removeItem(p); warnText = '"' + file.name + '" could not be added (photos and PDFs up to 10 MB work).'; refresh(); }
+          return r;
+        });
+        picked.push(p); dropList.appendChild(p.el);
+      });
+      refresh();
+    };
+    var clearPhotos = function () { picked.slice().forEach(removeItem); warnText = ''; refresh(); };
+    if (drop && !endpoint) drop.hidden = true;   // photos need the mailer; the field shows once formEndpoint is set
+    if (drop && photoInput && itemTpl && dropList && endpoint) {
+      photoInput.addEventListener('change', function () { addFiles(photoInput.files); photoInput.value = ''; });
+      ['dragenter', 'dragover'].forEach(function (t) { drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.add('is-over'); }); });
+      drop.addEventListener('dragleave', function (e) { if (!drop.contains(e.relatedTarget)) drop.classList.remove('is-over'); });
+      drop.addEventListener('drop', function (e) { e.preventDefault(); drop.classList.remove('is-over'); if (e.dataTransfer) addFiles(e.dataTransfer.files); });
+    }
+
     var composed = function () {
       var v = function (id) { var e = $('#' + id, form); return e ? e.value.trim() : ''; };
       var pref = (form.querySelector('input[name="contactPref"]:checked') || {}).value || '';
@@ -297,6 +391,7 @@
       var who = [v('name'), v('phone'), v('email')].filter(Boolean).join(' / ');
       if (who) parts.push('Reach me at: ' + who + (pref ? ' (prefer ' + pref.toLowerCase() + ')' : ''));
       if (v('service')) parts.push('Project type: ' + $('#service option:checked', form).textContent);
+      if (picked.length) parts.push('I have ' + picked.length + ' photo' + (picked.length > 1 ? 's' : '') + ' to send you.');
       return parts.join('\n');
     };
     var showMsg = function (kind, title, text, withActions) {
@@ -323,15 +418,32 @@
       e.preventDefault();
       if ($('#company', form) && $('#company', form).value) return; // honeypot
       if (!form.reportValidity()) return;
-      if (!endpoint) { showMsg('fallback', 'Almost there', 'This preview is not wired to an inbox yet. Copy your message and text or email it to Ryan, and he will get right back to you.', true); return; }
-      submitBtn.disabled = true; submitBtn.textContent = 'Sending...';
+      var withPhotos = picked.length ? ', with your photos attached' : '';
+      if (!endpoint) { showMsg('fallback', 'Almost there', 'Copy your message and text or email it to Ryan' + withPhotos + '. He will get right back to you.', true); return; }
+      submitBtn.disabled = true; submitBtn.textContent = picked.length ? 'Sending photos...' : 'Sending...';
       var data = {};
       $$('input, select, textarea', form).forEach(function (f) { if (f.name && f.type !== 'radio') data[f.name] = f.value; });
       data.contactPref = (form.querySelector('input[name="contactPref"]:checked') || {}).value || '';
-      data._subject = 'New project inquiry from yoergerrenovations.com';
-      fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
-        .then(function (r) { if (!r.ok) throw new Error('bad status'); showMsg('ok', 'Thanks, it is on its way', 'Ryan will reach out to set up a walkthrough. If it is urgent, call or text ' + (form.getAttribute('data-phone-pretty') || '') + '.', false); form.reset(); })
-        .catch(function () { showMsg('fallback', 'That did not go through', 'No problem. Copy your message and text or email it to Ryan directly.', true); })
+      var sel = $('#service', form); data.serviceLabel = sel && sel.value ? sel.options[sel.selectedIndex].textContent : '';
+      data.page = location.href;
+      Promise.all(picked.map(function (p) { return p.ready; }))
+        .then(function (files) {
+          var ok = files.filter(Boolean), total = ok.reduce(function (n, f) { return n + f.size; }, 0);
+          if (total > MAX_TOTAL) { var big = new Error('too big'); big.tooBig = true; throw big; }
+          data.files = ok.map(function (f) { return { name: f.name, type: f.type, data: f.data }; });
+          // a plain-text body keeps this a simple cross-origin request (no preflight), which Apps Script needs
+          return fetch(endpoint, { method: 'POST', body: JSON.stringify(data) });
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (!res || !res.ok) throw new Error((res && res.error) || 'failed');
+          showMsg('ok', 'Thanks, it is on its way', 'Ryan will reach out to set up a walkthrough' + (data.files.length ? ', and he has your photos' : '') + '. If it is urgent, call or text ' + (form.getAttribute('data-phone-pretty') || '') + '.', false);
+          form.reset(); clearPhotos();
+        })
+        .catch(function (err) {
+          if (err && err.tooBig) { refresh(); if (drop) drop.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); return; }
+          showMsg('fallback', 'That did not go through', 'No problem. Copy your message and text or email it to Ryan directly' + withPhotos + '.', true);
+        })
         .then(function () { submitBtn.disabled = false; submitBtn.innerHTML = submitHTML; });
     });
   }
