@@ -281,6 +281,16 @@ foreach ($s in $services) {
 $homeOgSrc = $heroInfo["decks"]; if (-not $homeOgSrc) { $homeOgSrc = $heroInfo.Values | Select-Object -First 1 }
 Make-Og $homeOgSrc.project.photos[0].srcFile $logoSrc (Join-Path $out "img\og\home.jpg")
 
+# a hero photo in a 4:3 frame is never cropped: 4:3 shots fill it exactly, anything else (the tall bathroom
+# shots) is shown whole over a blurred copy of itself. Same URL twice, so the browser downloads it once.
+function Fit-Photo($hi, $sizes, $load, $alt) {
+  $img = '<img class="{0}" src="{1}{2}" srcset="{1}{3} {4}w, {1}{2} {5}w" sizes="{6}" width="{5}" height="{7}" alt="{8}" {9} decoding="async">'
+  $main = $img -f 'fit-img', $R, $hi.big, $hi.small, $hi.wSmall, $hi.w, $sizes, $hi.h, $alt, $load
+  if ([math]::Abs($hi.w / $hi.h - 4 / 3) -le 0.05) { return @{ cls = "fit"; html = $main } }
+  $fill = ($img -f 'fit-fill', $R, $hi.big, $hi.small, $hi.wSmall, $hi.w, $sizes, $hi.h, '', $load) -replace '^<img ', '<img aria-hidden="true" '
+  return @{ cls = "fit is-tall"; html = $fill + $main }
+}
+
 # ---------------------------------------------------------------- templates
 Log "Rendering pages"
 $T = @{}
@@ -404,14 +414,21 @@ function Build-Site($mode) {
   # hero: the rotating room word, its photo and a caption under the photo stay in step
   $slides = New-Object System.Text.StringBuilder; $words = New-Object System.Text.StringBuilder
   $h = 0; $heroCaption = ""
-  $heroSizes = "(min-width: 900px) 58vw, 100vw"
-  foreach ($s in $services) {
-    $hi = $heroInfo[$s.key]; if (-not $hi) { continue }
-    if ($s.inHero -eq $false) { continue }   # handyman gets a bento tile, not a hero slide
+  $heroSizes = "(min-width: 1240px) 590px, (min-width: 900px) 48vw, 100vw"
+  # handyman gets a bento tile, not a hero slide; site.json heroOrder sets the sequence (the first one is what
+  # a visitor lands on), anything it leaves out follows in services.json order
+  $heroList = @($services | Where-Object { $_.inHero -ne $false -and $heroInfo[$_.key] })
+  if ($cfg.heroOrder) {
+    $ord = @($cfg.heroOrder | ForEach-Object { $_ })
+    $heroList = @($ord | ForEach-Object { $k = $_; $heroList | Where-Object { $_.key -eq $k } }) + @($heroList | Where-Object { $ord -notcontains $_.key })
+  }
+  foreach ($s in $heroList) {
+    $hi = $heroInfo[$s.key]
     $on = if ($h -eq 0) { " is-on" } else { "" }
     $ld = if ($h -eq 0) { 'fetchpriority="high"' } else { 'loading="lazy"' }
     if ($h -eq 0) { $heroCaption = Esc $hi.alt }
-    [void]$slides.Append(('<img class="hero-slide{0}" data-key="{1}" data-caption="{9}" src="{2}{3}" srcset="{2}{4} {8}w, {2}{3} {5}w" sizes="{10}" width="{5}" height="{6}" alt="" {7} decoding="async">' -f $on, $s.key, $R, $hi.big, $hi.small, $hi.w, $hi.h, $ld, $hi.wSmall, (Attr $hi.alt), $heroSizes))
+    $fp = Fit-Photo $hi $heroSizes $ld ''
+    [void]$slides.Append(('<div class="hero-slide {0}{1}" data-key="{2}" data-caption="{3}">{4}</div>' -f $fp.cls, $on, $s.key, (Attr $hi.alt), $fp.html))
     [void]$words.Append(('<span class="word{0}" data-key="{1}">{2},</span>' -f $on, $s.key, (Esc $s.noun)))
     $h++
   }
@@ -483,7 +500,7 @@ function Build-Site($mode) {
     $intro = (($s.intro | ForEach-Object { "<p>$(Esc $_)</p>" }) -join "")
     $hl = (($s.highlights | ForEach-Object { "<li>$checkSvg$(Esc $_)</li>" }) -join "")
     $heroImg = ""
-    if ($hi) { $heroImg = ('<img src="{0}{1}" srcset="{0}{2} {6}w, {0}{1} {3}w" sizes="(min-width: 900px) 40vw, 100vw" width="{3}" height="{4}" alt="{5}" fetchpriority="high" decoding="async">' -f $R, $hi.big, $hi.small, $hi.w, $hi.h, (Attr $hi.alt), $hi.wSmall) }
+    if ($hi) { $fp = Fit-Photo $hi '(min-width: 900px) 40vw, 100vw' 'fetchpriority="high"' (Attr $hi.alt); $heroImg = '<div class="{0}">{1}</div>' -f $fp.cls, $fp.html }
     $tokens = @{
       svcName = Esc $s.name; svcNameLower = Esc $s.name.ToLowerInvariant(); svcServiceName = Esc $s.serviceName; svcH1 = Esc $s.h1; svcShort = Esc $s.short; svcNoun = Esc $s.noun
       svcHeroImg = $heroImg; svcIntro = $intro; svcHighlights = $hl; svcGallery = $gal.ToString(); svcFaq = $faq; svcOthers = $others

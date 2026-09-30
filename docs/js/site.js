@@ -8,6 +8,28 @@
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
+  /* ---------- open at the top: no restored scroll on reload, and no #section left in the address bar ---------- */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  var dropHash = function () { if (location.hash && history.replaceState) history.replaceState(null, '', location.pathname + location.search); };
+  // a link from another page (a service page's "Get a free quote") still lands on its section, jumping there
+  // directly rather than trusting the browser's smooth scroll; the hash is then dropped so a refresh starts at the top
+  if (location.hash) window.addEventListener('load', function () {
+    var t = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (t) { try { t.scrollIntoView({ behavior: 'instant', block: 'start' }); } catch (err) { t.scrollIntoView(true); } }
+    dropHash();
+  });
+  var pagePath = function (p) { return p.replace(/index\.html$/, ''); };
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a[href*="#"]') : null;
+    if (!a || a.classList.contains('skip') || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if (pagePath(a.pathname) !== pagePath(location.pathname) || a.search !== location.search || a.hash.length < 2) return;
+    var t = document.getElementById(decodeURIComponent(a.hash.slice(1)));
+    if (!t) return;
+    e.preventDefault();
+    t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    dropHash();
+  });
+
   /* ---------- header shadow + mobile call bar: observe the top of the page and the hero ---------- */
   var head = $('.site-head');
   var mobileCta = $('.mobile-cta');
@@ -53,7 +75,7 @@
       var key = words[idx].getAttribute('data-key'), text = '';
       slides.forEach(function (s) {
         var on = s.getAttribute('data-key') === key;
-        if (on) { if (s.getAttribute('loading') === 'lazy') s.removeAttribute('loading'); text = s.getAttribute('data-caption') || ''; }
+        if (on) { $$('img[loading]', s).forEach(function (im) { im.removeAttribute('loading'); }); text = s.getAttribute('data-caption') || ''; }
         s.classList.toggle('is-on', on);
       });
       if (cap && prev !== idx) {
