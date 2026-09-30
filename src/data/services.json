@@ -25,11 +25,24 @@
       "Free quotes"
     ],
     "faqs": [
-      { "q": "Do I have to gut the whole kitchen?", "a": "No. Plenty of kitchens just need new counters, a backsplash, paint and hardware to feel new again. Ryan will tell you honestly what will make the biggest difference for your budget." },
-      { "q": "How long will my kitchen be out of commission?", "a": "It depends on the scope. Your written quote includes a realistic timeline, and Ryan keeps you posted if anything shifts. Small refreshes are often days; full remodels take longer." },
-      { "q": "Can you work from photos I've saved?", "a": "Yes. Bring your Pinterest board, screenshots or magazine pages to the walkthrough. That's usually the fastest way to nail down the look you're after." },
-      { "q": "Do you charge for the estimate?", "a": "No. The walkthrough and written quote are free, with no pressure to commit." }
-    ]
+      {
+        "q": "Do I have to gut the whole kitchen?",
+        "a": "No. Plenty of kitchens just need new counters, a backsplash, paint and hardware to feel new again. Ryan will tell you honestly what will make the biggest difference for your budget."
+      },
+      {
+        "q": "How long will my kitchen be out of commission?",
+        "a": "It depends on the scope. Your written quote includes a realistic timeline, and Ryan keeps you posted if anything shifts. Small refreshes are often days; full remodels take longer."
+      },
+      {
+        "q": "Can you work from photos I've saved?",
+        "a": "Yes. Bring your Pinterest board, screenshots or magazine pages to the walkthrough. That's usually the fastest way to nail down the look you're after."
+      },
+      {
+        "q": "Do you charge for the estimate?",
+        "a": "No. The walkthrough and written quote are free, with no pressure to commit."
+      }
+    ],
+    "card": "kitchens-sage-butcher-block/03"
   },
   {
     "key": "bathrooms",
@@ -57,11 +70,24 @@
       "Free quotes"
     ],
     "faqs": [
-      { "q": "Can you turn my tub into a walk-in shower?", "a": "Yes. Tub-to-shower conversions are one of the most common requests, and they make a big difference for accessibility." },
-      { "q": "Will I be without a bathroom the whole time?", "a": "Ryan plans the work so you're without the room for as little time as possible, and tells you up front which days that will be." },
-      { "q": "Do you do small bathrooms and powder rooms?", "a": "Absolutely. A new vanity, mirror, lighting and paint can transform a small room in a short time." },
-      { "q": "Is the estimate free?", "a": "Yes. Ryan comes out, measures, listens and gives you a written quote at no charge." }
-    ]
+      {
+        "q": "Can you turn my tub into a walk-in shower?",
+        "a": "Yes. Tub-to-shower conversions are one of the most common requests, and they make a big difference for accessibility."
+      },
+      {
+        "q": "Will I be without a bathroom the whole time?",
+        "a": "Ryan plans the work so you're without the room for as little time as possible, and tells you up front which days that will be."
+      },
+      {
+        "q": "Do you do small bathrooms and powder rooms?",
+        "a": "Absolutely. A new vanity, mirror, lighting and paint can transform a small room in a short time."
+      },
+      {
+        "q": "Is the estimate free?",
+        "a": "Yes. Ryan comes out, measures, listens and gives you a written quote at no charge."
+      }
+    ],
+    "card": "bathrooms-green-corner-shower/01"
   },
   {
     "key": "basements",
@@ -89,11 +115,24 @@
       "Free quotes"
     ],
     "faqs": [
-      { "q": "My basement is a blank concrete box. Where do we start?", "a": "With a walkthrough. Ryan looks at the layout, moisture, ceiling height and mechanicals, then sketches options with you before anything gets priced." },
-      { "q": "Can you add a bathroom or a bar?", "a": "Yes. Both are common parts of a basement finish, and they're easiest to plan from the start." },
-      { "q": "Do I need a permit to finish a basement?", "a": "Often, yes, depending on your city and the scope. Ryan tells you up front what your municipality requires and how it's handled." },
-      { "q": "How do you handle the ceiling?", "a": "Drywall, drop ceiling, or a tongue-and-groove pine ceiling like the walkout basement in our photos. Each has trade-offs for access and look, and Ryan will walk you through them." }
-    ]
+      {
+        "q": "My basement is a blank concrete box. Where do we start?",
+        "a": "With a walkthrough. Ryan looks at the layout, moisture, ceiling height and mechanicals, then sketches options with you before anything gets priced."
+      },
+      {
+        "q": "Can you add a bathroom or a bar?",
+        "a": "Yes. Both are common parts of a basement finish, and they're easiest to plan from the start."
+      },
+      {
+        "q": "Do I need a permit to finish a basement?",
+        "a": "Often, yes, depending on your city and the scope. Ryan tells you up front what your municipality requires and how it's handled."
+      },
+      {
+        "q": "How do you handle the ceiling?",
+        "a": "Drywall, drop ceiling, or a tongue-and-groove pine ceiling like the walkout basement in our photos. Each has trade-offs for access and look, and Ryan will walk you through them."
+      }
+    ],
+    "card": "basements-navy-lounge/01"
   },
   {
     "key": "decks",
@@ -122,11 +161,24 @@
       "Free estimates"
     ],
     "faqs": [
-      { "q": "Composite or pressure-treated wood?", "a": "Composite costs more up front and needs almost no maintenance. Pressure-treated wood costs less and looks great, but wants a stain or seal every few years. Ryan will price both so you can decide." },
-      { "q": "Can you rebuild on my existing deck frame?", "a": "Sometimes. If the framing and posts are sound, a re-deck with new boards and railings saves money. If they're not, Ryan will show you why and quote a proper rebuild." },
-      { "q": "Do decks need a permit?", "a": "In Stow and most Summit and Portage County cities, yes. Ryan tells you what your city requires and handles the details so the deck is built to code." },
-      { "q": "When is the best time to build?", "a": "Spring through fall is the busy season, so getting on the schedule early helps. Some builds can happen in cooler months too." }
-    ]
+      {
+        "q": "Composite or pressure-treated wood?",
+        "a": "Composite costs more up front and needs almost no maintenance. Pressure-treated wood costs less and looks great, but wants a stain or seal every few years. Ryan will price both so you can decide."
+      },
+      {
+        "q": "Can you rebuild on my existing deck frame?",
+        "a": "Sometimes. If the framing and posts are sound, a re-deck with new boards and railings saves money. If they're not, Ryan will show you why and quote a proper rebuild."
+      },
+      {
+        "q": "Do decks need a permit?",
+        "a": "In Stow and most Summit and Portage County cities, yes. Ryan tells you what your city requires and handles the details so the deck is built to code."
+      },
+      {
+        "q": "When is the best time to build?",
+        "a": "Spring through fall is the busy season, so getting on the schedule early helps. Some builds can happen in cooler months too."
+      }
+    ],
+    "card": "decks-two-level/01"
   },
   {
     "key": "living-rooms",
@@ -154,10 +206,20 @@
       "Free quotes"
     ],
     "faqs": [
-      { "q": "Can you open up a wall between rooms?", "a": "Often, yes. Ryan checks whether the wall is load-bearing and explains what it takes either way before you decide." },
-      { "q": "Will new floors match the rest of the house?", "a": "That's the goal. Ryan helps you pick a plank or hardwood-look floor that ties into adjoining rooms, and can carry it through for a seamless run." },
-      { "q": "How disruptive is a living room refresh?", "a": "Less than you'd think. Flooring, trim and paint go quickly, and Ryan keeps the job site clean and tells you what's happening each day." }
-    ]
+      {
+        "q": "Can you open up a wall between rooms?",
+        "a": "Often, yes. Ryan checks whether the wall is load-bearing and explains what it takes either way before you decide."
+      },
+      {
+        "q": "Will new floors match the rest of the house?",
+        "a": "That's the goal. Ryan helps you pick a plank or hardwood-look floor that ties into adjoining rooms, and can carry it through for a seamless run."
+      },
+      {
+        "q": "How disruptive is a living room refresh?",
+        "a": "Less than you'd think. Flooring, trim and paint go quickly, and Ryan keeps the job site clean and tells you what's happening each day."
+      }
+    ],
+    "card": "living-rooms-fireplace-lounge/01"
   },
   {
     "key": "handyman",
@@ -188,10 +250,24 @@
       "Free quotes"
     ],
     "faqs": [
-      { "q": "How small is too small?", "a": "There's no such thing. A single door or a shelf is fine. If you have several small things, put them all on the list; one visit usually covers more than you'd expect." },
-      { "q": "Can you bundle a bunch of little jobs into one visit?", "a": "Yes, and it's the best way to do it. Ryan looks at the list, gives you one written quote for the whole thing, and knocks it out in a planned block of time." },
-      { "q": "Do you handle plumbing and electrical?", "a": "Fixture swaps like faucets, vanities and light fixtures, yes. Anything that needs a licensed trade, Ryan will tell you up front and can help coordinate." },
-      { "q": "Do you do pre-sale and inspection repair lists?", "a": "Yes. Inspection repair lists and move-out fixes are common requests. Send the report or the list and Ryan will quote it." }
-    ]
+      {
+        "q": "How small is too small?",
+        "a": "There's no such thing. A single door or a shelf is fine. If you have several small things, put them all on the list; one visit usually covers more than you'd expect."
+      },
+      {
+        "q": "Can you bundle a bunch of little jobs into one visit?",
+        "a": "Yes, and it's the best way to do it. Ryan looks at the list, gives you one written quote for the whole thing, and knocks it out in a planned block of time."
+      },
+      {
+        "q": "Do you handle plumbing and electrical?",
+        "a": "Fixture swaps like faucets, vanities and light fixtures, yes. Anything that needs a licensed trade, Ryan will tell you up front and can help coordinate."
+      },
+      {
+        "q": "Do you do pre-sale and inspection repair lists?",
+        "a": "Yes. Inspection repair lists and move-out fixes are common requests. Send the report or the list and Ryan will quote it."
+      }
+    ],
+    "card": "bathrooms-powder-room/01",
+    "bentoLine": "Doors, drywall, fixtures, TV mounting, deck repairs and the punch list you keep putting off."
   }
 ]

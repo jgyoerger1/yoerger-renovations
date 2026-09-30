@@ -26,10 +26,8 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="preload" as="image" href="img/hero/kitchens-1800.jpg" imagesrcset="img/hero/kitchens-1000.jpg 1000w, img/hero/kitchens-1800.jpg 1500w" imagesizes="100vw">
+<link rel="preload" href="fonts/big-shoulders-display-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="img/hero/kitchens-1800.jpg" imagesrcset="img/hero/kitchens-1000.jpg 1000w, img/hero/kitchens-1800.jpg 1500w" imagesizes="(min-width: 900px) 58vw, 100vw">
 <link rel="stylesheet" href="css/site.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://www.yoergerrenovations.com/#website","url":"https://www.yoergerrenovations.com/","name":"Yoerger Renovations","publisher":{"@id":"https://www.yoergerrenovations.com/#business"}},{"@type":"HomeAndConstructionBusiness","@id":"https://www.yoergerrenovations.com/#business","name":"Yoerger Renovations, LTD.","alternateName":"Yoerger Renovations","url":"https://www.yoergerrenovations.com/","telephone":"+12164383211","email":"YoergerRenovations@gmail.com","image":"https://www.yoergerrenovations.com/img/og/home.jpg","logo":"https://www.yoergerrenovations.com/img/logo.png","description":"Locally owned remodeling and handyman services based in Stow, Ohio 44224, serving Summit and Portage counties: kitchens, bathrooms, basement finishing, custom decks, living rooms and small repairs. Free quotes.","founder":{"@type":"Person","name":"Ryan Yoerger","jobTitle":"Owner"},"address":{"@type":"PostalAddress","addressLocality":"Stow","addressRegion":"OH","postalCode":"44224","addressCountry":"US"},"areaServed":[{"@type":"AdministrativeArea","name":"Summit County, Ohio"},{"@type":"AdministrativeArea","name":"Portage County, Ohio"},{"@type":"City","name":"Stow, OH"},{"@type":"City","name":"Cuyahoga Falls, OH"},{"@type":"City","name":"Hudson, OH"},{"@type":"City","name":"Kent, OH"},{"@type":"City","name":"Tallmadge, OH"},{"@type":"City","name":"Munroe Falls, OH"},{"@type":"City","name":"Silver Lake, OH"},{"@type":"City","name":"Akron, OH"},{"@type":"City","name":"Fairlawn, OH"},{"@type":"City","name":"Twinsburg, OH"},{"@type":"City","name":"Macedonia, OH"},{"@type":"City","name":"Northfield, OH"},{"@type":"City","name":"Richfield, OH"},{"@type":"City","name":"Bath, OH"},{"@type":"City","name":"Copley, OH"},{"@type":"City","name":"Green, OH"},{"@type":"City","name":"Streetsboro, OH"},{"@type":"City","name":"Aurora, OH"},{"@type":"City","name":"Ravenna, OH"},{"@type":"City","name":"Brimfield, OH"},{"@type":"City","name":"Rootstown, OH"},{"@type":"City","name":"Mantua, OH"},{"@type":"City","name":"Mogadore, OH"},{"@type":"City","name":"Garrettsville, OH"}],"sameAs":["https://www.facebook.com/profile.php?id=61579007753770"],"priceRange":"$$","knowsAbout":["Kitchen remodeling","Bathroom remodeling","Basement finishing","Deck building","Living room remodeling","Handyman services"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Remodeling services","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Kitchen remodeling","url":"https://www.yoergerrenovations.com/kitchen-remodeling/"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Bathroom remodeling","url":"https://www.yoergerrenovations.com/bathroom-remodeling/"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Basement finishing","url":"https://www.yoergerrenovations.com/basement-finishing/"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Deck building","url":"https://www.yoergerrenovations.com/deck-building/"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Living room remodeling","url":"https://www.yoergerrenovations.com/living-room-remodeling/"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Handyman services","url":"https://www.yoergerrenovations.com/handyman-services/"}}]}}]}</script>
 </head>
@@ -37,7 +35,7 @@
 <a class="skip" href="#main">Skip to content</a>
 <div class="tape" aria-hidden="true">
   <div class="tape-strip"><div class="tape-fill"></div></div>
-  <div class="tape-read"><span id="tapeRead">0' 0"</span></div>
+  <div class="tape-read"></div>
 </div>
 <header class="site-head">
   <div class="wrap head-row">
@@ -67,105 +65,81 @@
 
 <main id="main">
   <section class="hero" id="home">
-    <div class="hero-media" aria-hidden="true">
-      <img class="hero-slide is-on" data-key="kitchens" src="img/hero/kitchens-1800.jpg" srcset="img/hero/kitchens-1000.jpg 1000w, img/hero/kitchens-1800.jpg 1500w" sizes="100vw" width="1500" height="1125" alt="" fetchpriority="high" decoding="async"><img class="hero-slide" data-key="bathrooms" src="img/hero/bathrooms-1800.jpg" srcset="img/hero/bathrooms-1000.jpg 1000w, img/hero/bathrooms-1800.jpg 1024w" sizes="100vw" width="1024" height="1536" alt="" loading="lazy" decoding="async"><img class="hero-slide" data-key="basements" src="img/hero/basements-1800.jpg" srcset="img/hero/basements-1000.jpg 1000w, img/hero/basements-1800.jpg 1800w" sizes="100vw" width="1800" height="1350" alt="" loading="lazy" decoding="async"><img class="hero-slide" data-key="decks" src="img/hero/decks-1800.jpg" srcset="img/hero/decks-1000.jpg 1000w, img/hero/decks-1800.jpg 1800w" sizes="100vw" width="1800" height="1350" alt="" loading="lazy" decoding="async"><img class="hero-slide" data-key="living-rooms" src="img/hero/living-rooms-1800.jpg" srcset="img/hero/living-rooms-1000.jpg 1000w, img/hero/living-rooms-1800.jpg 1500w" sizes="100vw" width="1500" height="1125" alt="" loading="lazy" decoding="async">
-      <div class="hero-scrim"></div>
-    </div>
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow eyebrow-light">Locally owned <span class="dot"></span> Stow, Ohio 44224 <span class="dot"></span> Free quotes</p>
+        <p class="eyebrow">Locally owned in Stow, Ohio 44224</p>
         <h1 class="display hero-title">
-          <span class="line"><span class="line-in">The <span class="rot" aria-hidden="true"><span class="word is-on" data-key="kitchens">kitchen</span><span class="word" data-key="bathrooms">bathroom</span><span class="word" data-key="basements">basement</span><span class="word" data-key="decks">deck</span><span class="word" data-key="living-rooms">living room</span></span><span class="visually-hidden">kitchen, bathroom, basement, deck or living room</span></span></span>
-          <span class="line"><span class="line-in">you've been picturing,</span></span>
-          <span class="line"><span class="line-in">built right.</span></span>
+          <span aria-hidden="true">
+            <span class="line"><span class="line-in">Your <span class="rot"><span class="word is-on" data-key="kitchens">kitchen,</span><span class="word" data-key="bathrooms">bathroom,</span><span class="word" data-key="basements">basement,</span><span class="word" data-key="decks">deck,</span><span class="word" data-key="living-rooms">living room,</span></span></span></span>
+            <span class="line"><span class="line-in">built right.</span></span>
+          </span>
+          <span class="visually-hidden">Your kitchen, bathroom, basement, deck or living room, built right.</span>
         </h1>
-        <p class="lede hero-lede">Yoerger Renovations is a locally owned remodeling and handyman company in Stow, Ohio, serving Summit and Portage counties. Ryan Yoerger listens first, gives you a clear written quote for free, and keeps you in the loop from the first call to the final walkthrough.</p>
+        <p class="hero-lede">Kitchens, baths, basements, decks and handyman work across Summit and Portage counties, with free written quotes.</p>
         <div class="cta-row">
-          <a class="btn btn-brass" href="#contact">Get a free quote <svg class="arr" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a class="btn btn-ghost-light" href="#work">See our work</a>
+          <a class="btn btn-primary" href="#contact">Get a free quote <svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+          <a class="btn btn-ghost" href="work/">See our work</a>
         </div>
-        <p class="hero-note"><a class="pill" href="handyman-services/">Handyman services available</a><span>Small jobs and repair lists welcome.</span></p>
       </div>
-      <aside class="hero-card">
-        <p class="hero-card-label mono">Talk to Ryan</p>
-        <a class="hero-phone" href="tel:+12164383211">(216) 438-3211</a>
-        <p class="hero-card-note">Call or text. Photos of the room are welcome.</p>
-        <div class="hero-card-row"><a href="mailto:YoergerRenovations@gmail.com">YoergerRenovations@gmail.com</a><button class="copy" type="button" data-copy="YoergerRenovations@gmail.com">Copy</button></div>
-      </aside>
-    </div>
-    <div class="wrap hero-foot">
-      <div class="hero-dots" role="tablist" aria-label="Featured rooms"><button class="hero-dot is-on" type="button" role="tab" data-key="kitchens" aria-selected="true"><span>Kitchens</span><i></i></button><button class="hero-dot" type="button" role="tab" data-key="bathrooms" aria-selected="false"><span>Bathrooms</span><i></i></button><button class="hero-dot" type="button" role="tab" data-key="basements" aria-selected="false"><span>Basements</span><i></i></button><button class="hero-dot" type="button" role="tab" data-key="decks" aria-selected="false"><span>Decks</span><i></i></button><button class="hero-dot" type="button" role="tab" data-key="living-rooms" aria-selected="false"><span>Living rooms</span><i></i></button></div>
-      <a class="scroll-cue" href="#services">Scroll</a>
+      <figure class="hero-media">
+        <div class="hero-frame"><img class="hero-slide is-on" data-key="kitchens" data-caption="Sage cabinets, butcher-block counters and a new range" src="img/hero/kitchens-1800.jpg" srcset="img/hero/kitchens-1000.jpg 1000w, img/hero/kitchens-1800.jpg 1500w" sizes="(min-width: 900px) 58vw, 100vw" width="1500" height="1125" alt="" fetchpriority="high" decoding="async"><img class="hero-slide" data-key="bathrooms" data-caption="Glass shower door and wood vanity" src="img/hero/bathrooms-1800.jpg" srcset="img/hero/bathrooms-1000.jpg 1000w, img/hero/bathrooms-1800.jpg 1024w" sizes="(min-width: 900px) 58vw, 100vw" width="1024" height="1536" alt="" loading="lazy" decoding="async"><img class="hero-slide" data-key="basements" data-caption="Open family room with pine ceiling and brick fireplace" src="img/hero/basements-1800.jpg" srcset="img/hero/basements-1000.jpg 1000w, img/hero/basements-1800.jpg 1800w" sizes="(min-width: 900px) 58vw, 100vw" width="1800" height="1350" alt="" loading="lazy" decoding="async"><img class="hero-slide" data-key="decks" data-caption="Low composite deck across the back of the house" src="img/hero/decks-1800.jpg" srcset="img/hero/decks-1000.jpg 1000w, img/hero/decks-1800.jpg 1800w" sizes="(min-width: 900px) 58vw, 100vw" width="1800" height="1350" alt="" loading="lazy" decoding="async"><img class="hero-slide" data-key="living-rooms" data-caption="French doors and new plank flooring" src="img/hero/living-rooms-1800.jpg" srcset="img/hero/living-rooms-1000.jpg 1000w, img/hero/living-rooms-1800.jpg 1500w" sizes="(min-width: 900px) 58vw, 100vw" width="1500" height="1125" alt="" loading="lazy" decoding="async"></div>
+        <figcaption class="hero-cap" id="heroCap">Sage cabinets, butcher-block counters and a new range</figcaption>
+      </figure>
     </div>
   </section>
 
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track"><ul><li>Kitchens</li><li>Bathrooms</li><li>Basements</li><li>Decks</li><li>Living rooms</li><li>Handyman services available</li><li>Free quotes</li><li>Locally owned</li><li>Stow, OH 44224</li><li>Call or text (216) 438-3211</li></ul><ul><li>Kitchens</li><li>Bathrooms</li><li>Basements</li><li>Decks</li><li>Living rooms</li><li>Handyman services available</li><li>Free quotes</li><li>Locally owned</li><li>Stow, OH 44224</li><li>Call or text (216) 438-3211</li></ul></div>
-  </div>
-
   <section id="services" class="sec">
     <div class="wrap">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow">What we build</p>
-        <h2 class="display">Five rooms we know inside and out, plus the small stuff</h2>
-        <p class="lede">Great construction starts with really listening to what you need and making the whole process easy. Pick a room to see what's included and recent work. Handyman services available for repairs and the punch list.</p>
-      </div>
-      <div class="svc-grid"><article class="svc" data-reveal style="--i:0"><a class="svc-link" href="kitchen-remodeling/"><div class="svc-media"><img src="img/work/kitchens-sage-butcher-block/01-sage-cabinets-butcher-block-counters-and-a-new-range-700.jpg" srcset="img/work/kitchens-sage-butcher-block/01-sage-cabinets-butcher-block-counters-and-a-new-range-700.jpg 700w, img/work/kitchens-sage-butcher-block/01-sage-cabinets-butcher-block-counters-and-a-new-range-1400.jpg 1400w" sizes="(min-width: 640px) 20vw, 76vw" width="1400" height="1050" alt="Sage cabinets, butcher-block counters and a new range" loading="lazy" decoding="async"></div><div class="svc-body"><h3 class="svc-name">Kitchens</h3><p class="svc-short">Cabinets, counters, floors and layout, built around how you actually cook.</p><span class="svc-more">Kitchen remodeling <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></article><article class="svc" data-reveal style="--i:1"><a class="svc-link" href="bathroom-remodeling/"><div class="svc-media"><img src="img/work/bathrooms-basement-glass-shower/01-glass-shower-door-and-wood-vanity-700.jpg" srcset="img/work/bathrooms-basement-glass-shower/01-glass-shower-door-and-wood-vanity-700.jpg 700w, img/work/bathrooms-basement-glass-shower/01-glass-shower-door-and-wood-vanity-1400.jpg 1024w" sizes="(min-width: 640px) 20vw, 76vw" width="1024" height="1536" alt="Glass shower door and wood vanity" loading="lazy" decoding="async"></div><div class="svc-body"><h3 class="svc-name">Bathrooms</h3><p class="svc-short">Showers, tubs, vanities and tile, from a quick refresh to a spa-like retreat.</p><span class="svc-more">Bathroom remodeling <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></article><article class="svc" data-reveal style="--i:2"><a class="svc-link" href="basement-finishing/"><div class="svc-media"><img src="img/work/basements-walkout-pine-ceiling/01-open-family-room-with-pine-ceiling-and-brick-fireplace-700.jpg" srcset="img/work/basements-walkout-pine-ceiling/01-open-family-room-with-pine-ceiling-and-brick-fireplace-700.jpg 700w, img/work/basements-walkout-pine-ceiling/01-open-family-room-with-pine-ceiling-and-brick-fireplace-1400.jpg 1400w" sizes="(min-width: 640px) 20vw, 76vw" width="1400" height="1050" alt="Open family room with pine ceiling and brick fireplace" loading="lazy" decoding="async"></div><div class="svc-body"><h3 class="svc-name">Basements</h3><p class="svc-short">Family rooms, offices, gyms and guest suites out of space you already own.</p><span class="svc-more">Basement finishing <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></article><article class="svc" data-reveal style="--i:3"><a class="svc-link" href="deck-building/"><div class="svc-media"><img src="img/work/decks-composite-backyard/01-low-composite-deck-across-the-back-of-the-house-700.jpg" srcset="img/work/decks-composite-backyard/01-low-composite-deck-across-the-back-of-the-house-700.jpg 700w, img/work/decks-composite-backyard/01-low-composite-deck-across-the-back-of-the-house-1400.jpg 1400w" sizes="(min-width: 640px) 20vw, 76vw" width="1400" height="1050" alt="Low composite deck across the back of the house" loading="lazy" decoding="async"></div><div class="svc-body"><h3 class="svc-name">Decks</h3><p class="svc-short">Composite or wood, new builds or rebuilds, with railings and stairs done right.</p><span class="svc-more">Deck building <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></article><article class="svc" data-reveal style="--i:4"><a class="svc-link" href="living-room-remodeling/"><div class="svc-media"><img src="img/work/living-rooms-sage-french-doors/01-french-doors-and-new-plank-flooring-700.jpg" srcset="img/work/living-rooms-sage-french-doors/01-french-doors-and-new-plank-flooring-700.jpg 700w, img/work/living-rooms-sage-french-doors/01-french-doors-and-new-plank-flooring-1400.jpg 1400w" sizes="(min-width: 640px) 20vw, 76vw" width="1400" height="1050" alt="French doors and new plank flooring" loading="lazy" decoding="async"></div><div class="svc-body"><h3 class="svc-name">Living rooms</h3><p class="svc-short">New floors, trim, built-ins and lighting for the room everyone ends up in.</p><span class="svc-more">Living room remodeling <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></article><article class="svc" data-reveal style="--i:5"><a class="svc-link" href="handyman-services/"><div class="svc-media"><img src="img/work/bathrooms-powder-room/01-dark-vanity-with-a-new-mirror-and-lights-700.jpg" srcset="img/work/bathrooms-powder-room/01-dark-vanity-with-a-new-mirror-and-lights-700.jpg 700w, img/work/bathrooms-powder-room/01-dark-vanity-with-a-new-mirror-and-lights-1400.jpg 1024w" sizes="(min-width: 640px) 20vw, 76vw" width="1024" height="1536" alt="Dark vanity with a new mirror and lights" loading="lazy" decoding="async"></div><div class="svc-body"><h3 class="svc-name">Handyman</h3><p class="svc-short">Handyman services available: repairs, small jobs and the punch list you keep putting off.</p><span class="svc-more">Handyman services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></article></div>
+      <header class="sec-head" data-reveal>
+        <h2 class="display">Five rooms, plus the small stuff.</h2>
+        <p class="lede">Pick a room to see what's included and recent jobs. Handyman services available for repairs and the punch list.</p>
+      </header>
+      <div class="bento"><a class="b-tile bt-k" href="kitchen-remodeling/" data-reveal style="--i:0"><div class="b-media"><img src="img/work/kitchens-sage-butcher-block/03-kitchen-and-dining-with-new-plank-floors-700.jpg" srcset="img/work/kitchens-sage-butcher-block/03-kitchen-and-dining-with-new-plank-floors-700.jpg 700w, img/work/kitchens-sage-butcher-block/03-kitchen-and-dining-with-new-plank-floors-1400.jpg 1400w" sizes="(min-width: 1024px) 50vw, 100vw" width="1400" height="1867" alt="Kitchen and dining with new plank floors" loading="lazy" decoding="async"></div><div class="b-cap"><div><h3 class="b-name">Kitchens</h3><p class="b-short">Cabinets, counters, floors and layout, built around how you actually cook.</p></div><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></div></a><a class="b-tile bt-b" href="bathroom-remodeling/" data-reveal style="--i:1"><div class="b-media"><img src="img/work/bathrooms-green-corner-shower/01-corner-shower-and-new-toilet-700.jpg" srcset="img/work/bathrooms-green-corner-shower/01-corner-shower-and-new-toilet-700.jpg 700w, img/work/bathrooms-green-corner-shower/01-corner-shower-and-new-toilet-1400.jpg 1400w" sizes="(min-width: 1024px) 50vw, 100vw" width="1400" height="2695" alt="Corner shower and new toilet" loading="lazy" decoding="async"></div><div class="b-cap"><div><h3 class="b-name">Bathrooms</h3><p class="b-short">Showers, tubs, vanities and tile, from a quick refresh to a spa-like retreat.</p></div><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></div></a><a class="b-tile bt-s" href="basement-finishing/" data-reveal style="--i:2"><div class="b-media"><img src="img/work/basements-navy-lounge/01-navy-walls-carpet-and-recessed-lights-700.jpg" srcset="img/work/basements-navy-lounge/01-navy-walls-carpet-and-recessed-lights-700.jpg 700w, img/work/basements-navy-lounge/01-navy-walls-carpet-and-recessed-lights-1400.jpg 1400w" sizes="(min-width: 1024px) 50vw, 100vw" width="1400" height="933" alt="Navy walls, carpet and recessed lights" loading="lazy" decoding="async"></div><div class="b-cap"><div><h3 class="b-name">Basements</h3><p class="b-short">Family rooms, offices, gyms and guest suites out of space you already own.</p></div><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></div></a><a class="b-tile bt-d" href="deck-building/" data-reveal style="--i:3"><div class="b-media"><img src="img/work/decks-two-level/01-two-level-deck-and-stairs-on-a-hillside-home-700.jpg" srcset="img/work/decks-two-level/01-two-level-deck-and-stairs-on-a-hillside-home-700.jpg 700w, img/work/decks-two-level/01-two-level-deck-and-stairs-on-a-hillside-home-1400.jpg 1400w" sizes="(min-width: 1024px) 50vw, 100vw" width="1400" height="1050" alt="Two-level deck and stairs on a hillside home" loading="lazy" decoding="async"></div><div class="b-cap"><div><h3 class="b-name">Decks</h3><p class="b-short">Composite or wood, new builds or rebuilds, with railings and stairs done right.</p></div><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></div></a><a class="b-tile bt-l" href="living-room-remodeling/" data-reveal style="--i:4"><div class="b-media"><img src="img/work/living-rooms-fireplace-lounge/01-fireplace-wall-with-built-in-shelves-700.jpg" srcset="img/work/living-rooms-fireplace-lounge/01-fireplace-wall-with-built-in-shelves-700.jpg 700w, img/work/living-rooms-fireplace-lounge/01-fireplace-wall-with-built-in-shelves-1400.jpg 1400w" sizes="(min-width: 1024px) 50vw, 100vw" width="1400" height="1866" alt="Fireplace wall with built-in shelves" loading="lazy" decoding="async"></div><div class="b-cap"><div><h3 class="b-name">Living rooms</h3><p class="b-short">New floors, trim, built-ins and lighting for the room everyone ends up in.</p></div><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></div></a><a class="b-tile b-handy bt-h" href="handyman-services/" data-reveal style="--i:5"><div class="b-copy"><h3>Handyman services available</h3><p>Doors, drywall, fixtures, TV mounting, deck repairs and the punch list you keep putting off.</p><span class="b-link">See handyman services <svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span></div><div class="b-media"><img src="img/work/bathrooms-powder-room/01-dark-vanity-with-a-new-mirror-and-lights-700.jpg" srcset="img/work/bathrooms-powder-room/01-dark-vanity-with-a-new-mirror-and-lights-700.jpg 700w, img/work/bathrooms-powder-room/01-dark-vanity-with-a-new-mirror-and-lights-1400.jpg 1024w" sizes="(min-width: 1024px) 50vw, 100vw" width="1024" height="1536" alt="Dark vanity with a new mirror and lights" loading="lazy" decoding="async"></div></a></div>
     </div>
   </section>
 
   <section id="work" class="sec sec-alt">
     <div class="wrap">
-      <div class="sec-head" data-reveal>
-        <p class="eyebrow">Recent work</p>
-        <h2 class="display">Real homes across Summit and Portage counties</h2>
-        <p class="lede">No stock photos. Every picture here is a job Ryan finished. Tap any photo to see the whole project.</p>
-      </div>
-      <div class="work-tools" data-reveal>
-        <div class="chips" data-filter-group="#homeGrid"><button class="chip" type="button" aria-pressed="true" data-cat="all">All<span class="n">9</span></button><button class="chip" type="button" aria-pressed="false" data-cat="kitchens">Kitchens<span class="n">1</span></button><button class="chip" type="button" aria-pressed="false" data-cat="bathrooms">Bathrooms<span class="n">2</span></button><button class="chip" type="button" aria-pressed="false" data-cat="basements">Basements<span class="n">2</span></button><button class="chip" type="button" aria-pressed="false" data-cat="decks">Decks<span class="n">3</span></button><button class="chip" type="button" aria-pressed="false" data-cat="living-rooms">Living rooms<span class="n">1</span></button></div>
-        <a class="btn btn-ghost btn-sm" href="work/">All 48 photos</a>
-      </div>
-      <div class="grid" id="homeGrid"><figure class="tile wide" data-cat="basements" data-project="basements-walkout-pine-ceiling" data-index="0" data-reveal style="--i:0"><button class="tile-btn" type="button" aria-label="Open project: Walkout basement with a pine ceiling and brick fireplace"><img src="img/work/basements-walkout-pine-ceiling/01-open-family-room-with-pine-ceiling-and-brick-fireplace-700.jpg" srcset="img/work/basements-walkout-pine-ceiling/01-open-family-room-with-pine-ceiling-and-brick-fireplace-700.jpg 700w, img/work/basements-walkout-pine-ceiling/01-open-family-room-with-pine-ceiling-and-brick-fireplace-1400.jpg 1400w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1400" height="1050" alt="Open family room with pine ceiling and brick fireplace" loading="lazy" decoding="async"></button><figcaption class="tile-cap"><span class="tile-cat">Basements</span><span class="tile-title">Walkout basement with a pine ceiling and brick fireplace</span></figcaption></figure><figure class="tile tall" data-cat="bathrooms" data-project="bathrooms-basement-glass-shower" data-index="0" data-reveal style="--i:1"><button class="tile-btn" type="button" aria-label="Open project: Basement bath with a glass shower and black-framed mirror"><img src="img/work/bathrooms-basement-glass-shower/01-glass-shower-door-and-wood-vanity-700.jpg" srcset="img/work/bathrooms-basement-glass-shower/01-glass-shower-door-and-wood-vanity-700.jpg 700w, img/work/bathrooms-basement-glass-shower/01-glass-shower-door-and-wood-vanity-1400.jpg 1024w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1024" height="1536" alt="Glass shower door and wood vanity" loading="lazy" decoding="async"></button><figcaption class="tile-cap"><span class="tile-cat">Bathrooms</span><span class="tile-title">Basement bath with a glass shower and black-framed mirror</span></figcaption></figure><figure class="tile" data-cat="decks" data-project="decks-composite-backyard" data-index="0" data-reveal style="--i:2"><button class="tile-btn" type="button" aria-label="Open project: Composite deck on a backyard ranch"><img src="img/work/decks-composite-backyard/01-low-composite-deck-across-the-back-of-the-house-700.jpg" srcset="img/work/decks-composite-backyard/01-low-composite-deck-across-the-back-of-the-house-700.jpg 700w, img/work/decks-composite-backyard/01-low-composite-deck-across-the-back-of-the-house-1400.jpg 1400w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1400" height="1050" alt="Low composite deck across the back of the house" loading="lazy" decoding="async"></button><figcaption class="tile-cap"><span class="tile-cat">Decks</span><span class="tile-title">Composite deck on a backyard ranch</span></figcaption></figure><figure class="tile" data-cat="decks" data-project="decks-pool-view" data-index="0" data-reveal style="--i:3"><button class="tile-btn" type="button" aria-label="Open project: Composite deck with white railings above the pool"><img src="img/work/decks-pool-view/01-deck-and-railing-overlooking-the-pool-700.jpg" srcset="img/work/decks-pool-view/01-deck-and-railing-overlooking-the-pool-700.jpg 700w, img/work/decks-pool-view/01-deck-and-railing-overlooking-the-pool-1400.jpg 1400w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1400" height="1050" alt="Deck and railing overlooking the pool" loading="lazy" decoding="async"></button><figcaption class="tile-cap"><span class="tile-cat">Decks</span><span class="tile-title">Composite deck with white railings above the pool</span></figcaption></figure><figure class="tile" data-cat="decks" data-project="decks-pressure-treated-wraparound" data-index="0" data-reveal style="--i:4"><button class="tile-btn" type="button" aria-label="Open project: Pressure-treated deck, steps and hot tub landing"><img src="img/work/decks-pressure-treated-wraparound/01-new-front-steps-and-landing-700.jpg" srcset="img/work/decks-pressure-treated-wraparound/01-new-front-steps-and-landing-700.jpg 700w, img/work/decks-pressure-treated-wraparound/01-new-front-steps-and-landing-1400.jpg 1400w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1400" height="1050" alt="New front steps and landing" loading="lazy" decoding="async"></button><figcaption class="tile-cap"><span class="tile-cat">Decks</span><span class="tile-title">Pressure-treated deck, steps and hot tub landing</span></figcaption></figure><figure class="tile wide" data-cat="kitchens" data-project="kitchens-sage-butcher-block" data-index="0" data-reveal style="--i:5"><button class="tile-btn" type="button" aria-label="Open project: Sage green kitchen with butcher-block counters"><img src="img/work/kitchens-sage-butcher-block/01-sage-cabinets-butcher-block-counters-and-a-new-range-700.jpg" srcset="img/work/kitchens-sage-butcher-block/01-sage-cabinets-butcher-block-counters-and-a-new-range-700.jpg 700w, img/work/kitchens-sage-butcher-block/01-sage-cabinets-butcher-block-counters-and-a-new-range-1400.jpg 1400w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1400" height="1050" alt="Sage cabinets, butcher-block counters and a new range" loading="lazy" decoding="async"></button><figcaption class="tile-cap"><span class="tile-cat">Kitchens</span><span class="tile-title">Sage green kitchen with butcher-block counters</span></figcaption></figure><figure class="tile" data-cat="living-rooms" data-project="living-rooms-sage-french-doors" data-index="0" data-reveal style="--i:6"><button class="tile-btn" type="button" aria-label="Open project: Living room refresh with new floors and French doors"><img src="img/work/living-rooms-sage-french-doors/01-french-doors-and-new-plank-flooring-700.jpg" srcset="img/work/living-rooms-sage-french-doors/01-french-doors-and-new-plank-flooring-700.jpg 700w, img/work/living-rooms-sage-french-doors/01-french-doors-and-new-plank-flooring-1400.jpg 1400w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1400" height="1050" alt="French doors and new plank flooring" loading="lazy" decoding="async"></button><figcaption class="tile-cap"><span class="tile-cat">Living rooms</span><span class="tile-title">Living room refresh with new floors and French doors</span></figcaption></figure><figure class="tile" data-cat="basements" data-project="basements-navy-lounge" data-index="0" data-reveal style="--i:7"><button class="tile-btn" type="button" aria-label="Open project: Finished basement lounge in deep navy"><img src="img/work/basements-navy-lounge/01-navy-walls-carpet-and-recessed-lights-700.jpg" srcset="img/work/basements-navy-lounge/01-navy-walls-carpet-and-recessed-lights-700.jpg 700w, img/work/basements-navy-lounge/01-navy-walls-carpet-and-recessed-lights-1400.jpg 1400w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1400" height="933" alt="Navy walls, carpet and recessed lights" loading="lazy" decoding="async"></button><figcaption class="tile-cap"><span class="tile-cat">Basements</span><span class="tile-title">Finished basement lounge in deep navy</span></figcaption></figure><figure class="tile tall" data-cat="bathrooms" data-project="bathrooms-green-corner-shower" data-index="0" data-reveal style="--i:8"><button class="tile-btn" type="button" aria-label="Open project: Green bathroom with a corner shower"><img src="img/work/bathrooms-green-corner-shower/01-corner-shower-and-new-toilet-700.jpg" srcset="img/work/bathrooms-green-corner-shower/01-corner-shower-and-new-toilet-700.jpg 700w, img/work/bathrooms-green-corner-shower/01-corner-shower-and-new-toilet-1400.jpg 1400w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1400" height="2695" alt="Corner shower and new toilet" loading="lazy" decoding="async"></button><figcaption class="tile-cap"><span class="tile-cat">Bathrooms</span><span class="tile-title">Green bathroom with a corner shower</span></figcaption></figure></div>
+      <header class="sec-head" data-reveal>
+        <h2 class="display">Real homes, real work.</h2>
+        <p class="lede">No stock photos. Every picture is a job Ryan finished. Tap one to see the whole project, or browse all 48.</p>
+      </header>
+      <div class="chips work-chips" data-filter-group="#homeGrid" data-reveal><button class="chip" type="button" aria-pressed="true" data-cat="all">All<span class="n">9</span></button><button class="chip" type="button" aria-pressed="false" data-cat="kitchens">Kitchens<span class="n">1</span></button><button class="chip" type="button" aria-pressed="false" data-cat="bathrooms">Bathrooms<span class="n">2</span></button><button class="chip" type="button" aria-pressed="false" data-cat="basements">Basements<span class="n">2</span></button><button class="chip" type="button" aria-pressed="false" data-cat="decks">Decks<span class="n">3</span></button><button class="chip" type="button" aria-pressed="false" data-cat="living-rooms">Living rooms<span class="n">1</span></button></div>
+      <div class="masonry" id="homeGrid"><figure class="tile" data-cat="basements" data-project="basements-walkout-pine-ceiling" data-index="1" data-reveal style="--i:0"><button class="tile-btn" type="button" aria-label="Open project: Walkout basement with a pine ceiling and brick fireplace"><img src="img/work/basements-walkout-pine-ceiling/02-fireplace-wall-and-sliding-door-to-the-patio-700.jpg" srcset="img/work/basements-walkout-pine-ceiling/02-fireplace-wall-and-sliding-door-to-the-patio-700.jpg 700w, img/work/basements-walkout-pine-ceiling/02-fireplace-wall-and-sliding-door-to-the-patio-1400.jpg 1400w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1400" height="1050" alt="Fireplace wall and sliding door to the patio" loading="lazy" decoding="async"></button></figure><figure class="tile" data-cat="bathrooms" data-project="bathrooms-basement-glass-shower" data-index="1" data-reveal style="--i:1"><button class="tile-btn" type="button" aria-label="Open project: Basement bath with a glass shower and black-framed mirror"><img src="img/work/bathrooms-basement-glass-shower/02-black-framed-mirror-over-the-vanity-700.jpg" srcset="img/work/bathrooms-basement-glass-shower/02-black-framed-mirror-over-the-vanity-700.jpg 700w, img/work/bathrooms-basement-glass-shower/02-black-framed-mirror-over-the-vanity-1400.jpg 1024w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1024" height="1536" alt="Black-framed mirror over the vanity" loading="lazy" decoding="async"></button></figure><figure class="tile" data-cat="decks" data-project="decks-composite-backyard" data-index="1" data-reveal style="--i:2"><button class="tile-btn" type="button" aria-label="Open project: Composite deck on a backyard ranch"><img src="img/work/decks-composite-backyard/02-deck-edge-and-screened-porch-from-the-yard-700.jpg" srcset="img/work/decks-composite-backyard/02-deck-edge-and-screened-porch-from-the-yard-700.jpg 700w, img/work/decks-composite-backyard/02-deck-edge-and-screened-porch-from-the-yard-1400.jpg 1400w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1400" height="1050" alt="Deck edge and screened porch from the yard" loading="lazy" decoding="async"></button></figure><figure class="tile" data-cat="decks" data-project="decks-pool-view" data-index="1" data-reveal style="--i:3"><button class="tile-btn" type="button" aria-label="Open project: Composite deck with white railings above the pool"><img src="img/work/decks-pool-view/02-brown-composite-decking-with-white-railing-700.jpg" srcset="img/work/decks-pool-view/02-brown-composite-decking-with-white-railing-700.jpg 700w, img/work/decks-pool-view/02-brown-composite-decking-with-white-railing-1400.jpg 1400w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1400" height="1050" alt="Brown composite decking with white railing" loading="lazy" decoding="async"></button></figure><figure class="tile" data-cat="decks" data-project="decks-pressure-treated-wraparound" data-index="1" data-reveal style="--i:4"><button class="tile-btn" type="button" aria-label="Open project: Pressure-treated deck, steps and hot tub landing"><img src="img/work/decks-pressure-treated-wraparound/02-steps-and-deck-along-the-driveway-side-700.jpg" srcset="img/work/decks-pressure-treated-wraparound/02-steps-and-deck-along-the-driveway-side-700.jpg 700w, img/work/decks-pressure-treated-wraparound/02-steps-and-deck-along-the-driveway-side-1400.jpg 1400w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1400" height="1050" alt="Steps and deck along the driveway side" loading="lazy" decoding="async"></button></figure><figure class="tile" data-cat="kitchens" data-project="kitchens-sage-butcher-block" data-index="1" data-reveal style="--i:5"><button class="tile-btn" type="button" aria-label="Open project: Sage green kitchen with butcher-block counters"><img src="img/work/kitchens-sage-butcher-block/02-kitchen-corner-with-black-appliances-700.jpg" srcset="img/work/kitchens-sage-butcher-block/02-kitchen-corner-with-black-appliances-700.jpg 700w, img/work/kitchens-sage-butcher-block/02-kitchen-corner-with-black-appliances-1400.jpg 1400w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1400" height="1867" alt="Kitchen corner with black appliances" loading="lazy" decoding="async"></button></figure><figure class="tile" data-cat="living-rooms" data-project="living-rooms-sage-french-doors" data-index="1" data-reveal style="--i:6"><button class="tile-btn" type="button" aria-label="Open project: Living room refresh with new floors and French doors"><img src="img/work/living-rooms-sage-french-doors/02-corner-windows-and-fresh-trim-700.jpg" srcset="img/work/living-rooms-sage-french-doors/02-corner-windows-and-fresh-trim-700.jpg 700w, img/work/living-rooms-sage-french-doors/02-corner-windows-and-fresh-trim-1400.jpg 1400w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1400" height="1050" alt="Corner windows and fresh trim" loading="lazy" decoding="async"></button></figure><figure class="tile" data-cat="basements" data-project="basements-navy-lounge" data-index="1" data-reveal style="--i:7"><button class="tile-btn" type="button" aria-label="Open project: Finished basement lounge in deep navy"><img src="img/work/basements-navy-lounge/02-closet-doors-and-trim-in-the-finished-room-700.jpg" srcset="img/work/basements-navy-lounge/02-closet-doors-and-trim-in-the-finished-room-700.jpg 700w, img/work/basements-navy-lounge/02-closet-doors-and-trim-in-the-finished-room-1400.jpg 1400w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1400" height="1050" alt="Closet doors and trim in the finished room" loading="lazy" decoding="async"></button></figure><figure class="tile" data-cat="bathrooms" data-project="bathrooms-green-corner-shower" data-index="1" data-reveal style="--i:8"><button class="tile-btn" type="button" aria-label="Open project: Green bathroom with a corner shower"><img src="img/work/bathrooms-green-corner-shower/02-shower-enclosure-and-green-walls-700.jpg" srcset="img/work/bathrooms-green-corner-shower/02-shower-enclosure-and-green-walls-700.jpg 700w, img/work/bathrooms-green-corner-shower/02-shower-enclosure-and-green-walls-1400.jpg 1400w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1400" height="2100" alt="Shower enclosure and green walls" loading="lazy" decoding="async"></button></figure></div>
       <p class="grid-empty" hidden>No projects in that category yet.</p>
-      <div class="work-more"><a class="btn btn-primary" href="work/">See every project <svg class="arr" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      <div class="work-more"><a class="btn btn-ghost" href="work/">See our work <svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a></div>
     </div>
   </section>
 
   <section id="process" class="sec">
     <div class="wrap">
-      <div class="sec-head" data-reveal>
+      <header class="sec-head" data-reveal>
         <p class="eyebrow">How it works</p>
-        <h2 class="display">In the loop from the first call to the final walkthrough</h2>
-        <p class="lede">You always know what's happening, what's next and what it costs. That's the whole approach.</p>
-      </div>
+        <h2 class="display">In the loop from the first call to the final walkthrough.</h2>
+      </header>
       <ol class="steps">
         <li class="step" data-reveal style="--i:0">
-          <span class="step-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></span>
-          <span class="step-num">Step 1</span>
+          <span class="step-node" aria-hidden="true"></span>
           <h3>Call or text</h3>
-          <p>Tell Ryan what you're picturing, even if it's just a photo you saved. He'll ask a few questions and set up a time to come out.</p>
+          <p>Tell Ryan what you're picturing, even if it's just a photo you saved. He'll set up a time to come out.</p>
         </li>
         <li class="step" data-reveal style="--i:1">
-          <span class="step-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9h18v6H3zM7 9v3M11 9v4M15 9v3M19 9v4"/></svg></span>
-          <span class="step-num">Step 2</span>
+          <span class="step-node" aria-hidden="true"></span>
           <h3>Walkthrough</h3>
           <p>Ryan measures, listens and talks through options and what they cost. No pressure, no upsell.</p>
         </li>
         <li class="step" data-reveal style="--i:2">
-          <span class="step-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 3h7l4 4v14H7zM14 3v4h4M9 12h6M9 16h6"/></svg></span>
-          <span class="step-num">Step 3</span>
+          <span class="step-node" aria-hidden="true"></span>
           <h3>Free written quote</h3>
           <p>A clear quote in writing: scope, materials and timeline. You decide from there.</p>
         </li>
         <li class="step" data-reveal style="--i:3">
-          <span class="step-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 4l6 6-9 9H5v-6zM12 6l6 6"/></svg></span>
-          <span class="step-num">Step 4</span>
+          <span class="step-node" aria-hidden="true"></span>
           <h3>The build</h3>
-          <p>A clean job site, honest updates and a heads-up before anything changes. You always know what's happening next.</p>
+          <p>A clean job site, honest updates and a heads-up before anything changes.</p>
         </li>
         <li class="step" data-reveal style="--i:4">
-          <span class="step-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span>
-          <span class="step-num">Step 5</span>
+          <span class="step-node" aria-hidden="true"></span>
           <h3>Final walkthrough</h3>
           <p>We walk the finished space together. It's done when you say it's done.</p>
         </li>
@@ -175,20 +149,19 @@
 
   <section id="about" class="sec sec-alt">
     <div class="wrap about-grid">
-      <div class="about-photo" data-reveal>
-        <img src="img/ryan-headshot.jpg" width="800" height="1000" alt="Ryan Yoerger, owner and founder of Yoerger Renovations" loading="lazy">
-      </div>
-      <div class="about-copy prose" data-reveal style="--i:1">
-        <p class="eyebrow">Who you're working with</p>
+      <figure class="about-photo" data-reveal>
+        <div class="about-img"><img src="img/ryan-headshot.jpg" width="800" height="1000" alt="Ryan Yoerger, owner and founder of Yoerger Renovations" loading="lazy"></div>
+        <figcaption>Ryan Yoerger, owner and founder</figcaption>
+      </figure>
+      <div class="about-copy" data-reveal style="--i:1">
         <h2 class="display">Meet Ryan</h2>
-        <p>Ryan Yoerger is the owner and founder of Yoerger Renovations. He brings a passion for craftsmanship, quality workmanship and customer satisfaction to every project, and he believes every homeowner deserves a space that's both beautiful and functional.</p>
-        <p>With a commitment to honest communication, attention to detail and dependable service, Ryan works closely with homeowners through every stage of the renovation. Whether it's a kitchen remodel, a bathroom renovation, a basement finish or a custom deck, the goal is the same: results that exceed expectations and stand the test of time.</p>
-        <p>Yoerger Renovations is locally owned and operated, built on integrity, hard work and a dedication to treating every home as if it were his own.</p>
+        <p>Ryan Yoerger founded Yoerger Renovations on a simple belief: every homeowner deserves a space that's beautiful, functional and built to last.</p>
+        <p>He works with you through every stage, with honest communication and attention to detail, and treats every home as if it were his own.</p>
         <ul class="values">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>Honest communication</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>Attention to detail</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>Dependable, on schedule</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>Treats your home like his own</li>
+          <li><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Honest communication</li>
+          <li><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Attention to detail</li>
+          <li><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Dependable, on schedule</li>
+          <li><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg>Treats your home like his own</li>
         </ul>
       </div>
     </div>
@@ -197,29 +170,26 @@
   
 
   <section id="areas" class="sec">
-    <div class="wrap areas-grid">
-      <div data-reveal>
-        <p class="eyebrow">Where we work</p>
-        <h2 class="display" style="font-size:clamp(2.4rem,5vw,4.2rem);margin-top:1rem">Summit and Portage counties</h2>
-        <p class="lede" style="margin-top:1rem">Based in Stow, Ohio 44224. Serving Summit and Portage counties. Homes in and around these communities. Not on the list? Call or text and ask.</p>
-      </div>
-      <div data-reveal style="--i:1">
-        <ul class="area-chips"><li>Stow</li><li>Cuyahoga Falls</li><li>Hudson</li><li>Kent</li><li>Tallmadge</li><li>Munroe Falls</li><li>Silver Lake</li><li>Akron</li><li>Fairlawn</li><li>Twinsburg</li><li>Macedonia</li><li>Northfield</li><li>Richfield</li><li>Bath</li><li>Copley</li><li>Green</li><li>Streetsboro</li><li>Aurora</li><li>Ravenna</li><li>Brimfield</li><li>Rootstown</li><li>Mantua</li><li>Mogadore</li><li>Garrettsville</li></ul>
-        <p class="areas-note" style="margin-top:1.2rem">Ryan keeps his jobs close to home in Summit and Portage counties, so Cleveland and Cuyahoga County are outside the service area.</p>
-      </div>
+    <div class="wrap">
+      <header class="sec-head" data-reveal>
+        <h2 class="display">Close to home in Stow.</h2>
+        <p class="lede">Based in Stow, Ohio 44224. Serving Summit and Portage counties. Not on the list? Call or text and ask.</p>
+      </header>
+      <ul class="area-chips" data-reveal><li class="is-home">Stow</li><li>Cuyahoga Falls</li><li>Hudson</li><li>Kent</li><li>Tallmadge</li><li>Munroe Falls</li><li>Silver Lake</li><li>Akron</li><li>Fairlawn</li><li>Twinsburg</li><li>Macedonia</li><li>Northfield</li><li>Richfield</li><li>Bath</li><li>Copley</li><li>Green</li><li>Streetsboro</li><li>Aurora</li><li>Ravenna</li><li>Brimfield</li><li>Rootstown</li><li>Mantua</li><li>Mogadore</li><li>Garrettsville</li></ul>
+      <p class="areas-note">Ryan keeps his jobs close to home in Summit and Portage counties, so Cleveland and Cuyahoga County are outside the service area.</p>
     </div>
   </section>
 
   <section id="plan" class="sec sec-alt">
-    <div class="wrap">
-      <div class="sec-head" data-reveal>
+    <div class="wrap plan-grid">
+      <header class="sec-head" data-reveal>
         <p class="eyebrow">Plan your project</p>
-        <h2 class="display">Four quick questions, one clear brief</h2>
-        <p class="lede">Not sure how to describe what you want? Answer these and we'll write the message for you. It takes about twenty seconds.</p>
-      </div>
+        <h2 class="display">Four quick questions, one clear brief.</h2>
+        <p class="lede">Not sure how to describe it? Answer these and we'll write the message for you.</p>
+      </header>
       <div class="planner" data-reveal>
         <div class="planner-head">
-          <span class="planner-step mono" style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Step 1 of 4</span>
+          <span class="planner-step">Question 1 of 4</span>
           <div class="planner-prog" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
         </div>
         <div class="planner-body"></div>
@@ -229,11 +199,10 @@
 
   <section id="contact" class="sec contact">
   <div class="wrap">
-    <div class="sec-head" data-reveal>
-      <p class="eyebrow">Get a free quote</p>
+    <header class="sec-head" data-reveal>
       <h2 class="display">Ready to start? Let's talk.</h2>
-      <p class="lede">Have a question or need a quote? Send a note and Ryan will get back to you quickly. Call or text if that's easier.</p>
-    </div>
+      <p class="lede">Send a note and Ryan will get back to you quickly. Call or text if that's easier.</p>
+    </header>
     <div class="contact-grid">
       <div data-reveal>
         <form id="contactForm" class="form" novalidate data-endpoint="" data-phone="+12164383211" data-phone-pretty="(216) 438-3211" data-email="YoergerRenovations@gmail.com">
@@ -261,26 +230,26 @@
             </div>
           </div>
           <div class="hp" aria-hidden="true"><label for="company">Company</label><input id="company" name="company" type="text" tabindex="-1" autocomplete="off"></div>
-          <div class="cta-row"><button class="btn btn-primary" type="submit">Send my request <svg class="arr" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+          <div class="cta-row"><button class="btn btn-primary" type="submit">Get a free quote <svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></button></div>
         </form>
         <div class="form-msg" hidden></div>
       </div>
       <aside class="contact-side">
         <div class="ctile" data-reveal style="--i:1">
-          <p class="eyebrow">Call or text</p>
+          <p class="ctile-label"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></svg>Call or text</p>
           <a class="ctile-big" href="tel:+12164383211">(216) 438-3211</a>
           <p>Texting a photo of the room is a great way to start.</p>
           <div class="ctile-row"><button class="copy" type="button" data-copy="(216) 438-3211">Copy number</button></div>
         </div>
         <div class="ctile" data-reveal style="--i:2">
-          <p class="eyebrow">Email</p>
+          <p class="ctile-label"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg>Email</p>
           <a class="ctile-email" href="mailto:YoergerRenovations@gmail.com">YoergerRenovations@gmail.com</a>
           <div class="ctile-row"><button class="copy" type="button" data-copy="YoergerRenovations@gmail.com">Copy email</button></div>
         </div>
         <div class="ctile" data-reveal style="--i:3">
-          <p class="eyebrow">Where we work</p>
+          <p class="ctile-label">Where we work</p>
           <p>Based in Stow, Ohio 44224. Serving Summit and Portage counties. Free quotes, no pressure. Handyman services available.</p>
-          <a class="ctile-fb" href="https://www.facebook.com/profile.php?id=61579007753770" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.6 1.6-1.6h1.7V4.4c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.2v2.3H7.4V14h2.8v8h3.3z"/></svg>See recent posts on Facebook</a>
+          <a class="ctile-fb" href="https://www.facebook.com/profile.php?id=61579007753770" rel="noopener" target="_blank"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,191.63V152h24a8,8,0,0,0,0-16H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,0-16H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0,0,16h24v63.63a88,88,0,1,1,16,0Z"/></svg>See recent posts on Facebook</a>
         </div>
       </aside>
     </div>
@@ -295,7 +264,7 @@
       <div class="foot-brand">
         <div class="plate"><img src="img/logo.png" width="370" height="238" alt="Yoerger Renovations, LTD. logo" loading="lazy"></div>
         <p>Locally owned and operated in Stow, Ohio, serving Summit and Portage counties. Kitchens, bathrooms, basements, decks, living rooms and handyman services, built like it's our own home.</p>
-        <a class="ctile-fb" href="https://www.facebook.com/profile.php?id=61579007753770" rel="noopener" target="_blank" style="color:var(--foot-fg)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.6 1.6-1.6h1.7V4.4c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.2v2.3H7.4V14h2.8v8h3.3z"/></svg>Follow on Facebook</a>
+        <a class="ctile-fb foot-fb" href="https://www.facebook.com/profile.php?id=61579007753770" rel="noopener" target="_blank"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,191.63V152h24a8,8,0,0,0,0-16H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,0-16H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0,0,16h24v63.63a88,88,0,1,1,16,0Z"/></svg>Follow on Facebook</a>
       </div>
       <div class="foot-col">
         <h4>Services</h4>
@@ -315,7 +284,7 @@
         <ul>
           <li><a href="tel:+12164383211">(216) 438-3211</a></li>
           <li><a href="mailto:YoergerRenovations@gmail.com">YoergerRenovations@gmail.com</a></li>
-          <li><a href="./#contact">Request a free quote</a></li>
+          <li><a href="./#contact">Get a free quote</a></li>
         </ul>
       </div>
     </div>
@@ -328,18 +297,18 @@
 <nav class="mobile-cta" aria-label="Quick contact">
   <a href="tel:+12164383211">Call</a>
   <a href="sms:+12164383211">Text</a>
-  <a class="primary" href="./#contact">Free quote</a>
+  <a class="primary" href="./#contact">Get a free quote</a>
 </nav>
 
 <div class="lb" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
   <div class="lb-top">
     <span class="lb-count">1 / 1</span>
-    <button class="lb-x" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <button class="lb-x" type="button" aria-label="Close"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg></button>
   </div>
   <div class="lb-stage">
-    <button class="lb-nav prev" type="button" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="lb-nav prev" type="button" aria-label="Previous photo"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/></svg></button>
     <img class="lb-img" alt="">
-    <button class="lb-nav next" type="button" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <button class="lb-nav next" type="button" aria-label="Next photo"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></button>
   </div>
   <div class="lb-cap">
     <span class="tile-cat lb-cat"></span>
