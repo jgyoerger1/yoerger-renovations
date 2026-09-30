@@ -213,6 +213,19 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .mobile-nav a { display: block; padding: .75rem 0; font-family: var(--font-display); font-weight: 700; font-size: 1.9rem; text-transform: uppercase; text-decoration: none; color: var(--fg); border-bottom: 1px solid var(--line); }
 .mobile-nav a:last-of-type { border-bottom: 0; }
 .mobile-nav .cta-row { margin-top: 1rem; }
+/* the header is sticky, so a menu taller than the screen scrolls inside itself */
+.mobile-nav {
+  max-height: calc(100vh - var(--head-h) - 12px);
+  max-height: calc(100dvh - var(--head-h) - 12px);
+  overflow-y: auto; overscroll-behavior: contain;
+}
+@media (max-height: 520px) and (orientation: landscape) {
+  :root { --head-h: 62px; }
+  .brand-logo { height: 50px; }
+  .site-head.is-scrolled .head-row { height: 54px; }
+  .site-head.is-scrolled .brand-logo { height: 42px; }
+  .mobile-nav a { font-size: 1.35rem; padding: .55rem 0; }
+}
 @media (min-width: 900px) {
   .nav { display: flex; }
   .head-cta { display: inline-flex; }
