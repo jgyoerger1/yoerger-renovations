@@ -26,9 +26,7 @@
 <link rel="icon" href="/yoerger-renovations/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/yoerger-renovations/img/apple-touch-icon.png">
 <link rel="manifest" href="/yoerger-renovations/site.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="preload" href="/yoerger-renovations/fonts/big-shoulders-display-var.woff2" as="font" type="font/woff2" crossorigin>
 
 <link rel="stylesheet" href="/yoerger-renovations/css/site.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"HomeAndConstructionBusiness","@id":"https://www.yoergerrenovations.com/#business","name":"Yoerger Renovations, LTD.","alternateName":"Yoerger Renovations","url":"https://www.yoergerrenovations.com/","telephone":"+12164383211","email":"YoergerRenovations@gmail.com","image":"https://www.yoergerrenovations.com/img/og/home.jpg","logo":"https://www.yoergerrenovations.com/img/logo.png"}]}</script>
@@ -37,7 +35,7 @@
 <a class="skip" href="#main">Skip to content</a>
 <div class="tape" aria-hidden="true">
   <div class="tape-strip"><div class="tape-fill"></div></div>
-  <div class="tape-read"><span id="tapeRead">0' 0"</span></div>
+  <div class="tape-read"></div>
 </div>
 <header class="site-head">
   <div class="wrap head-row">
@@ -82,7 +80,7 @@
       <div class="foot-brand">
         <div class="plate"><img src="/yoerger-renovations/img/logo.png" width="370" height="238" alt="Yoerger Renovations, LTD. logo" loading="lazy"></div>
         <p>Locally owned and operated in Stow, Ohio, serving Summit and Portage counties. Kitchens, bathrooms, basements, decks, living rooms and handyman services, built like it's our own home.</p>
-        <a class="ctile-fb" href="https://www.facebook.com/profile.php?id=61579007753770" rel="noopener" target="_blank" style="color:var(--foot-fg)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.6 1.6-1.6h1.7V4.4c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.2v2.3H7.4V14h2.8v8h3.3z"/></svg>Follow on Facebook</a>
+        <a class="ctile-fb foot-fb" href="https://www.facebook.com/profile.php?id=61579007753770" rel="noopener" target="_blank"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,191.63V152h24a8,8,0,0,0,0-16H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,0-16H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0,0,16h24v63.63a88,88,0,1,1,16,0Z"/></svg>Follow on Facebook</a>
       </div>
       <div class="foot-col">
         <h4>Services</h4>
@@ -102,7 +100,7 @@
         <ul>
           <li><a href="tel:+12164383211">(216) 438-3211</a></li>
           <li><a href="mailto:YoergerRenovations@gmail.com">YoergerRenovations@gmail.com</a></li>
-          <li><a href="/yoerger-renovations/#contact">Request a free quote</a></li>
+          <li><a href="/yoerger-renovations/#contact">Get a free quote</a></li>
         </ul>
       </div>
     </div>
@@ -115,18 +113,18 @@
 <nav class="mobile-cta" aria-label="Quick contact">
   <a href="tel:+12164383211">Call</a>
   <a href="sms:+12164383211">Text</a>
-  <a class="primary" href="/yoerger-renovations/#contact">Free quote</a>
+  <a class="primary" href="/yoerger-renovations/#contact">Get a free quote</a>
 </nav>
 
 <div class="lb" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
   <div class="lb-top">
     <span class="lb-count">1 / 1</span>
-    <button class="lb-x" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <button class="lb-x" type="button" aria-label="Close"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg></button>
   </div>
   <div class="lb-stage">
-    <button class="lb-nav prev" type="button" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="lb-nav prev" type="button" aria-label="Previous photo"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"/></svg></button>
     <img class="lb-img" alt="">
-    <button class="lb-nav next" type="button" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <button class="lb-nav next" type="button" aria-label="Next photo"><svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></button>
   </div>
   <div class="lb-cap">
     <span class="tile-cat lb-cat"></span>

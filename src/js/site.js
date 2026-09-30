@@ -1,42 +1,27 @@
-/* Yoerger Renovations - site.js (no dependencies) */
+/* Yoerger Renovations - site.js (no dependencies, no scroll listeners: IntersectionObserver + CSS scroll timelines) */
 (function () {
   'use strict';
   var root = document.documentElement;
   root.classList.add('js');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO = 'IntersectionObserver' in window;
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
-  /* ---------- header + tape measure ---------- */
+  /* ---------- header shadow + mobile call bar: observe the top of the page and the hero ---------- */
   var head = $('.site-head');
-  var tape = $('.tape');
-  var tapeRead = $('#tapeRead');
   var mobileCta = $('.mobile-cta');
-  var ticking = false;
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(function () {
-      var y = window.scrollY || window.pageYOffset;
-      var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      var p = Math.min(1, Math.max(0, y / max));
-      if (head) head.classList.toggle('is-scrolled', y > 24);
-      if (tape) {
-        tape.style.setProperty('--p', (p * 100).toFixed(2) + '%');
-        tape.classList.toggle('is-live', y > 40);
-        if (tapeRead) {
-          var inches = Math.round(p * 25 * 12);
-          tapeRead.textContent = Math.floor(inches / 12) + "' " + (inches % 12) + '"';
-        }
-      }
-      if (mobileCta) mobileCta.classList.toggle('is-on', y > 420);
-      updateProcess();
-      ticking = false;
-    });
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  onScroll();
+  if (hasIO) {
+    var sentinel = document.createElement('div');
+    sentinel.setAttribute('aria-hidden', 'true');
+    sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:24px;pointer-events:none;';
+    document.body.insertBefore(sentinel, document.body.firstChild);
+    new IntersectionObserver(function (es) { if (head) head.classList.toggle('is-scrolled', !es[0].isIntersecting); }).observe(sentinel);
+    var heroEl = $('.hero') || $('.page-hero');
+    if (mobileCta && heroEl) {
+      new IntersectionObserver(function (es) { mobileCta.classList.toggle('is-on', !es[0].isIntersecting); }, { rootMargin: '0px 0px -35% 0px' }).observe(heroEl);
+    } else if (mobileCta) mobileCta.classList.add('is-on');
+  } else if (mobileCta) mobileCta.classList.add('is-on');
 
   /* ---------- mobile menu ---------- */
   var menuBtn = $('.menu-btn');
@@ -52,44 +37,41 @@
     });
   }
 
-  /* ---------- hero rotator ---------- */
+  /* ---------- hero: the room word, the photo and its caption change together ---------- */
   var rot = $('.rot');
   if (rot) {
     var words = $$('.word', rot);
     var slides = $$('.hero-slide');
-    var dots = $$('.hero-dot');
-    var idx = 0, timer = null, MS = 3600;
-    root.style.setProperty('--rot-ms', MS + 'ms');
-    function show(n) {
+    var cap = $('#heroCap');
+    var idx = 0, timer = null, MS = 4200;
+    var show = function (n) {
       var prev = idx; idx = (n + words.length) % words.length;
       words.forEach(function (w, i) {
         w.classList.toggle('is-on', i === idx);
         w.classList.toggle('is-out', i === prev && prev !== idx);
       });
-      var key = words[idx].getAttribute('data-key');
+      var key = words[idx].getAttribute('data-key'), text = '';
       slides.forEach(function (s) {
         var on = s.getAttribute('data-key') === key;
-        if (on && s.getAttribute('loading') === 'lazy') s.removeAttribute('loading');
+        if (on) { if (s.getAttribute('loading') === 'lazy') s.removeAttribute('loading'); text = s.getAttribute('data-caption') || ''; }
         s.classList.toggle('is-on', on);
       });
-      dots.forEach(function (d) {
-        var on = d.getAttribute('data-key') === key;
-        d.classList.toggle('is-on', on);
-        d.setAttribute('aria-selected', String(on));
-      });
-    }
-    function start() { stop(); if (!reduce) timer = setInterval(function () { show(idx + 1); }, MS); }
-    function stop() { if (timer) { clearInterval(timer); timer = null; } }
-    dots.forEach(function (d, i) { d.addEventListener('click', function () { show(i); start(); }); });
-    document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
-    var hero = $('.hero');
-    if (hero) { hero.addEventListener('mouseenter', stop); hero.addEventListener('mouseleave', start); }
+      if (cap && prev !== idx) {
+        cap.classList.add('is-swapping');
+        setTimeout(function () { cap.textContent = text; cap.classList.remove('is-swapping'); }, 350);
+      }
+    };
+    var stop = function () { if (timer) { clearInterval(timer); timer = null; } };
+    var start = function () { stop(); if (!reduce) timer = setInterval(function () { show(idx + 1); }, MS); };
+    document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
+    var heroBox = $('.hero-media');
+    if (heroBox) { heroBox.addEventListener('mouseenter', stop); heroBox.addEventListener('mouseleave', start); }
     show(0); start();
   }
 
   /* ---------- reveal on scroll ---------- */
   var revealEls = $$('[data-reveal]');
-  if ('IntersectionObserver' in window && !reduce) {
+  if (hasIO && !reduce) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
@@ -98,20 +80,15 @@
     revealEls.forEach(function (el) { el.classList.add('in'); });
   }
 
-  /* ---------- process line ---------- */
-  var steps = $('.steps');
-  var stepEls = steps ? $$('.step', steps) : [];
-  function updateProcess() {
-    if (!steps) return;
-    var r = steps.getBoundingClientRect();
-    var vh = window.innerHeight;
-    var p = (vh * 0.78 - r.top) / Math.max(1, r.height);
-    p = Math.min(1, Math.max(0, p));
-    steps.style.setProperty('--p', p.toFixed(3));
-    stepEls.forEach(function (s, i) {
-      var t = (i + 0.35) / stepEls.length;
-      s.classList.toggle('is-done', p >= t);
-    });
+  /* ---------- process: a step fills once it passes the upper two-thirds of the screen ---------- */
+  var stepEls = $$('.steps .step');
+  if (hasIO && !reduce && stepEls.length) {
+    var so = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { e.target.classList.toggle('is-done', e.isIntersecting || e.boundingClientRect.top < 0); });
+    }, { rootMargin: '0px 0px -35% 0px' });
+    stepEls.forEach(function (s) { so.observe(s); });
+  } else {
+    stepEls.forEach(function (s) { s.classList.add('is-done'); });
   }
 
   /* ---------- work filters ---------- */
@@ -143,7 +120,7 @@
   if (lb) {
     var lbImg = $('.lb-img', lb), lbCount = $('.lb-count', lb), lbCat = $('.lb-cat', lb), lbTitle = $('.lb-title', lb), lbCap = $('.lb-caption', lb);
     var cur = { id: null, i: 0 }, lastFocus = null;
-    function render(fresh) {
+    var render = function (fresh) {
       var p = projects[cur.id]; if (!p) return;
       var ph = p.photos[cur.i];
       if (fresh) { lbImg.classList.remove('is-new'); void lbImg.offsetWidth; lbImg.classList.add('is-new'); }
@@ -151,15 +128,15 @@
       lbCount.textContent = (cur.i + 1) + ' / ' + p.photos.length;
       lbCat.textContent = p.catName; lbTitle.textContent = p.title; lbCap.textContent = ph.alt;
       var next = p.photos[(cur.i + 1) % p.photos.length]; if (next) { var pre = new Image(); pre.src = next.src; }
-    }
-    function open(id, i, from) {
+    };
+    var open = function (id, i, from) {
       if (!projects[id]) return;
       cur = { id: id, i: i || 0 }; lastFocus = from || document.activeElement;
       lb.hidden = false; document.body.classList.add('lb-open'); render(true);
       $('.lb-x', lb).focus();
-    }
-    function close() { lb.hidden = true; document.body.classList.remove('lb-open'); if (lastFocus && lastFocus.focus) lastFocus.focus(); }
-    function step(d) { var p = projects[cur.id]; if (!p) return; cur.i = (cur.i + d + p.photos.length) % p.photos.length; render(true); }
+    };
+    var close = function () { lb.hidden = true; document.body.classList.remove('lb-open'); if (lastFocus && lastFocus.focus) lastFocus.focus(); };
+    var step = function (d) { var p = projects[cur.id]; if (!p) return; cur.i = (cur.i + d + p.photos.length) % p.photos.length; render(true); };
     $$('.tile-btn').forEach(function (b) {
       b.addEventListener('click', function () {
         var t = b.closest('.tile');
@@ -223,8 +200,8 @@
     ];
     var answers = {}, sIdx = 0;
     var body = $('.planner-body', planner), prog = $$('.planner-prog i', planner), label = $('.planner-step', planner);
-    function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
-    function brief() {
+    var el = function (tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+    var brief = function () {
       var t = answers.type || 'home improvement';
       var lines = ['Hi Ryan, I am looking at a ' + t.toLowerCase() + ' project.'];
       if (answers.stage) lines.push('Where I am at: ' + answers.stage.charAt(0).toLowerCase() + answers.stage.slice(1) + '.');
@@ -232,14 +209,14 @@
       if (answers.budget) lines.push('Rough budget: ' + answers.budget.charAt(0).toLowerCase() + answers.budget.slice(1) + '.');
       lines.push('Could you reach out to set up a walkthrough and free quote?');
       return lines.join(' ');
-    }
-    function paint() {
+    };
+    var paint = function () {
       body.innerHTML = '';
       prog.forEach(function (p, i) { p.classList.toggle('is-on', i <= Math.min(sIdx, STEPS.length - 1)); });
       var screen = el('div', 'p-screen');
       if (sIdx < STEPS.length) {
         var s = STEPS[sIdx];
-        label.textContent = 'Step ' + (sIdx + 1) + ' of ' + STEPS.length;
+        label.textContent = 'Question ' + (sIdx + 1) + ' of ' + STEPS.length;
         screen.appendChild(el('h3', 'planner-q', s.q));
         var opts = el('div', 'planner-opts');
         s.opts.forEach(function (o) {
@@ -259,10 +236,9 @@
         var res = el('div', 'planner-result');
         res.appendChild(el('h3', 'planner-q', 'Here is your project brief'));
         var text = brief();
-        var pre = el('div', 'brief', text);
-        res.appendChild(pre);
+        res.appendChild(el('div', 'brief', text));
         var row = el('div', 'cta-row');
-        var send = el('a', 'btn btn-primary', 'Send this to Ryan'); send.href = '#contact';
+        var send = el('a', 'btn btn-primary', 'Get a free quote'); send.href = '#contact';
         send.addEventListener('click', function () {
           if (!form) return;
           var msg = $('#message', form); if (msg) msg.value = text;
@@ -279,7 +255,7 @@
         screen.appendChild(res);
       }
       body.appendChild(screen);
-    }
+    };
     paint();
   }
 
@@ -289,7 +265,9 @@
     var phoneRaw = form.getAttribute('data-phone') || '';
     var email = form.getAttribute('data-email') || '';
     var msgBox = $('.form-msg', form.parentNode);
-    function composed() {
+    var submitBtn = $('button[type="submit"]', form);
+    var submitHTML = submitBtn ? submitBtn.innerHTML : '';
+    var composed = function () {
       var v = function (id) { var e = $('#' + id, form); return e ? e.value.trim() : ''; };
       var pref = (form.querySelector('input[name="contactPref"]:checked') || {}).value || '';
       var parts = [];
@@ -298,34 +276,33 @@
       if (who) parts.push('Reach me at: ' + who + (pref ? ' (prefer ' + pref.toLowerCase() + ')' : ''));
       if (v('service')) parts.push('Project type: ' + $('#service option:checked', form).textContent);
       return parts.join('\n');
-    }
-    function showMsg(kind, title, text, withActions) {
+    };
+    var showMsg = function (kind, title, text, withActions) {
       if (!msgBox) return;
       msgBox.innerHTML = '';
       msgBox.classList.toggle('is-fallback', kind === 'fallback');
       var h = document.createElement('h3'); h.textContent = title; msgBox.appendChild(h);
       var p = document.createElement('p'); p.textContent = text; msgBox.appendChild(p);
       if (withActions) {
-        var body = composed();
-        var pre = document.createElement('div'); pre.className = 'brief'; pre.textContent = body; msgBox.appendChild(pre);
+        var bodyText = composed();
+        var pre = document.createElement('div'); pre.className = 'brief'; pre.textContent = bodyText; msgBox.appendChild(pre);
         var row = document.createElement('div'); row.className = 'cta-row';
         var cp = document.createElement('button'); cp.type = 'button'; cp.className = 'btn btn-primary'; cp.textContent = 'Copy message';
-        cp.addEventListener('click', function () { copyText(body, null); cp.textContent = 'Copied'; setTimeout(function () { cp.textContent = 'Copy message'; }, 1600); });
+        cp.addEventListener('click', function () { copyText(bodyText, null); cp.textContent = 'Copied'; setTimeout(function () { cp.textContent = 'Copy message'; }, 1600); });
         row.appendChild(cp);
-        if (phoneRaw) { var sms = document.createElement('a'); sms.className = 'btn btn-ghost'; sms.href = 'sms:' + phoneRaw + '?body=' + encodeURIComponent(body); sms.textContent = 'Text Ryan'; row.appendChild(sms); }
-        if (email) { var ml = document.createElement('a'); ml.className = 'btn btn-ghost'; ml.href = 'mailto:' + email + '?subject=' + encodeURIComponent('Project inquiry from the website') + '&body=' + encodeURIComponent(body); ml.textContent = 'Email Ryan'; row.appendChild(ml); }
+        if (phoneRaw) { var sms = document.createElement('a'); sms.className = 'btn btn-ghost'; sms.href = 'sms:' + phoneRaw + '?body=' + encodeURIComponent(bodyText); sms.textContent = 'Text Ryan'; row.appendChild(sms); }
+        if (email) { var ml = document.createElement('a'); ml.className = 'btn btn-ghost'; ml.href = 'mailto:' + email + '?subject=' + encodeURIComponent('Project inquiry from the website') + '&body=' + encodeURIComponent(bodyText); ml.textContent = 'Email Ryan'; row.appendChild(ml); }
         msgBox.appendChild(row);
       }
       msgBox.hidden = false;
       msgBox.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
-    }
+    };
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       if ($('#company', form) && $('#company', form).value) return; // honeypot
       if (!form.reportValidity()) return;
-      var btn = $('button[type="submit"]', form);
       if (!endpoint) { showMsg('fallback', 'Almost there', 'This preview is not wired to an inbox yet. Copy your message and text or email it to Ryan, and he will get right back to you.', true); return; }
-      btn.disabled = true; btn.textContent = 'Sending...';
+      submitBtn.disabled = true; submitBtn.textContent = 'Sending...';
       var data = {};
       $$('input, select, textarea', form).forEach(function (f) { if (f.name && f.type !== 'radio') data[f.name] = f.value; });
       data.contactPref = (form.querySelector('input[name="contactPref"]:checked') || {}).value || '';
@@ -333,39 +310,36 @@
       fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
         .then(function (r) { if (!r.ok) throw new Error('bad status'); showMsg('ok', 'Thanks, it is on its way', 'Ryan will reach out to set up a walkthrough. If it is urgent, call or text ' + (form.getAttribute('data-phone-pretty') || '') + '.', false); form.reset(); })
         .catch(function () { showMsg('fallback', 'That did not go through', 'No problem. Copy your message and text or email it to Ryan directly.', true); })
-        .then(function () { btn.disabled = false; btn.textContent = 'Send my request'; });
+        .then(function () { submitBtn.disabled = false; submitBtn.innerHTML = submitHTML; });
     });
   }
 
   /* ---------- misc ---------- */
   var y = $('#year'); if (y) y.textContent = new Date().getFullYear();
   var toTop = $('.to-top'); if (toTop) toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); });
-  /* ---------- nav highlight: the section you are in, or the page you are on ---------- */
+
+  /* ---------- nav highlight: the section crossing a line 38% down the screen, or the page you are on ---------- */
   var path = location.pathname.replace(/index\.html$/, '');
   var spy = [];
   $$('.nav a, .mobile-nav a').forEach(function (a) {
     var href = a.getAttribute('href') || '';
     var u; try { u = new URL(href, location.href); } catch (e) { return; }
     var samePage = u.pathname.replace(/index\.html$/, '') === path;
-    if (samePage && u.hash) { spy.push({ el: a, id: u.hash.slice(1) }); return; }              // in-page section link
-    if (!u.hash && /work/.test(u.pathname) && !samePage && document.getElementById('work')) {  // "Our work" while on the home page
-      spy.push({ el: a, id: 'work' }); return;
-    }
-    if (samePage && !u.hash) a.setAttribute('aria-current', 'page');                            // a different page, e.g. Our work
-    if (!samePage && $('.page-service') && /#services$/.test(href)) a.classList.add('is-active'); // Services while on a service page
+    if (samePage && u.hash) { spy.push({ el: a, id: u.hash.slice(1) }); return; }
+    if (!u.hash && /work/.test(u.pathname) && !samePage && document.getElementById('work')) { spy.push({ el: a, id: 'work' }); return; }
+    if (samePage && !u.hash) a.setAttribute('aria-current', 'page');
+    if (!samePage && $('.page-service') && /#services$/.test(href)) a.classList.add('is-active');
   });
-  function updateSpy() {
-    if (!spy.length) return;
-    var line = window.innerHeight * 0.38, current = null;
-    spy.forEach(function (s) {
-      var el = document.getElementById(s.id); if (!el) return;
-      var r = el.getBoundingClientRect();
-      if (r.top <= line && r.bottom > line) current = s.id;
-    });
-    if (!current && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = spy[spy.length - 1].id;
-    spy.forEach(function (s) { s.el.classList.toggle('is-active', s.id === current); });
+  if (spy.length && hasIO) {
+    var current = null;
+    var setActive = function (id) { current = id; spy.forEach(function (s) { s.el.classList.toggle('is-active', s.id === id); }); };
+    var spyIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) setActive(e.target.id);
+        else if (e.target.id === current) setActive(null);   // left the line and nothing else has claimed it
+      });
+    }, { rootMargin: '-38% 0px -61% 0px' });
+    var seen = {};
+    spy.forEach(function (s) { var t = document.getElementById(s.id); if (t && !seen[s.id]) { seen[s.id] = 1; spyIO.observe(t); } });
   }
-  window.addEventListener('scroll', function () { requestAnimationFrame(updateSpy); }, { passive: true });
-  window.addEventListener('resize', updateSpy);
-  updateSpy();
 })();

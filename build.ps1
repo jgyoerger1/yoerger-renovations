@@ -287,7 +287,14 @@ $T = @{}
 foreach ($n in "layout", "layout-artifact", "chrome", "footer", "lightbox", "contact", "home", "service", "work", "404") { $T[$n] = Read-Text (Join-Path $src "templates\$n.html") }
 $css = Read-Text (Join-Path $src "css\site.css")
 $js = Read-Text (Join-Path $src "js\site.js")
-$checkSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg>'
+# Phosphor icons (regular weight, MIT), vendored in src\icons. Templates use {{icon-<name>}}.
+$icons = @{}
+foreach ($f in (Get-ChildItem (Join-Path $src "icons") -Filter *.svg)) {
+  $svg = (Read-Text $f.FullName).Trim() -replace '^<svg ', '<svg class="ico" aria-hidden="true" focusable="false" width="20" height="20" '
+  $icons["icon-" + $f.BaseName] = $svg
+}
+$checkSvg = $icons["icon-check"]
+$arrowSvg = $icons["icon-arrow-right"]
 $sizesTile = "(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw"
 
 function Expand($text, $tokens) {
@@ -298,9 +305,10 @@ function Expand($text, $tokens) {
   }
   return $text
 }
-function Tile($proj, $phIdx, $revealIdx, $wide) {
+function Tile($proj, $phIdx, $revealIdx, $wide, $plain = $false) {
+  # $plain: masonry tile on the home page (natural shape, no text laid over the photo)
   $ph = $proj.photos[$phIdx]
-  $cls = "tile"; if ($ph.portrait) { $cls += " tall" }; if ($wide -and -not $ph.portrait) { $cls += " wide" }
+  $cls = "tile"; if (-not $plain) { if ($ph.portrait) { $cls += " tall" }; if ($wide -and -not $ph.portrait) { $cls += " wide" } }
   $alt = Attr $ph.caption
   $sb = New-Object System.Text.StringBuilder
   [void]$sb.Append(('<figure class="{0}" data-cat="{1}" data-project="{2}" data-index="{3}" data-reveal style="--i:{4}">' -f $cls, $proj.category, $proj.id, $phIdx, [Math]::Min($revealIdx, 8)))
@@ -309,7 +317,8 @@ function Tile($proj, $phIdx, $revealIdx, $wide) {
   } else {
     [void]$sb.Append(('<button class="tile-btn" type="button" aria-label="Open project: {0}"><img src="{1}{2}" srcset="{1}{2} {8}w, {1}{3} {5}w" sizes="{4}" width="{5}" height="{6}" alt="{7}" loading="lazy" decoding="async"></button>' -f (Attr $proj.title), $R, $ph.src700, $ph.src1400, $sizesTile, $ph.w, $ph.h, $alt, $ph.w700))
   }
-  [void]$sb.Append(('<figcaption class="tile-cap"><span class="tile-cat">{0}</span><span class="tile-title">{1}</span></figcaption></figure>' -f (Esc $proj.catName), (Esc $proj.title)))
+  if ($plain) { [void]$sb.Append('</figure>') }
+  else { [void]$sb.Append(('<figcaption class="tile-cap"><span class="tile-cat">{0}</span><span class="tile-title">{1}</span></figcaption></figure>' -f (Esc $proj.catName), (Esc $proj.title))) }
   return $sb.ToString()
 }
 function Filters($countBy) {
@@ -374,10 +383,11 @@ function Build-Site($mode) {
     photoCount = $photoCount; projectCount = $projects.Count; logoW = $logoDims[0]; logoH = $logoDims[1]
     footerServices = (($services | ForEach-Object { '<li><a href="{0}">{1}</a></li>' -f $svcUrl[$_.key], (Esc $_.serviceName) }) -join "")
     serviceOptions = (($services | ForEach-Object { '<option value="{0}">{1}</option>' -f $_.key, (Esc $_.serviceName) }) -join "")
-    areaChips = (($cfg.areas | ForEach-Object { "<li>$(Esc $_)</li>" }) -join "")
+    areaChips = (($cfg.areas | ForEach-Object { if ($_ -eq $cfg.hub) { "<li class=""is-home"">$(Esc $_)</li>" } else { "<li>$(Esc $_)</li>" } }) -join "")
     projectsJson = (ProjectsJson)
     chrome = $T["chrome"]; footer = $T["footer"]; lightbox = $T["lightbox"]; contactSection = $T["contact"]
   }
+  foreach ($k in $icons.Keys) { $G[$k] = $icons[$k] }
   if ($flat) { $G["home"] = "index.html" }
 
   # reviews (optional)
@@ -387,41 +397,63 @@ function Build-Site($mode) {
       $who = @($_.name, $_.place, $_.project) | Where-Object { $_ } | ForEach-Object { Esc $_ }
       '<figure class="quote" data-reveal><blockquote>{0}</blockquote><figcaption><cite>{1}</cite></figcaption></figure>' -f (Esc $_.quote), ($who -join " &middot; ")
     }) -join ""
-    $reviews = '<section id="reviews" class="sec"><div class="wrap"><div class="sec-head" data-reveal><p class="eyebrow">Kind words</p><h2 class="display">What homeowners say</h2></div><div class="quotes">' + $q + '</div></div></section>'
+    $reviews = '<section id="reviews" class="sec"><div class="wrap"><header class="sec-head" data-reveal><h2 class="display">What homeowners say</h2></header><div class="quotes">' + $q + '</div></div></section>'
   }
 
   # ---------- home
-  $slides = New-Object System.Text.StringBuilder; $words = New-Object System.Text.StringBuilder; $dots = New-Object System.Text.StringBuilder; $cards = New-Object System.Text.StringBuilder
-  $i = 0; $h = 0
+  # hero: the rotating room word, its photo and a caption under the photo stay in step
+  $slides = New-Object System.Text.StringBuilder; $words = New-Object System.Text.StringBuilder
+  $h = 0; $heroCaption = ""
+  $heroSizes = "(min-width: 900px) 58vw, 100vw"
   foreach ($s in $services) {
     $hi = $heroInfo[$s.key]; if (-not $hi) { continue }
-    $inHero = ($s.inHero -ne $false)   # services with inHero=false (handyman) get a card but no hero slide/word
+    if ($s.inHero -eq $false) { continue }   # handyman gets a bento tile, not a hero slide
     $on = if ($h -eq 0) { " is-on" } else { "" }
     $ld = if ($h -eq 0) { 'fetchpriority="high"' } else { 'loading="lazy"' }
-    if ($inHero) { [void]$slides.Append(('<img class="hero-slide{0}" data-key="{1}" src="{2}{3}" srcset="{2}{4} {8}w, {2}{3} {5}w" sizes="100vw" width="{5}" height="{6}" alt="" {7} decoding="async">' -f $on, $s.key, $R, $hi.big, $hi.small, $hi.w, $hi.h, $ld, $hi.wSmall)) }
-    if ($inHero) { [void]$words.Append(('<span class="word{0}" data-key="{1}">{2}</span>' -f $on, $s.key, (Esc $s.noun))) }
-    if ($inHero) { [void]$dots.Append(('<button class="hero-dot{0}" type="button" role="tab" data-key="{1}" aria-selected="{2}"><span>{3}</span><i></i></button>' -f $on, $s.key, $(if ($h -eq 0) { "true" } else { "false" }), (Esc $s.name))); $h++ }
-    $cover = $hi.project.photos[$hi.project.coverIdx]
-    [void]$cards.Append(('<article class="svc" data-reveal style="--i:{0}"><a class="svc-link" href="{1}"><div class="svc-media"><img src="{2}{3}" srcset="{2}{3} {11}w, {2}{4} {5}w" sizes="(min-width: 640px) 20vw, 76vw" width="{5}" height="{6}" alt="{7}" loading="lazy" decoding="async"></div><div class="svc-body"><h3 class="svc-name">{8}</h3><p class="svc-short">{9}</p><span class="svc-more">{10} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></a></article>' -f $i, $svcUrl[$s.key], $R, $cover.src700, $cover.src1400, $cover.w, $cover.h, (Attr $cover.caption), (Esc $s.name), (Esc $s.short), (Esc $s.serviceName), $cover.w700))
-    $i++
+    if ($h -eq 0) { $heroCaption = Esc $hi.alt }
+    [void]$slides.Append(('<img class="hero-slide{0}" data-key="{1}" data-caption="{9}" src="{2}{3}" srcset="{2}{4} {8}w, {2}{3} {5}w" sizes="{10}" width="{5}" height="{6}" alt="" {7} decoding="async">' -f $on, $s.key, $R, $hi.big, $hi.small, $hi.w, $hi.h, $ld, $hi.wSmall, (Attr $hi.alt), $heroSizes))
+    [void]$words.Append(('<span class="word{0}" data-key="{1}">{2},</span>' -f $on, $s.key, (Esc $s.noun)))
+    $h++
   }
-  $ticker = (($services | ForEach-Object { $l = $(if ($_.tickerLabel) { $_.tickerLabel } else { $_.name }); "<li>$(Esc $l)</li>" }) -join "") + "<li>Free quotes</li><li>Locally owned</li><li>$(Esc "$($cfg.hub), $($cfg.state) $($cfg.zip)")</li><li>Call or text $(Esc $cfg.phone)</li>"
+  # services: a bento with exactly one cell per service; photos differ from the hero slides
+  $areaKey = @{ "kitchens" = "k"; "bathrooms" = "b"; "basements" = "s"; "decks" = "d"; "living-rooms" = "l"; "handyman" = "h" }
+  $bento = New-Object System.Text.StringBuilder; $bi = 0
+  foreach ($s in $services) {
+    $a = $areaKey[$s.key]; if (-not $a) { Warn "No bento cell for service '$($s.key)'"; continue }
+    $ph = $null
+    if ($s.card) {
+      $parts = $s.card -split "/"; $pr = $projById[$parts[0]]
+      if ($pr) { $ph = $pr.photos | Where-Object { ("{0:D2}" -f $_.num) -eq $parts[1] } | Select-Object -First 1 }
+      if (-not $ph) { Warn "Bento photo '$($s.card)' not found for $($s.key); using the hero photo" }
+    }
+    if (-not $ph -and $heroInfo[$s.key]) { $hp = $heroInfo[$s.key].project; $ph = $hp.photos[$hp.coverIdx] }
+    $img = ""
+    if ($ph) { $img = '<div class="b-media"><img src="{0}{1}" srcset="{0}{1} {2}w, {0}{3} {4}w" sizes="(min-width: 1024px) 50vw, 100vw" width="{4}" height="{5}" alt="{6}" loading="lazy" decoding="async"></div>' -f $R, $ph.src700, $ph.w700, $ph.src1400, $ph.w, $ph.h, (Attr $ph.caption) }
+    if ($s.key -eq "handyman") {
+      $head = $(if ($s.tickerLabel) { $s.tickerLabel } else { $s.serviceName })
+      [void]$bento.Append(('<a class="b-tile b-handy bt-{0}" href="{1}" data-reveal style="--i:{2}"><div class="b-copy"><h3>{3}</h3><p>{4}</p><span class="b-link">See handyman services {5}</span></div>{6}</a>' -f $a, $svcUrl[$s.key], $bi, (Esc $head), (Esc $s.bentoLine), $arrowSvg, $img))
+    } else {
+      [void]$bento.Append(('<a class="b-tile bt-{0}" href="{1}" data-reveal style="--i:{2}">{3}<div class="b-cap"><div><h3 class="b-name">{4}</h3><p class="b-short">{5}</p></div>{6}</div></a>' -f $a, $svcUrl[$s.key], $bi, $img, (Esc $s.name), (Esc $s.short), $arrowSvg))
+    }
+    $bi++
+  }
+  # work: masonry of the featured projects' second photos (the bento and hero already show the first ones)
   $homeProjects = @($projects | Select-Object -First 9)
   $grid = New-Object System.Text.StringBuilder; $countBy = @{}
   $k = 0
   foreach ($p in $homeProjects) {
-    $wide = ($p.featured -and ($k -eq 0 -or $k -eq 5))
-    [void]$grid.Append((Tile $p $p.coverIdx $k $wide))
+    $idx = [Math]::Min(1, $p.photos.Count - 1)
+    [void]$grid.Append((Tile $p $idx $k $false $true))
     if (-not $countBy.ContainsKey($p.category)) { $countBy[$p.category] = 0 }; $countBy[$p.category]++
     $k++
   }
   $homeTokens = @{
-    heroSlides = $slides.ToString(); heroWords = $words.ToString(); heroDots = $dots.ToString(); serviceCards = $cards.ToString(); tickerItems = $ticker
+    heroSlides = $slides.ToString(); heroWords = $words.ToString(); heroCaption = $heroCaption; serviceBento = $bento.ToString()
     workFilters = (Filters $countBy); workGrid = $grid.ToString(); reviewsSection = $reviews; content = $T["home"]
     title = "$($cfg.shortName) | Remodeling and Handyman Services in $($cfg.hub), $($cfg.state)"
     description = "Locally owned remodeling and handyman services in $($cfg.hub), Ohio, serving $($cfg.region). Kitchens, bathrooms, basements, decks, living rooms and repairs by $($cfg.owner). Free written quotes."
     canonical = "$domain/"; ogImage = "$domain/img/og/home.jpg"; ogType = "website"; bodyClass = "page-home"; rootRel = ""
-    preload = ('<link rel="preload" as="image" href="{0}{1}" imagesrcset="{0}{2} {3}w, {0}{1} {4}w" imagesizes="100vw">' -f $R, $heroInfo[$services[0].key].big, $heroInfo[$services[0].key].small, $heroInfo[$services[0].key].wSmall, $heroInfo[$services[0].key].w)
+    preload = ('<link rel="preload" as="image" href="{0}{1}" imagesrcset="{0}{2} {3}w, {0}{1} {4}w" imagesizes="{5}">' -f $R, $heroInfo[$services[0].key].big, $heroInfo[$services[0].key].small, $heroInfo[$services[0].key].wSmall, $heroInfo[$services[0].key].w, $heroSizes)
     jsonld = (JsonLd @(
       [ordered]@{ "@type" = "WebSite"; "@id" = "$domain/#website"; url = "$domain/"; name = $cfg.shortName; publisher = [ordered]@{ "@id" = "$domain/#business" } },
       (Biz $false)
@@ -528,6 +560,8 @@ Build-Site "site"
 
 # static files
 Copy-Item (Join-Path $src "static\*") $out -Force
+Ensure-Dir (Join-Path $out "fonts")
+Copy-Item (Join-Path $src "fonts\*") (Join-Path $out "fonts") -Force
 Write-Text (Join-Path $out "css\site.css") $css
 Write-Text (Join-Path $out "js\site.js") $js
 $cnamePath = Join-Path $out "CNAME"
@@ -548,6 +582,8 @@ if ($Artifact) {
   Ensure-Dir (Join-Path $artOut "img")
   & robocopy (Join-Path $out "img") (Join-Path $artOut "img") /E /NJH /NJS /NDL /NFL /NC /NS /NP | Out-Null
   Copy-Item (Join-Path $out "favicon.svg") $artOut -Force
+  Ensure-Dir (Join-Path $artOut "fonts")
+  Copy-Item (Join-Path $src "fonts\*") (Join-Path $artOut "fonts") -Force
   Log "Artifact copy written to $artOut"
 }
 
