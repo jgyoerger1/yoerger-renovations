@@ -7,25 +7,25 @@
   "email": "YoergerRenovations@gmail.com",
   "domain": "https://www.yoergerrenovations.com",
   "facebook": "https://www.facebook.com/profile.php?id=61579007753770",
-  "hub": "Stow",
+  "hub": "Kent",
   "heroOrder": ["bathrooms", "basements", "decks", "living-rooms", "kitchens"],
   "bentoOrder": ["basements", "bathrooms", "decks", "kitchens", "living-rooms", "handyman"],
   "state": "OH",
-  "zip": "44224",
+  "zip": "44240",
   "region": "Summit and Portage counties",
   "counties": ["Summit County", "Portage County"],
-  "areaLine": "Based in Stow, Ohio 44224. Serving Summit and Portage counties.",
+  "areaLine": "Based in Kent, Ohio 44240. Serving Summit and Portage counties.",
   "areasOutside": "Ryan keeps his jobs close to home in Summit and Portage counties, so Cleveland and Cuyahoga County are outside the service area.",
   "formEndpoint": "",
   "repo": "jgyoerger1/yoerger-renovations",
   "customDomainLive": true,
   "customDomainNote": "false = site is previewed at github.io/<repo>/ and no CNAME is written. Set true on cutover day (after DNS points at GitHub), rebuild and publish; that writes docs/CNAME and makes the 404 page use root paths.",
   "areas": [
-    "Stow", "Cuyahoga Falls", "Hudson", "Kent", "Tallmadge", "Munroe Falls", "Silver Lake", "Akron",
+    "Kent", "Stow", "Cuyahoga Falls", "Hudson", "Tallmadge", "Munroe Falls", "Silver Lake", "Akron",
     "Fairlawn", "Twinsburg", "Macedonia", "Northfield", "Richfield", "Bath", "Copley", "Green",
     "Streetsboro", "Aurora", "Ravenna", "Brimfield", "Rootstown", "Mantua", "Mogadore", "Garrettsville"
   ],
-  "areasNote": "Summit and Portage County communities within reach of Stow (44224). Edit freely; this list feeds the Service Area section and the search-engine data. Cleveland is intentionally not listed.",
+  "areasNote": "Summit and Portage County communities within reach of Kent (44240). Edit freely; this list feeds the Service Area section and the search-engine data. Cleveland is intentionally not listed.",
   "reviews": [],
-  "reviewsNote": "Add reviews as {\"quote\":\"...\",\"name\":\"First L.\",\"place\":\"Stow\",\"project\":\"Deck\"}. The Kind Words section appears automatically once there is at least one."
+  "reviewsNote": "Add reviews as {\"quote\":\"...\",\"name\":\"First L.\",\"place\":\"Kent\",\"project\":\"Deck\"}. The Kind Words section appears automatically once there is at least one."
 }
