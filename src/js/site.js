@@ -66,8 +66,26 @@
     var slides = $$('.hero-slide');
     var cap = $('#heroCap');
     var idx = 0, timer = null, MS = 4200;
+    /* later slides ship with data-src so they cannot compete with the first photo; each one is fetched once the
+       page has loaded, a full turn before it is due */
+    var pageLoaded = document.readyState === 'complete';
+    var wake = function (s) {
+      if (!s) return;
+      $$('img[data-src]', s).forEach(function (im) {
+        if (im.getAttribute('data-srcset')) im.srcset = im.getAttribute('data-srcset');
+        im.src = im.getAttribute('data-src');
+        im.removeAttribute('data-src'); im.removeAttribute('data-srcset');
+      });
+    };
+    var slideAt = function (i) {
+      var key = words[(i + words.length) % words.length].getAttribute('data-key');
+      return slides.filter(function (s) { return s.getAttribute('data-key') === key; })[0];
+    };
+    var wakeNext = function () { if (pageLoaded) wake(slideAt(idx + 1)); };
+    if (!pageLoaded) window.addEventListener('load', function () { pageLoaded = true; wakeNext(); });
     var show = function (n) {
       var prev = idx; idx = (n + words.length) % words.length;
+      wake(slideAt(idx)); wakeNext();
       words.forEach(function (w, i) {
         w.classList.toggle('is-on', i === idx);
         w.classList.toggle('is-out', i === prev && prev !== idx);
@@ -75,7 +93,7 @@
       var key = words[idx].getAttribute('data-key'), text = '';
       slides.forEach(function (s) {
         var on = s.getAttribute('data-key') === key;
-        if (on) { $$('img[loading]', s).forEach(function (im) { im.removeAttribute('loading'); }); text = s.getAttribute('data-caption') || ''; }
+        if (on) text = s.getAttribute('data-caption') || '';
         s.classList.toggle('is-on', on);
       });
       if (prev !== idx && slides[0]) slides[0].parentNode.classList.add('did-swap');   // from here on, rooms wipe in

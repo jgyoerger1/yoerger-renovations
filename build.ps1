@@ -452,7 +452,10 @@ function Build-Site($mode) {
     $ld = if ($h -eq 0) { 'fetchpriority="high"' } else { 'loading="lazy"' }
     if ($h -eq 0) { $heroCaption = Esc $hi.alt }
     $fp = Fit-Photo $hi $heroSizes $ld (Attr $hi.alt)
-    [void]$slides.Append(('<div class="hero-slide {0}{1}" data-key="{2}" data-caption="{3}">{4}</div>' -f $fp.cls, $on, $s.key, (Attr $hi.alt), $fp.html))
+    # slides after the first carry data-src: inside the visible frame, lazy images would still download at once
+    # and starve the first photo, so site.js fetches each one only after the page has loaded
+    $slideHtml = if ($h -eq 0) { $fp.html } else { $fp.html -replace ' src="', ' data-src="' -replace ' srcset="', ' data-srcset="' -replace ' loading="lazy"', '' }
+    [void]$slides.Append(('<div class="hero-slide {0}{1}" data-key="{2}" data-caption="{3}">{4}</div>' -f $fp.cls, $on, $s.key, (Attr $hi.alt), $slideHtml))
     [void]$words.Append(('<span class="word{0}" data-key="{1}">{2},</span> ' -f $on, $s.key, (Esc $s.noun)))
     $h++
   }
@@ -471,7 +474,7 @@ function Build-Site($mode) {
     }
     if (-not $ph -and $heroInfo[$s.key]) { $hp = $heroInfo[$s.key].project; $ph = $hp.photos[$hp.coverIdx] }
     $img = ""
-    if ($ph) { $img = '<div class="b-media"><img src="{0}{1}" srcset="{0}{1} {2}w, {0}{3} {4}w" sizes="(min-width: 1024px) 50vw, 100vw" width="{4}" height="{5}" alt="{6}" loading="lazy" decoding="async"></div>' -f $R, $ph.src700, $ph.w700, $ph.src1400, $ph.w, $ph.h, (Attr $ph.caption) }
+    if ($ph) { $img = '<div class="b-media"><img src="{0}{1}" srcset="{0}{1} {2}w, {0}{3} {4}w" sizes="(min-width: 1024px) 50vw, 90vw" width="{4}" height="{5}" alt="{6}" loading="lazy" decoding="async"></div>' -f $R, $ph.src700, $ph.w700, $ph.src1400, $ph.w, $ph.h, (Attr $ph.caption) }
     if ($s.key -eq "handyman") {
       $head = $(if ($s.tickerLabel) { $s.tickerLabel } else { $s.serviceName })
       [void]$bento.Append(('<a class="b-tile b-handy bt-{0}" href="{1}" data-reveal style="--i:{2}"><div class="b-copy"><h3>{3}</h3><p>{4}</p><span class="b-link">See handyman services {5}</span></div>{6}</a>' -f $a, $svcUrl[$s.key], $bi, (Esc $head), (Esc $s.bentoLine), $arrowSvg, $img))
