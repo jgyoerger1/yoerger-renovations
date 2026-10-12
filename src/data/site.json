@@ -18,7 +18,7 @@
   "counties": ["Summit County", "Portage County"],
   "areaLine": "Based in Kent, Ohio 44240. Serving Summit and Portage counties.",
   "areasOutside": "Ryan keeps his jobs close to home in Summit and Portage counties, so Cleveland and Cuyahoga County are outside the service area.",
-  "formEndpoint": "",
+  "formEndpoint": "https://script.google.com/macros/s/AKfycbzn1ZcGOjDfekdA2LfMIKriJivY6_xC6yMeMUaEgvFVflbl2-KnwPS6O4CYCzUiCvI2NA/exec",
   "repo": "jgyoerger1/yoerger-renovations",
   "customDomainLive": true,
   "customDomainNote": "false = site is previewed at github.io/<repo>/ and no CNAME is written. Set true on cutover day (after DNS points at GitHub), rebuild and publish; that writes docs/CNAME and makes the 404 page use root paths.",
