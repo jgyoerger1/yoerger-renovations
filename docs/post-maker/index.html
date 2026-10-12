@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Post Maker - Yoerger Renovations</title>
+<!-- Unlisted tool for whoever runs the Facebook page: pick a template, a photo and the words, download a 1080 x 1350 PNG. -->
+<style>
+@font-face{font-family:'Big Shoulders Display';src:url(../fonts/big-shoulders-display-var.woff2) format('woff2');font-weight:100 900}
+@font-face{font-family:'Hanken Grotesk';src:url(../fonts/hanken-grotesk-var.woff2) format('woff2');font-weight:100 900}
+@font-face{font-family:'IBM Plex Mono';src:url(../fonts/ibm-plex-mono-500.woff2) format('woff2');font-weight:500}
+:root{--deep:#1F3F1E;--green:#2E5A2A;--cream:#F2F3EB;--paper:#FCFCF8;--brass:#C6A24A;--brass-dark:#6F5A1E;--ink:#172218;--muted:#4C5A4D;--line:#D9DCCD}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--ink);font:15px/1.45 'Hanken Grotesk',system-ui,sans-serif}
+header{background:var(--deep);color:var(--cream);padding:12px 20px;display:flex;align-items:center;gap:14px}
+header img{height:40px;width:auto}
+header h1{font:800 24px/1 'Big Shoulders Display',sans-serif;letter-spacing:.02em;margin:0}
+header p{margin:0 0 0 auto;font:500 11px/1.2 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--brass)}
+main{display:grid;grid-template-columns:minmax(300px,420px) minmax(0,1fr);gap:28px;padding:24px;max-width:1240px;margin:0 auto}
+@media (max-width:880px){main{grid-template-columns:minmax(0,1fr);padding:16px;gap:20px}.stage{position:static!important;order:-1}header p{display:none}}
+.panel{display:flex;flex-direction:column;gap:16px;min-width:0}
+fieldset{border:1px solid var(--line);background:var(--paper);border-radius:12px;padding:12px 16px 16px;margin:0;min-width:0}
+legend{font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-dark);padding:0 6px}
+.tpls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+.tpls button{font:600 14px/1.2 inherit;font-family:inherit;padding:12px 10px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;min-height:44px;text-align:left}
+.tpls button[aria-pressed=true]{background:var(--deep);border-color:var(--deep);color:var(--cream)}
+label{display:block;font-weight:600;font-size:13px;margin:12px 0 4px}
+label small{font-weight:400;color:var(--muted)}
+input[type=text],textarea,select{width:100%;font:16px/1.4 'Hanken Grotesk',system-ui,sans-serif;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+textarea{min-height:96px;resize:vertical}
+input[type=file]{font:14px inherit;font-family:inherit;max-width:100%}
+.slot + .slot{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+.slot h3{margin:0;font-size:14px}
+.frame{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}
+.frame label{margin:0;font-weight:500;font-size:12px;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--green)}
+.or{font-size:12px;color:var(--muted);margin:6px 0 2px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 18px;border-radius:999px;border:0;background:var(--green);color:#fff;font:700 16px/1 'Hanken Grotesk',system-ui,sans-serif;cursor:pointer;width:100%}
+.btn.ghost{background:#fff;color:var(--green);border:1px solid var(--green);min-height:40px;font-size:14px;width:auto;margin-top:8px}
+.stage{position:sticky;top:20px;align-self:start;min-width:0}
+canvas{width:100%;max-width:560px;height:auto;display:block;margin:0 auto;border-radius:10px;background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.04),0 14px 36px rgba(23,34,24,.16)}
+.hint{font-size:13px;color:var(--muted);margin:8px 0 0}
+.warn{color:#8A2D1A;font-weight:600}
+.actions{max-width:560px;margin:16px auto 0;display:flex;flex-direction:column;gap:8px}
+</style>
+</head>
+<body>
+<header><img src="../img/logo-head-light.png" alt="Yoerger Renovations"><h1>Post Maker</h1><p>Facebook &amp; Instagram &middot; 1080 &times; 1350</p></header>
+<main>
+  <div class="panel">
+    <fieldset>
+      <legend>1. Template</legend>
+      <div class="tpls" id="tpls"></div>
+    </fieldset>
+    <fieldset>
+      <legend>2. Photos</legend>
+      <div id="slots"></div>
+      <p class="hint" id="photoHint"></p>
+    </fieldset>
+    <fieldset>
+      <legend>3. Words</legend>
+      <div id="fields"></div>
+      <p class="hint">Anything in [brackets] is a placeholder. Replace it before you download.</p>
+    </fieldset>
+    <fieldset>
+      <legend>4. Caption to paste with the post</legend>
+      <textarea id="caption" rows="6"></textarea>
+      <button class="btn ghost" id="copyCaption" type="button">Copy caption</button>
+    </fieldset>
+  </div>
+  <div class="stage">
+    <canvas id="c" width="1080" height="1350" aria-label="Post preview"></canvas>
+    <div class="actions">
+      <button class="btn" id="download" type="button">Download PNG</button>
+      <p class="hint" id="status" role="status"></p>
+    </div>
+  </div>
+</main>
+<script>
+(() => {
+  const W = 1080, H = 1350;
+  const C = { deep: '#1F3F1E', green: '#2E5A2A', cream: '#F2F3EB', paper: '#FCFCF8', brass: '#C6A24A', brassDark: '#6F5A1E', ink: '#172218' };
+  const PHONE = '(216) 438-3211', WEB = 'yoergerrenovations.com';
+  const TAGS = '#KentOhio #SummitCounty #PortageCounty #HomeRemodeling';
+
+  const TEMPLATES = {
+    finished: { name: 'Finished project', slots: ['Photo'],
+      fields: [['eyebrow', 'Top line', 'town, OH · project', '[Town], OH · Bathroom'], ['headline', 'Headline', 'short and plain', 'A guest bath, start to finish.']] },
+    beforeafter: { name: 'Before / after', slots: ['Before photo', 'After photo'],
+      fields: [['eyebrow', 'Top line', 'town, OH · project', '[Town], OH · Deck'], ['headline', 'Headline', 'one line', 'Same yard. Brand-new deck.']] },
+    booking: { name: 'Booking now', slots: ['Photo'],
+      fields: [['eyebrow', 'Top line', 'what you are booking', 'Now booking · November & December'], ['headline', 'Headline', '2 to 4 words', 'Holiday-ready baths.'], ['sub', 'Supporting line', 'one sentence', 'Guest bath refreshes, punch lists and basement work, done before Thanksgiving.']] },
+    review: { name: 'Customer review', slots: ['Photo of their project'],
+      fields: [['quote', 'Their words', 'paste exactly what they wrote', '[Paste the customer’s exact words]'], ['name', 'Name', 'first name, last initial', '[First name L.]'], ['eyebrow', 'Town and project', 'town · project', '[Town] · Bathroom']] },
+  };
+
+  const state = { tpl: 'finished', text: {}, slots: [newSlot(), newSlot()], library: [] };
+  for (const [k, t] of Object.entries(TEMPLATES)) state.text[k] = Object.fromEntries(t.fields.map(f => [f[0], f[3]]));
+  function newSlot() { return { img: null, x: 50, y: 50, z: 1, label: '' }; }
+
+  const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+  const logoDark = loadImg('../img/logo.png'), logoLight = loadImg('../img/logo-light.png');
+  function loadImg(src) { const i = new Image(); i.onload = draw; i.src = src; return i; }
+  const ready = i => i && i.complete && i.naturalWidth > 0;
+
+  // ---------- drawing helpers ----------
+  const F = {
+    display: s => `800 ${s}px "Big Shoulders Display", Impact, sans-serif`,
+    body: (s, w = 500) => `${w} ${s}px "Hanken Grotesk", system-ui, sans-serif`,
+    mono: s => `500 ${s}px "IBM Plex Mono", ui-monospace, monospace`,
+  };
+  function rr(x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+  function photo(slot, x, y, w, h, r = 0, label = 'Choose a photo') {
+    ctx.save(); rr(x, y, w, h, r); ctx.clip();
+    if (!ready(slot.img)) {
+      ctx.fillStyle = C.green; ctx.fillRect(x, y, w, h);
+      ctx.fillStyle = 'rgba(242,243,235,.7)'; ctx.font = F.body(34, 600); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(label, x + w / 2, y + h / 2); ctx.restore(); ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; return;
+    }
+    const iw = slot.img.naturalWidth, ih = slot.img.naturalHeight;
+    const s = Math.max(w / iw, h / ih) * slot.z, dw = iw * s, dh = ih * s;
+    ctx.drawImage(slot.img, x + (w - dw) * slot.x / 100, y + (h - dh) * slot.y / 100, dw, dh);
+    ctx.restore();
+  }
+  function spaced(text, x, y, spacing, align = 'left') {
+    const chars = [...text]; let width = 0;
+    for (const ch of chars) width += ctx.measureText(ch).width + spacing;
+    width -= spacing;
+    let cx = align === 'center' ? x - width / 2 : align === 'right' ? x - width : x;
+    for (const ch of chars) { ctx.fillText(ch, cx, y); cx += ctx.measureText(ch).width + spacing; }
+    return width;
+  }
+  function wrap(text, maxW) {
+    const words = String(text).trim().split(/\s+/).filter(Boolean), lines = []; let line = '';
+    for (const w of words) { const t = line ? line + ' ' + w : w; if (!line || ctx.measureText(t).width <= maxW) line = t; else { lines.push(line); line = w; } }
+    if (line) lines.push(line); return lines;
+  }
+  function fit(text, font, max, min, maxW, maxLines) {
+    for (let s = max; s >= min; s -= 2) { ctx.font = font(s); const L = wrap(text, maxW); if (L.length <= maxLines && L.every(l => ctx.measureText(l).width <= maxW)) return { size: s, lines: L }; }
+    ctx.font = font(min); return { size: min, lines: wrap(text, maxW).slice(0, maxLines) };
+  }
+  function logo(img, x, y, h, align = 'left') {
+    if (!ready(img)) return 0;
+    const w = h * img.naturalWidth / img.naturalHeight;
+    ctx.drawImage(img, align === 'right' ? x - w : x, y, w, h); return w;
+  }
+  function star(cx, cy, r) {
+    ctx.beginPath();
+    for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rad = i % 2 ? r * 0.45 : r; ctx.lineTo(cx + rad * Math.cos(a), cy + rad * Math.sin(a)); }
+    ctx.closePath(); ctx.fill();
+  }
+  function chip(text, x, y, bg, fg) {
+    ctx.font = F.mono(28); const w = spacedWidth(text, 5) + 44;
+    ctx.fillStyle = bg; rr(x, y, w, 60, 30); ctx.fill();
+    ctx.fillStyle = fg; spaced(text, x + 22, y + 40, 5);
+  }
+  function spacedWidth(text, sp) { let w = 0; for (const ch of text) w += ctx.measureText(ch).width + sp; return w - sp; }
+  const up = s => String(s).toUpperCase();
+
+  // ---------- templates ----------
+  const DRAW = {
+    finished(t) {
+      photo(state.slots[0], 0, 0, W, 880);
+      ctx.fillStyle = C.deep; ctx.fillRect(0, 880, W, H - 880);
+      ctx.fillStyle = C.brass; ctx.fillRect(0, 880, W, 8);
+      ctx.font = F.mono(26); ctx.fillStyle = C.brass; spaced(up(t.eyebrow), 64, 952, 4);
+      const hd = fit(t.headline, F.display, 104, 64, 952, 2);
+      ctx.font = F.display(hd.size); ctx.fillStyle = C.cream;
+      hd.lines.forEach((l, i) => ctx.fillText(l, 60, 978 + hd.size * 0.78 + i * hd.size * 0.98));
+      logo(logoLight, 60, 1214, 92);
+      ctx.textAlign = 'right'; ctx.fillStyle = C.cream; ctx.font = F.body(42, 700); ctx.fillText(PHONE, 1020, 1266);
+      ctx.font = F.mono(22); ctx.fillStyle = C.brass; spaced(up(WEB), 1020, 1300, 2, 'right'); ctx.textAlign = 'left';
+    },
+    beforeafter(t) {
+      ctx.fillStyle = C.cream; ctx.fillRect(0, 0, W, H);
+      photo(state.slots[0], 0, 0, W, 540, 0, 'Choose the before photo');
+      photo(state.slots[1], 0, 552, W, 540, 0, 'Choose the after photo');
+      chip('BEFORE', 40, 40, C.cream, C.ink);
+      chip('AFTER', 40, 592, C.brass, C.ink);
+      ctx.fillStyle = C.deep; ctx.fillRect(0, 1092, W, H - 1092);
+      ctx.fillStyle = C.brass; ctx.fillRect(0, 1092, W, 8);
+      ctx.font = F.mono(24); ctx.fillStyle = C.brass; spaced(up(t.eyebrow), 64, 1156, 4);
+      const hd = fit(t.headline, F.display, 80, 52, 760, 1);
+      ctx.font = F.display(hd.size); ctx.fillStyle = C.cream; ctx.fillText(hd.lines[0] || '', 60, 1238);
+      ctx.font = F.body(32, 700); ctx.fillStyle = C.cream; ctx.fillText(PHONE, 64, 1300);
+      const pw = ctx.measureText(PHONE).width;
+      ctx.font = F.mono(20); ctx.fillStyle = C.brass; spaced(up(WEB), 64 + pw + 28, 1298, 2);
+      logo(logoLight, 1020, 1170, 120, 'right');
+    },
+    booking(t) {
+      ctx.fillStyle = C.deep; ctx.fillRect(0, 0, W, H);
+      photo(state.slots[0], 56, 56, 968, 620, 28);
+      ctx.font = F.mono(26); ctx.fillStyle = C.brass; spaced(up(t.eyebrow), 64, 748, 4);
+      const hd = fit(t.headline, F.display, 132, 80, 952, 2);
+      ctx.font = F.display(hd.size); ctx.fillStyle = C.cream;
+      let y = 770 + hd.size * 0.78;
+      hd.lines.forEach((l, i) => ctx.fillText(l, 60, y + i * hd.size * 0.96));
+      y += (hd.lines.length - 1) * hd.size * 0.96 + 64;
+      const room = Math.max(1, Math.floor((1150 - y) / 50) + 1);
+      ctx.font = F.body(38); ctx.fillStyle = 'rgba(242,243,235,.9)';
+      const sub = fit(t.sub, s => F.body(s), 38, 30, 952, room);
+      ctx.font = F.body(sub.size); sub.lines.forEach((l, i) => ctx.fillText(l, 64, y + i * sub.size * 1.3));
+      ctx.fillStyle = C.brass; rr(56, 1196, 968, 100, 50); ctx.fill();
+      ctx.fillStyle = C.ink; ctx.textAlign = 'center'; ctx.font = F.body(34, 700);
+      ctx.fillText(`Text photos for a free estimate · ${PHONE}`, W / 2, 1258); ctx.textAlign = 'left';
+    },
+    review(t) {
+      ctx.fillStyle = C.paper; ctx.fillRect(0, 0, W, H);
+      photo(state.slots[0], 0, 0, W, 430);
+      ctx.fillStyle = C.brass; ctx.fillRect(0, 430, W, 8);
+      const qt = `“${String(t.quote).replace(/^["“]+|["”]+$/g, '')}”`;
+      let q = { size: 30, lines: [] };
+      for (let s = 64; s >= 30; s -= 2) { ctx.font = F.body(s, 500); const L = wrap(qt, 952); q = { size: s, lines: L }; if (s * 0.75 + (L.length - 1) * s * 1.32 <= 430) break; }
+      // stars + quote + attribution, centred in the space between the photo and the footer rule
+      const lh = q.size * 1.32, block = 52 + 56 + q.size * 0.75 + (q.lines.length - 1) * lh + 72;
+      let y = 438 + Math.max(48, (1200 - 438 - block) / 2);
+      ctx.fillStyle = C.brass; for (let i = 0; i < 5; i++) star(88 + i * 62, y + 26, 26);
+      y += 52 + 56 + q.size * 0.75;
+      ctx.font = F.body(q.size, 500); ctx.fillStyle = C.ink;
+      q.lines.forEach((l, i) => ctx.fillText(l, 62, y + i * lh));
+      y += (q.lines.length - 1) * lh + 72;
+      ctx.font = F.mono(26); ctx.fillStyle = C.brassDark; spaced(up(`— ${t.name} · ${t.eyebrow}`), 64, Math.min(y, 1176), 3);
+      ctx.fillStyle = C.line || '#D9DCCD'; ctx.fillRect(64, 1200, 952, 2);
+      logo(logoDark, 60, 1222, 96);
+      ctx.textAlign = 'right'; ctx.fillStyle = C.ink; ctx.font = F.body(40, 700); ctx.fillText(PHONE, 1020, 1270);
+      ctx.font = F.mono(22); ctx.fillStyle = C.brassDark; spaced(up(WEB), 1020, 1304, 2, 'right'); ctx.textAlign = 'left';
+    },
+  };
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    DRAW[state.tpl](state.text[state.tpl]);
+    document.getElementById('caption').value = caption();
+  }
+
+  function parts(eyebrow) { const [a, b] = String(eyebrow).split('·').map(s => s.trim()); return { town: (a || '').replace(/,\s*OH$/i, ''), project: (b || 'project').toLowerCase() }; }
+  function caption() {
+    const t = state.text[state.tpl], p = parts(t.eyebrow);
+    const cta = `Text photos of your space to ${PHONE} for a free estimate.`;
+    const lines = {
+      finished: `${t.headline} Just wrapped this ${p.project} in ${p.town}. Thinking about your own? ${cta}`,
+      beforeafter: `Before and after in ${p.town}. ${t.headline} ${cta}`,
+      booking: `${t.headline} ${t.sub} ${cta}`,
+      review: `Kind words from ${t.name} in ${p.town}: “${String(t.quote).replace(/^["“]+|["”]+$/g, '')}” Thank you! ${cta}`,
+    };
+    return `${lines[state.tpl]}\n\n${TAGS}`;
+  }
+
+  // ---------- UI ----------
+  const tplBox = document.getElementById('tpls');
+  for (const [k, t] of Object.entries(TEMPLATES)) {
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = t.name; b.dataset.k = k;
+    b.onclick = () => { state.tpl = k; renderUI(); draw(); };
+    tplBox.appendChild(b);
+  }
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+  function libraryOptions() {
+    if (!state.library.length) return '';
+    const groups = {};
+    for (const p of state.library) (groups[p.project] = groups[p.project] || []).push(p);
+    return '<option value="">Pick a photo from the website…</option>' + Object.entries(groups).map(([g, list]) =>
+      `<optgroup label="${esc(g)}">${list.map(p => `<option value="${esc(p.src)}">${esc(p.caption)}</option>`).join('')}${list.filter(p => p.before).map(p => `<option value="${esc(p.before)}">${esc(p.caption)} (before)</option>`).join('')}</optgroup>`).join('');
+  }
+
+  function renderUI() {
+    tplBox.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.k === state.tpl)));
+    const t = TEMPLATES[state.tpl];
+    const slots = document.getElementById('slots'); slots.innerHTML = '';
+    t.slots.forEach((label, i) => {
+      const s = state.slots[i], d = document.createElement('div'); d.className = 'slot';
+      d.innerHTML = `<h3>${esc(label)}</h3>
+        ${state.library.length ? `<label for="lib${i}">From the website</label><select id="lib${i}">${libraryOptions()}</select><p class="or">or</p>` : ''}
+        <label for="up${i}">Upload from this device</label><input id="up${i}" type="file" accept="image/*">
+        <div class="frame">
+          <label>Left / right<input type="range" min="0" max="100" value="${s.x}" data-k="x"></label>
+          <label>Up / down<input type="range" min="0" max="100" value="${s.y}" data-k="y"></label>
+          <label>Zoom<input type="range" min="1" max="2.5" step="0.05" value="${s.z}" data-k="z"></label>
+        </div>`;
+      const lib = d.querySelector('select');
+      if (lib) { lib.value = s.src || ''; lib.onchange = () => { if (lib.value) setImg(i, '../' + lib.value, lib.value); }; }
+      d.querySelector('input[type=file]').onchange = e => { const f = e.target.files[0]; if (f) setImg(i, URL.createObjectURL(f), ''); };
+      d.querySelectorAll('input[type=range]').forEach(r => r.oninput = () => { s[r.dataset.k] = Number(r.value); draw(); });
+      slots.appendChild(d);
+    });
+    document.getElementById('photoHint').textContent = state.library.length ? 'Drag the sliders to frame the photo.' : 'Website photos show up here when this page is opened from yoergerrenovations.com. Uploading works anywhere.';
+    const fields = document.getElementById('fields'); fields.innerHTML = '';
+    const vals = state.text[state.tpl];
+    for (const [k, label, help] of t.fields) {
+      const id = 'f-' + k, long = k === 'quote' || k === 'sub';
+      const wrapEl = document.createElement('div');
+      wrapEl.innerHTML = `<label for="${id}">${esc(label)} <small>(${esc(help)})</small></label>` + (long ? `<textarea id="${id}"></textarea>` : `<input id="${id}" type="text">`);
+      const input = wrapEl.querySelector('input,textarea'); input.value = vals[k];
+      input.oninput = () => { vals[k] = input.value; draw(); };
+      fields.appendChild(wrapEl);
+    }
+  }
+
+  function setImg(i, url, src) {
+    const img = new Image();
+    img.onload = () => { Object.assign(state.slots[i], { img, src, x: 50, y: 50, z: 1 }); renderUI(); draw(); };
+    img.onerror = () => status('That photo could not be opened. Try a JPG or PNG.', true);
+    img.src = url;
+  }
+
+  function status(msg, bad) { const el = document.getElementById('status'); el.textContent = msg; el.className = 'hint' + (bad ? ' warn' : ''); }
+
+  document.getElementById('download').onclick = () => {
+    const vals = Object.values(state.text[state.tpl]).join(' ');
+    const need = TEMPLATES[state.tpl].slots.filter((_, i) => !ready(state.slots[i].img)).length;
+    if (/\[[^\]]*\]/.test(vals) && !confirm('Some words still have [placeholders]. Download anyway?')) return;
+    if (need && !confirm('A photo spot is still empty. Download anyway?')) return;
+    cv.toBlob(b => {
+      const a = document.createElement('a'); a.href = URL.createObjectURL(b);
+      a.download = `yoerger-${state.tpl}-${new Date().toISOString().slice(0, 10)}.png`;
+      document.body.appendChild(a); a.click(); a.remove();
+      status('Downloaded. Post it with the caption on the left.');
+    }, 'image/png');
+  };
+  document.getElementById('copyCaption').onclick = async () => {
+    const text = document.getElementById('caption').value;
+    try { await navigator.clipboard.writeText(text); status('Caption copied.'); }
+    catch { document.getElementById('caption').select(); status('Select the caption and copy it.'); }
+  };
+
+  fetch('photos.json').then(r => r.ok ? r.json() : []).then(list => { state.library = Array.isArray(list) ? list : []; renderUI(); }).catch(() => {});
+  const faces = [
+    new FontFace('Big Shoulders Display', 'url(../fonts/big-shoulders-display-var.woff2)', { weight: '100 900' }),
+    new FontFace('Hanken Grotesk', 'url(../fonts/hanken-grotesk-var.woff2)', { weight: '100 900' }),
+    new FontFace('IBM Plex Mono', 'url(../fonts/ibm-plex-mono-500.woff2)', { weight: '500' }),
+  ];
+  Promise.all(faces.map(f => f.load().then(ff => document.fonts.add(ff)).catch(() => {}))).then(draw);
+  renderUI(); draw();
+})();
+</script>
+</body>
+</html>

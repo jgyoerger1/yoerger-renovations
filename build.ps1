@@ -609,7 +609,12 @@ function Emit($mode, $layout, $G, $tokens, $relPath) {
 Build-Site "site"
 
 # static files
-Copy-Item (Join-Path $src "static\*") $out -Force
+Copy-Item (Join-Path $src "static\*") $out -Force -Recurse
+# photo list for the unlisted post maker (static\post-maker): every job photo on the site, grouped by project
+$pmDir = Join-Path $out "post-maker"
+Ensure-Dir $pmDir
+$pmList = @(foreach ($p in $projects) { foreach ($ph in $p.photos) { [pscustomobject]@{ project = $p.title; category = $p.catName; caption = $ph.caption; src = $ph.src1400; before = $ph.before } } })
+Write-Text (Join-Path $pmDir "photos.json") (ConvertTo-Json $pmList -Depth 3 -Compress)
 Ensure-Dir (Join-Path $out "fonts")
 Copy-Item (Join-Path $src "fonts\*") (Join-Path $out "fonts") -Force
 Write-Text (Join-Path $out "css\site.css") $css
