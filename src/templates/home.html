@@ -2,15 +2,13 @@
   <section class="hero" id="home">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">Locally owned in {{hub}}, Ohio {{zip}}</p>
-        <h1 class="display hero-title">
-          <span aria-hidden="true">
-            <span class="line"><span class="line-in">Your <span class="rot">{{heroWords}}</span></span></span>
-            <span class="line"><span class="line-in">built right.</span></span>
-          </span>
-          <span class="visually-hidden">Your kitchen, bathroom, basement, deck or living room, built right.</span>
-        </h1>
-        <p class="hero-lede">Kitchens, baths, basements, decks and handyman work across {{region}}, with free written quotes.</p>
+        <!-- the one heading search engines read; the animated line under it is decoration -->
+        <h1 class="eyebrow hero-kicker">{{homeH1}}</h1>
+        <p class="display hero-title" aria-hidden="true">
+          <span class="line"><span class="line-in">Your <span class="rot">{{heroWords}}</span></span></span>
+          <span class="line"><span class="line-in">built right.</span></span>
+        </p>
+        <p class="hero-lede">Locally owned remodeling and handyman work across {{region}}, with free written quotes.</p>
         <div class="cta-row">
           <a class="btn btn-primary" href="#contact">Get a free quote {{icon-arrow-right}}</a>
           <a class="btn btn-ghost" href="{{workUrl}}">See our work</a>
@@ -129,6 +127,15 @@
         </div>
         <div class="planner-body"></div>
       </div>
+    </div>
+  </section>
+
+  <section id="faq" class="sec">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <h2 class="display">Common questions</h2>
+      </div>
+      <div class="faq" data-reveal>{{homeFaq}}</div>
     </div>
   </section>
 

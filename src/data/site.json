@@ -12,6 +12,8 @@
   "bentoOrder": ["basements", "bathrooms", "decks", "kitchens", "living-rooms", "handyman"],
   "state": "OH",
   "zip": "44240",
+  "geo": { "lat": 41.1537, "lng": -81.3579 },
+  "indexNowKey": "117677ebd8cf9920a182b00ec58f11fc",
   "region": "Summit and Portage counties",
   "counties": ["Summit County", "Portage County"],
   "areaLine": "Based in Kent, Ohio 44240. Serving Summit and Portage counties.",

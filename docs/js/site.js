@@ -78,6 +78,7 @@
         if (on) { $$('img[loading]', s).forEach(function (im) { im.removeAttribute('loading'); }); text = s.getAttribute('data-caption') || ''; }
         s.classList.toggle('is-on', on);
       });
+      if (prev !== idx && slides[0]) slides[0].parentNode.classList.add('did-swap');   // from here on, rooms wipe in
       if (cap && prev !== idx) {
         cap.classList.add('is-swapping');
         setTimeout(function () { cap.textContent = text; cap.classList.remove('is-swapping'); }, 350);

@@ -184,6 +184,7 @@ Log "Loading config"
 $cfg = Get-Content (Join-Path $src "data\site.json") -Raw -Encoding UTF8 | ConvertFrom-Json
 # ConvertFrom-Json in PowerShell 5.1 hands back a JSON array as one object; unroll it
 $services = @((Get-Content (Join-Path $src "data\services.json") -Raw -Encoding UTF8 | ConvertFrom-Json) | ForEach-Object { $_ })
+$homeFaqs = @((Get-Content (Join-Path $src "data\home-faq.json") -Raw -Encoding UTF8 | ConvertFrom-Json) | ForEach-Object { $_ })
 $svcByKey = @{}; foreach ($s in $services) { $svcByKey[$s.key] = $s }
 $domain = $cfg.domain.TrimEnd("/")
 $R = "{{root}}"
@@ -260,6 +261,24 @@ Log "Brand images"
 $logoSrc = Join-Path $src "img\logo.jpg"
 $logoDims = Make-TransparentLogo $logoSrc (Join-Path $out "img\logo.png") (Join-Path $out "img\logo-light.png")
 Log ("  logo trimmed to {0}x{1} (green + cream)" -f $logoDims[0], $logoDims[1])
+# the header shows the logo at most 72px tall, so it gets 2x copies (144px) instead of the full 370px files,
+# which stay for the footer plate and the search-engine logo
+function Shrink-Png($inPath, $outPath, $h) {
+  $img = [System.Drawing.Image]::FromFile($inPath)
+  $w = [int][Math]::Round($img.Width * $h / $img.Height)
+  $bmp = New-Object System.Drawing.Bitmap $w, $h, ([System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
+  $g = [System.Drawing.Graphics]::FromImage($bmp)
+  $g.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+  $g.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
+  $g.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighQuality
+  $g.DrawImage($img, 0, 0, $w, $h)
+  $g.Dispose(); $img.Dispose()
+  $bmp.Save($outPath, [System.Drawing.Imaging.ImageFormat]::Png); $bmp.Dispose()
+  return @($w, $h)
+}
+$headLogoDims = Shrink-Png (Join-Path $out "img\logo.png") (Join-Path $out "img\logo-head.png") 144
+[void](Shrink-Png (Join-Path $out "img\logo-light.png") (Join-Path $out "img\logo-head-light.png") 144)
+Log ("  header logos {0}x{1}" -f $headLogoDims[0], $headLogoDims[1])
 Make-TouchIcon (Join-Path $out "img\apple-touch-icon.png")
 Cover-Image (Join-Path $src "img\ryan-headshot.jpg") (Join-Path $out "img\ryan-headshot.jpg") 800 1000 0.12 84
 $heroInfo = @{}
@@ -354,13 +373,15 @@ function ProjectsJson() {
 function Biz($brief) {
   $b = [ordered]@{
     "@type" = "HomeAndConstructionBusiness"; "@id" = "$domain/#business"
-    name = $cfg.name; alternateName = $cfg.shortName; url = "$domain/"; telephone = $cfg.phoneRaw; email = $cfg.email
+    name = $cfg.name; alternateName = @($cfg.shortName, ($cfg.name -replace '[,.]', '')); url = "$domain/"; telephone = $cfg.phoneRaw; email = $cfg.email
     image = "$domain/img/og/home.jpg"; logo = "$domain/img/logo.png"
   }
   if (-not $brief) {
-    $b.description = "Locally owned remodeling and handyman services based in $($cfg.hub), Ohio $($cfg.zip), serving $($cfg.region): kitchens, bathrooms, basement finishing, custom decks, living rooms and small repairs. Free quotes."
-    $b.founder = [ordered]@{ "@type" = "Person"; name = $cfg.owner; jobTitle = "Owner" }
+    $b.description = "Yoerger Renovations is a locally owned home remodeling and handyman company based in $($cfg.hub), Ohio $($cfg.zip), owned by $($cfg.owner) and serving $($cfg.region): kitchen and bathroom remodeling, basement finishing, deck building, living room remodeling and small repairs. Free written quotes."
+    $b.slogan = "Built right."
+    $b.founder = [ordered]@{ "@type" = "Person"; "@id" = "$domain/#owner"; name = $cfg.owner; jobTitle = "Owner"; worksFor = [ordered]@{ "@id" = "$domain/#business" } }
     $b.address = [ordered]@{ "@type" = "PostalAddress"; addressLocality = $cfg.hub; addressRegion = $cfg.state; postalCode = $cfg.zip; addressCountry = "US" }
+    if ($cfg.geo) { $b.geo = [ordered]@{ "@type" = "GeoCoordinates"; latitude = $cfg.geo.lat; longitude = $cfg.geo.lng } }
     $areas = New-Object System.Collections.ArrayList
     foreach ($c in $cfg.counties) { [void]$areas.Add([ordered]@{ "@type" = "AdministrativeArea"; name = "$c, Ohio" }) }
     foreach ($a in $cfg.areas) { [void]$areas.Add([ordered]@{ "@type" = "City"; name = "$a, OH" }) }
@@ -391,6 +412,7 @@ function Build-Site($mode) {
     handymanUrl = $(if ($svcUrl.ContainsKey("handyman")) { $svcUrl["handyman"] } else { "{{home}}#services" })
     formEndpoint = $cfg.formEndpoint; year = (Get-Date).Year; workUrl = $workUrl; styles = $styles; scripts = $scripts
     photoCount = $photoCount; projectCount = $projects.Count; logoW = $logoDims[0]; logoH = $logoDims[1]
+    headLogoW = $headLogoDims[0]; headLogoH = $headLogoDims[1]; robots = "index,follow,max-image-preview:large"
     footerServices = (($services | ForEach-Object { '<li><a href="{0}">{1}</a></li>' -f $svcUrl[$_.key], (Esc $_.serviceName) }) -join "")
     serviceOptions = (($services | ForEach-Object { '<option value="{0}">{1}</option>' -f $_.key, (Esc $_.serviceName) }) -join "")
     areaChips = (($cfg.areas | ForEach-Object { if ($_ -eq $cfg.hub) { "<li class=""is-home"">$(Esc $_)</li>" } else { "<li>$(Esc $_)</li>" } }) -join "")
@@ -429,9 +451,9 @@ function Build-Site($mode) {
     $on = if ($h -eq 0) { " is-on" } else { "" }
     $ld = if ($h -eq 0) { 'fetchpriority="high"' } else { 'loading="lazy"' }
     if ($h -eq 0) { $heroCaption = Esc $hi.alt }
-    $fp = Fit-Photo $hi $heroSizes $ld ''
+    $fp = Fit-Photo $hi $heroSizes $ld (Attr $hi.alt)
     [void]$slides.Append(('<div class="hero-slide {0}{1}" data-key="{2}" data-caption="{3}">{4}</div>' -f $fp.cls, $on, $s.key, (Attr $hi.alt), $fp.html))
-    [void]$words.Append(('<span class="word{0}" data-key="{1}">{2},</span>' -f $on, $s.key, (Esc $s.noun)))
+    [void]$words.Append(('<span class="word{0}" data-key="{1}">{2},</span> ' -f $on, $s.key, (Esc $s.noun)))
     $h++
   }
   # services: a bento with exactly one cell per service; photos differ from the hero slides
@@ -471,13 +493,17 @@ function Build-Site($mode) {
   $homeTokens = @{
     heroSlides = $slides.ToString(); heroWords = $words.ToString(); heroCaption = $heroCaption; serviceBento = $bento.ToString()
     workFilters = (Filters $countBy); workGrid = $grid.ToString(); reviewsSection = $reviews; content = $T["home"]
-    title = "$($cfg.shortName) | Remodeling and Handyman Services in $($cfg.hub), $($cfg.state)"
-    description = "Locally owned remodeling and handyman services in $($cfg.hub), Ohio, serving $($cfg.region). Kitchens, bathrooms, basements, decks, living rooms and repairs by $($cfg.owner). Free written quotes."
+    title = "Home Remodeling Contractor in $($cfg.hub), $($cfg.state) | $($cfg.shortName)"
+    description = "Home remodeling and handyman services in $($cfg.hub), Ohio. Kitchens, bathrooms, basements, decks and repairs across $($cfg.region). Free written quotes."
+    homeH1 = Esc "Home Remodeling in $($cfg.hub), Ohio"
+    homeFaq = (($homeFaqs | ForEach-Object { '<details><summary>{0}</summary><div>{1}</div></details>' -f (Esc $_.q), (Esc $_.a) }) -join "")
     canonical = "$domain/"; ogImage = "$domain/img/og/home.jpg"; ogType = "website"; bodyClass = "page-home"; rootRel = ""
-    preload = ('<link rel="preload" as="image" href="{0}{1}" imagesrcset="{0}{2} {3}w, {0}{1} {4}w" imagesizes="{5}">' -f $R, $heroInfo[$services[0].key].big, $heroInfo[$services[0].key].small, $heroInfo[$services[0].key].wSmall, $heroInfo[$services[0].key].w, $heroSizes)
+    # preload whatever the hero opens on (heroOrder can change it), not services.json's first entry
+    preload = ('<link rel="preload" as="image" href="{0}{1}" imagesrcset="{0}{2} {3}w, {0}{1} {4}w" imagesizes="{5}" fetchpriority="high">' -f $R, $heroInfo[$heroList[0].key].big, $heroInfo[$heroList[0].key].small, $heroInfo[$heroList[0].key].wSmall, $heroInfo[$heroList[0].key].w, $heroSizes)
     jsonld = (JsonLd @(
-      [ordered]@{ "@type" = "WebSite"; "@id" = "$domain/#website"; url = "$domain/"; name = $cfg.shortName; publisher = [ordered]@{ "@id" = "$domain/#business" } },
-      (Biz $false)
+      [ordered]@{ "@type" = "WebSite"; "@id" = "$domain/#website"; url = "$domain/"; name = $cfg.shortName; alternateName = ($cfg.name -replace '[,.]', ''); inLanguage = "en-US"; publisher = [ordered]@{ "@id" = "$domain/#business" } },
+      (Biz $false),
+      [ordered]@{ "@type" = "FAQPage"; "@id" = "$domain/#faq"; mainEntity = @($homeFaqs | ForEach-Object { [ordered]@{ "@type" = "Question"; name = $_.q; acceptedAnswer = [ordered]@{ "@type" = "Answer"; text = $_.a } } }) }
     ))
   }
   Emit $mode $layout $G $homeTokens $(if ($flat) { "index.html" } else { "index.html" })
@@ -514,7 +540,7 @@ function Build-Site($mode) {
       preload = $(if ($hi) { '<link rel="preload" as="image" href="{0}{1}" imagesrcset="{0}{2} {3}w, {0}{1} {4}w" imagesizes="(min-width: 900px) 40vw, 100vw">' -f $R, $hi.big, $hi.small, $hi.wSmall, $hi.w } else { "" })
       jsonld = (JsonLd @(
         (Biz $true),
-        [ordered]@{ "@type" = "Service"; "@id" = "$domain/$($s.slug)/#service"; name = $s.serviceName; serviceType = $s.serviceName; description = $s.description; url = "$domain/$($s.slug)/"; image = "$domain/img/og/$($s.slug).jpg"; provider = [ordered]@{ "@id" = "$domain/#business" }; areaServed = @($cfg.counties | ForEach-Object { [ordered]@{ "@type" = "AdministrativeArea"; name = "$_, Ohio" } }) },
+        [ordered]@{ "@type" = "Service"; "@id" = "$domain/$($s.slug)/#service"; name = $s.serviceName; serviceType = $s.serviceName; description = $s.description; url = "$domain/$($s.slug)/"; image = "$domain/img/og/$($s.slug).jpg"; provider = [ordered]@{ "@id" = "$domain/#business" }; areaServed = @(@([ordered]@{ "@type" = "City"; name = "$($cfg.hub), OH" }) + @($cfg.counties | ForEach-Object { [ordered]@{ "@type" = "AdministrativeArea"; name = "$_, Ohio" } })) },
         [ordered]@{ "@type" = "FAQPage"; mainEntity = @($s.faqs | ForEach-Object { [ordered]@{ "@type" = "Question"; name = $_.q; acceptedAnswer = [ordered]@{ "@type" = "Answer"; text = $_.a } } }) },
         [ordered]@{ "@type" = "BreadcrumbList"; itemListElement = @(
           [ordered]@{ "@type" = "ListItem"; position = 1; name = "Home"; item = "$domain/" },
@@ -537,8 +563,8 @@ function Build-Site($mode) {
   }
   $workTokens = @{
     workFilters = (Filters $countAll); workGridAll = $gridAll.ToString(); content = $T["work"]
-    title = "Our Work | Kitchens, Baths, Basements and Decks | $($cfg.shortName)"
-    description = "$photoCount photos from $($projects.Count) finished remodeling projects in $($cfg.hub), Ohio and across $($cfg.region): kitchens, bathrooms, finished basements, decks and living rooms by $($cfg.shortName)."
+    title = "Remodeling Project Photos in $($cfg.hub), $($cfg.state) | $($cfg.shortName)"
+    description = "$photoCount photos from $($projects.Count) finished remodeling jobs in and around $($cfg.hub), Ohio: kitchens, bathrooms, basements, decks and living rooms by $($cfg.shortName)."
     canonical = "$domain/work/"; ogImage = "$domain/img/og/home.jpg"; ogType = "website"; bodyClass = "page-work"; rootRel = "../"; preload = ""
     jsonld = (JsonLd @(
       (Biz $true),
@@ -553,7 +579,7 @@ function Build-Site($mode) {
 
   if (-not $flat) {
     $t404 = @{
-      content = $T["404"]; title = "Page not found | $($cfg.shortName)"; description = "That page does not exist. Head back to $($cfg.shortName)."
+      content = $T["404"]; robots = "noindex,follow"; title = "Page not found | $($cfg.shortName)"; description = "That page does not exist. Head back to $($cfg.shortName)."
       canonical = "$domain/404.html"; ogImage = "$domain/img/og/home.jpg"; ogType = "website"; bodyClass = "page-404"; rootRel = $basePath; preload = ""
       jsonld = (JsonLd @((Biz $true)))
     }
@@ -591,11 +617,52 @@ elseif (Test-Path $cnamePath) { [IO.File]::Delete($cnamePath) }
 Log $(if ($customLive) { "Custom domain ON: CNAME written, root paths" } else { "Custom domain OFF: previewing under $basePath (set customDomainLive=true in site.json on cutover day)" })
 Write-Text (Join-Path $out ".nojekyll") ""
 $urls = @("$domain/", "$domain/work/") + @($services | ForEach-Object { "$domain/$($_.slug)/" })
+# image sitemap entries put the job photos in front of Google Images ("deck builder Kent Ohio" and friends)
+$smImgs = @{}
+$smImgs["$domain/"] = @($heroInfo.Values | ForEach-Object { $_.big })
+$smImgs["$domain/work/"] = @($projects | ForEach-Object { $_.photos | ForEach-Object { $_.src1400 } })
+foreach ($s in $services) {
+  $l = New-Object System.Collections.ArrayList
+  if ($heroInfo[$s.key]) { [void]$l.Add($heroInfo[$s.key].big) }
+  foreach ($p in @($projects | Where-Object { $_.category -eq $s.key })) { foreach ($ph in $p.photos) { [void]$l.Add($ph.src1400) } }
+  $smImgs["$domain/$($s.slug)/"] = @($l)
+}
 $sm = New-Object System.Text.StringBuilder
-[void]$sm.Append('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
-foreach ($u in $urls) { [void]$sm.Append("<url><loc>$u</loc><lastmod>$today</lastmod></url>") }
+[void]$sm.Append('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">')
+foreach ($u in $urls) {
+  [void]$sm.Append("<url><loc>$u</loc><lastmod>$today</lastmod>")
+  foreach ($i in @($smImgs[$u] | Select-Object -Unique)) { if ($i) { [void]$sm.Append("<image:image><image:loc>$domain/$i</image:loc></image:image>") } }
+  [void]$sm.Append("</url>")
+}
 [void]$sm.Append('</urlset>')
 Write-Text (Join-Path $out "sitemap.xml") $sm.ToString()
+
+# llms.txt: a plain-language summary for AI assistants (ChatGPT, Perplexity, Claude, Gemini), kept in step
+# with site.json and services.json so it never drifts from the pages
+$llm = New-Object System.Text.StringBuilder
+[void]$llm.AppendLine("# $($cfg.shortName)")
+[void]$llm.AppendLine("")
+[void]$llm.AppendLine("> $($cfg.name) is a locally owned home remodeling and handyman company based in $($cfg.hub), Ohio $($cfg.zip), owned by $($cfg.owner). It serves $($cfg.region) in Northeast Ohio and gives free written quotes. Cleveland and Cuyahoga County are outside its service area.")
+[void]$llm.AppendLine("")
+[void]$llm.AppendLine("- Phone (call or text): $($cfg.phone)")
+[void]$llm.AppendLine("- Email: $($cfg.email)")
+[void]$llm.AppendLine("- Based in: $($cfg.hub), $($cfg.state) $($cfg.zip)")
+[void]$llm.AppendLine("- Towns served: $(@($cfg.areas) -join ', ')")
+[void]$llm.AppendLine("- Facebook: $($cfg.facebook)")
+[void]$llm.AppendLine("")
+[void]$llm.AppendLine("## Services")
+[void]$llm.AppendLine("")
+foreach ($s in $services) { [void]$llm.AppendLine("- [$($s.serviceName) in $($cfg.hub), OH]($domain/$($s.slug)/): $($s.short)") }
+[void]$llm.AppendLine("")
+[void]$llm.AppendLine("## More")
+[void]$llm.AppendLine("")
+[void]$llm.AppendLine("- [Project photo gallery]($domain/work/): $photoCount photos from $($projects.Count) finished jobs")
+[void]$llm.AppendLine("- [How a project works and common questions]($domain/#faq)")
+[void]$llm.AppendLine("- [Request a free quote]($domain/#contact)")
+Write-Text (Join-Path $out "llms.txt") $llm.ToString()
+
+# IndexNow: the key file proves to Bing (and through it, ChatGPT search and Copilot) that update pings are ours
+if ($cfg.indexNowKey) { Write-Text (Join-Path $out "$($cfg.indexNowKey).txt") $cfg.indexNowKey }
 Log "Site written to $out"
 
 if ($Artifact) {
