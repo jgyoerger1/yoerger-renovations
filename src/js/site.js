@@ -471,6 +471,35 @@
   var y = $('#year'); if (y) y.textContent = new Date().getFullYear();
   var toTop = $('.to-top'); if (toTop) toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); });
 
+  /* ---------- room-by-room video: plays muted while at least half of it is on screen, pauses when it leaves.
+     Nothing downloads until then. Skipped for reduced motion and data saver. Once someone pauses or turns the
+     sound on, they are in charge and it stops reacting to scroll. ---------- */
+  var tourVid = $('#tour video'), tourSound = $('#tour .tour-sound');
+  var saveData = navigator.connection && navigator.connection.saveData;
+  if (tourVid && hasIO && !reduce && !saveData) {
+    var userOwns = false, selfPause = false;
+    var soundBtn = function (show) { if (tourSound) tourSound.hidden = !show; };
+    tourVid.addEventListener('pause', function () {
+      if (selfPause) { selfPause = false; return; }
+      if (!tourVid.ended) { userOwns = true; soundBtn(false); }
+    });
+    tourVid.addEventListener('volumechange', function () { if (!tourVid.muted) { userOwns = true; soundBtn(false); } });
+    tourVid.addEventListener('ended', function () { soundBtn(false); });
+    if (tourSound) tourSound.addEventListener('click', function () { tourVid.muted = false; tourVid.volume = 1; userOwns = true; soundBtn(false); if (tourVid.paused) tourVid.play(); });
+    new IntersectionObserver(function (es) {
+      if (userOwns) return;
+      var e = es[0];
+      if (e.isIntersecting && e.intersectionRatio >= 0.5) {
+        if (tourVid.ended || !tourVid.paused) return;
+        tourVid.muted = true;
+        var p = tourVid.play();
+        if (p && p.then) p.then(function () { soundBtn(true); }, function () { soundBtn(false); });
+      } else if (!tourVid.paused) {
+        selfPause = true; tourVid.pause(); soundBtn(false);
+      }
+    }, { threshold: [0, 0.5] }).observe(tourVid);
+  }
+
   /* ---------- nav highlight: the section crossing a line 38% down the screen, or the page you are on ---------- */
   var path = location.pathname.replace(/index\.html$/, '');
   var spy = [];

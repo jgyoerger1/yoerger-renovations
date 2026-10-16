@@ -264,8 +264,15 @@ h1.eyebrow { font-weight: 500; }   /* the small kicker line is the real H1 on ev
 
 /* ---------- room-by-room video: heading left, player right; nothing downloads until play ---------- */
 .tour-grid { display: grid; gap: clamp(1.5rem, 3vw, 3rem); }
-.tour-video { margin: 0; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--r); background: var(--bg-3); box-shadow: var(--shadow); }
+.tour-video { position: relative; margin: 0; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--r); background: var(--bg-3); box-shadow: var(--shadow); }
 .tour-video video { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* while it plays muted on its own, one tap turns the sound on */
+.tour-sound {
+  position: absolute; top: .75rem; right: .75rem; z-index: 1; min-height: 40px; padding: .5rem 1rem;
+  border: 1px solid rgba(244, 246, 236, .35); border-radius: var(--pill); background: rgba(14, 23, 15, .78); color: #F4F6EC;
+  font: 600 .875rem/1 var(--font-body); cursor: pointer; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.tour-sound:hover { background: rgba(14, 23, 15, .95); }
 @media (min-width: 900px) {
   .tour-grid { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: center; }
   .tour-grid .sec-head { margin-bottom: 0; }
@@ -449,7 +456,9 @@ h1.eyebrow { font-weight: 500; }   /* the small kicker line is the real H1 on ev
 .opt:active { transform: translateY(1px) scale(.98); }
 .opt[aria-pressed="true"] { background: var(--green); color: var(--green-ink); border-color: var(--green); }
 .opt[aria-pressed="true"]::before { background: var(--green-ink); border-color: var(--green-ink); }
-.planner-foot { display: flex; justify-content: space-between; gap: .8rem; flex-wrap: wrap; }
+.p-screen { display: grid; gap: 1.4rem; }   /* question, answers and Back/Skip each get their own breathing room */
+.planner-foot { display: flex; justify-content: space-between; gap: .8rem; flex-wrap: wrap; margin-top: .4rem; padding-top: 1.2rem; border-top: 1px solid var(--line); }
+.planner-foot .btn:disabled { opacity: .4; cursor: default; transform: none; box-shadow: none; }
 .planner-result { display: grid; gap: 1rem; }
 .brief { background: var(--bg-2); border-left: 3px solid var(--brass); padding: 1.1rem 1.2rem; border-radius: 0 var(--r) var(--r) 0; line-height: 1.6; font-size: 1.02rem; white-space: pre-wrap; }
 .js .planner-body > .p-screen { animation: fadeUp .45s var(--ease) both; }
@@ -650,6 +659,7 @@ body.lb-open { overflow: hidden; }
 @media (pointer: coarse), (max-width: 1023px) {
   .menu-btn, .chip, .copy, .radios label, .to-top { min-height: 44px; }
   .drop-x { width: 44px; height: 44px; top: 2px; right: 2px; }
+  .tour-sound { min-height: 44px; }
   .chip, .copy, .to-top { display: inline-flex; align-items: center; }
   .copy { padding-inline: 1rem; }
   .ctile-big, .ctile-email, .ctile-fb, .foot-col a, .crumbs a { display: inline-flex; align-items: center; min-height: 44px; }
