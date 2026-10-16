@@ -185,6 +185,7 @@ $cfg = Get-Content (Join-Path $src "data\site.json") -Raw -Encoding UTF8 | Conve
 # ConvertFrom-Json in PowerShell 5.1 hands back a JSON array as one object; unroll it
 $services = @((Get-Content (Join-Path $src "data\services.json") -Raw -Encoding UTF8 | ConvertFrom-Json) | ForEach-Object { $_ })
 $homeFaqs = @((Get-Content (Join-Path $src "data\home-faq.json") -Raw -Encoding UTF8 | ConvertFrom-Json) | ForEach-Object { $_ })
+$vid = $cfg.homeVideo   # homepage video: file, poster, title, lede, description, uploadDate, seconds
 $svcByKey = @{}; foreach ($s in $services) { $svcByKey[$s.key] = $s }
 $domain = $cfg.domain.TrimEnd("/")
 $R = "{{root}}"
@@ -500,13 +501,15 @@ function Build-Site($mode) {
     description = "Home remodeling and handyman services in $($cfg.hub), Ohio. Kitchens, bathrooms, basements, decks and repairs across $($cfg.region). Free written quotes."
     homeH1 = Esc "Home Remodeling in $($cfg.hub), Ohio"
     homeFaq = (($homeFaqs | ForEach-Object { '<details><summary>{0}</summary><div>{1}</div></details>' -f (Esc $_.q), (Esc $_.a) }) -join "")
+    videoFile = $vid.file; videoPoster = $vid.poster; videoTitle = (Attr $vid.title); videoLede = (Esc $vid.lede)
     canonical = "$domain/"; ogImage = "$domain/img/og/home.jpg"; ogType = "website"; bodyClass = "page-home"; rootRel = ""
     # preload whatever the hero opens on (heroOrder can change it), not services.json's first entry
     preload = ('<link rel="preload" as="image" href="{0}{1}" imagesrcset="{0}{2} {3}w, {0}{1} {4}w" imagesizes="{5}" fetchpriority="high">' -f $R, $heroInfo[$heroList[0].key].big, $heroInfo[$heroList[0].key].small, $heroInfo[$heroList[0].key].wSmall, $heroInfo[$heroList[0].key].w, $heroSizes)
     jsonld = (JsonLd @(
       [ordered]@{ "@type" = "WebSite"; "@id" = "$domain/#website"; url = "$domain/"; name = $cfg.shortName; alternateName = ($cfg.name -replace '[,.]', ''); inLanguage = "en-US"; publisher = [ordered]@{ "@id" = "$domain/#business" } },
       (Biz $false),
-      [ordered]@{ "@type" = "FAQPage"; "@id" = "$domain/#faq"; mainEntity = @($homeFaqs | ForEach-Object { [ordered]@{ "@type" = "Question"; name = $_.q; acceptedAnswer = [ordered]@{ "@type" = "Answer"; text = $_.a } } }) }
+      [ordered]@{ "@type" = "FAQPage"; "@id" = "$domain/#faq"; mainEntity = @($homeFaqs | ForEach-Object { [ordered]@{ "@type" = "Question"; name = $_.q; acceptedAnswer = [ordered]@{ "@type" = "Answer"; text = $_.a } } }) },
+      [ordered]@{ "@type" = "VideoObject"; "@id" = "$domain/#video"; name = $vid.title; description = $vid.description; thumbnailUrl = "$domain/$($vid.poster)"; contentUrl = "$domain/$($vid.file)"; uploadDate = $vid.uploadDate; duration = "PT$([int]$vid.seconds)S"; publisher = [ordered]@{ "@id" = "$domain/#business" } }
     ))
   }
   Emit $mode $layout $G $homeTokens $(if ($flat) { "index.html" } else { "index.html" })
@@ -636,10 +639,14 @@ foreach ($s in $services) {
   $smImgs["$domain/$($s.slug)/"] = @($l)
 }
 $sm = New-Object System.Text.StringBuilder
-[void]$sm.Append('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">')
+[void]$sm.Append('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">')
 foreach ($u in $urls) {
   [void]$sm.Append("<url><loc>$u</loc><lastmod>$today</lastmod>")
   foreach ($i in @($smImgs[$u] | Select-Object -Unique)) { if ($i) { [void]$sm.Append("<image:image><image:loc>$domain/$i</image:loc></image:image>") } }
+  if ($vid -and $u -eq "$domain/") {
+    $xe = [System.Security.SecurityElement]
+    [void]$sm.Append(("<video:video><video:thumbnail_loc>{0}/{1}</video:thumbnail_loc><video:title>{2}</video:title><video:description>{3}</video:description><video:content_loc>{0}/{4}</video:content_loc><video:duration>{5}</video:duration><video:publication_date>{6}</video:publication_date></video:video>" -f $domain, $vid.poster, $xe::Escape([string]$vid.title), $xe::Escape([string]$vid.description), $vid.file, [int]$vid.seconds, $vid.uploadDate))
+  }
   [void]$sm.Append("</url>")
 }
 [void]$sm.Append('</urlset>')
@@ -665,6 +672,7 @@ foreach ($s in $services) { [void]$llm.AppendLine("- [$($s.serviceName) in $($cf
 [void]$llm.AppendLine("## More")
 [void]$llm.AppendLine("")
 [void]$llm.AppendLine("- [Project photo gallery]($domain/work/): $photoCount photos from $($projects.Count) finished jobs")
+if ($vid) { [void]$llm.AppendLine("- [One-minute video: your home, room by room]($domain/$($vid.file)): $($vid.description)") }
 [void]$llm.AppendLine("- [How a project works and common questions]($domain/#faq)")
 [void]$llm.AppendLine("- [Request a free quote]($domain/#contact)")
 Write-Text (Join-Path $out "llms.txt") $llm.ToString()
@@ -678,6 +686,7 @@ if ($Artifact) {
   Ensure-Dir (Join-Path $artOut "img")
   & robocopy (Join-Path $out "img") (Join-Path $artOut "img") /E /NJH /NJS /NDL /NFL /NC /NS /NP | Out-Null
   Copy-Item (Join-Path $out "favicon.svg") $artOut -Force
+  if (Test-Path (Join-Path $out "video")) { Ensure-Dir (Join-Path $artOut "video"); Copy-Item (Join-Path $out "video\*") (Join-Path $artOut "video") -Force }
   Ensure-Dir (Join-Path $artOut "fonts")
   Copy-Item (Join-Path $src "fonts\*") (Join-Path $artOut "fonts") -Force
   Log "Artifact copy written to $artOut"

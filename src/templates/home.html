@@ -21,6 +21,21 @@
     </div>
   </section>
 
+  <section id="tour" class="sec sec-alt">
+    <div class="wrap tour-grid">
+      <header class="sec-head" data-reveal>
+        <h2 class="display">Your home, room by room.</h2>
+        <p class="lede">{{videoLede}}</p>
+      </header>
+      <figure class="tour-video" data-reveal style="--i:1">
+        <video controls playsinline preload="none" width="1280" height="720" poster="{{root}}{{videoPoster}}" title="{{videoTitle}}">
+          <source src="{{root}}{{videoFile}}" type="video/mp4">
+          <a href="{{root}}{{videoFile}}">Watch the video</a>
+        </video>
+      </figure>
+    </div>
+  </section>
+
   <section id="services" class="sec">
     <div class="wrap">
       <header class="sec-head" data-reveal>
